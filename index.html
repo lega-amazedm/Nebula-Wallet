@@ -1,0 +1,1951 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Nebula Wallet — Личный кабинет</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300e0a4' stroke-width='2'%3E%3Cpath d='M12 2L3 7l9 5 9-5-9-5z'/%3E%3C/svg%3E">
+<style>
+:root{--bg:#07080b;--bg-elev:#0d0f13;--surface:#12141a;--surface-2:#171a21;--surface-hover:#1d2129;--border:#22262e;--border-2:#2c313b;--border-3:#3a4049;--text:#f1f3f7;--text-2:#8b919c;--text-3:#5a6069;--accent:#00e0a4;--accent-2:#34d399;--accent-3:#5eead4;--accent-dim:rgba(0,224,164,.12);--accent-border:rgba(0,224,164,.3);--danger:#ff5c5c;--danger-dim:rgba(255,92,92,.12);--danger-border:rgba(255,92,92,.3);--warning:#ffb547;--warning-dim:rgba(255,181,71,.12);--warning-border:rgba(255,181,71,.3);--info:#5b9dff;--info-dim:rgba(91,157,255,.12);--info-border:rgba(91,157,255,.3);--purple:#a78bfa;--purple-dim:rgba(167,139,250,.12);--radius-s:8px;--radius:12px;--radius-l:18px;--radius-xl:24px;--shadow-2:0 4px 12px rgba(0,0,0,.4),0 12px 32px rgba(0,0,0,.3);--shadow-3:0 24px 60px rgba(0,0,0,.5),0 8px 20px rgba(0,0,0,.35);--font:'Inter',-apple-system,BlinkMacSystemFont,system-ui,'Segoe UI',sans-serif;--mono:'JetBrains Mono','SF Mono',Menlo,Consolas,monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased;letter-spacing:-.005em;overflow-x:hidden}
+button,input,select,textarea{font-family:inherit;font-size:inherit;color:inherit}
+a{color:inherit;text-decoration:none}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border-2);border-radius:5px;border:2px solid var(--bg)}
+::-webkit-scrollbar-thumb:hover{background:var(--border-3)}
+.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:radial-gradient(ellipse 80% 60% at 15% 0%,rgba(0,224,164,.08) 0%,transparent 60%),radial-gradient(ellipse 70% 60% at 85% 100%,rgba(91,157,255,.06) 0%,transparent 60%),var(--bg);position:relative;overflow:hidden}
+.login-wrap::before{content:'';position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.015) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse at center,black 20%,transparent 80%)}
+.login-card{width:100%;max-width:1080px;display:grid;grid-template-columns:1.15fr 1fr;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-xl);overflow:hidden;box-shadow:var(--shadow-3),0 0 80px rgba(0,224,164,.06);position:relative;animation:cardIn .7s cubic-bezier(.16,1,.3,1) both}
+@keyframes cardIn{from{opacity:0;transform:translateY(24px) scale(.98)}to{opacity:1;transform:none}}
+.login-hero{padding:56px 52px;background:linear-gradient(155deg,#0e1116 0%,#080a0e 100%);border-right:1px solid var(--border);display:flex;flex-direction:column;position:relative;overflow:hidden}
+.login-hero::before{content:'';position:absolute;top:-120px;right:-120px;width:440px;height:440px;background:radial-gradient(circle,rgba(0,224,164,.16) 0%,transparent 60%);pointer-events:none;animation:pulseGlow 6s ease-in-out infinite}
+.login-hero::after{content:'';position:absolute;bottom:-100px;left:-100px;width:360px;height:360px;background:radial-gradient(circle,rgba(91,157,255,.1) 0%,transparent 60%);pointer-events:none;animation:pulseGlow 8s ease-in-out infinite reverse}
+@keyframes pulseGlow{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.08)}}
+.login-brand{display:flex;align-items:center;gap:12px;position:relative;z-index:1}
+.login-brand-mark{width:44px;height:44px;border-radius:12px;background:linear-gradient(145deg,#141a20 0%,#0a0d11 100%);border:1px solid var(--border-2);display:flex;align-items:center;justify-content:center;box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 0 20px rgba(0,224,164,.1)}
+.login-brand-mark svg{width:24px;height:24px}
+.login-brand-text h2{font-size:15px;font-weight:700;letter-spacing:-.01em}
+.login-brand-text p{font-size:10.5px;color:var(--text-3);letter-spacing:.14em;text-transform:uppercase;font-weight:600;margin-top:3px}
+.login-hero-body{margin:auto 0;position:relative;z-index:1;padding:44px 0}
+.login-eyebrow{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:100px;background:var(--accent-dim);border:1px solid var(--accent-border);color:var(--accent);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:26px}
+.login-eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent);animation:blink 2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.login-hero h1{font-size:46px;font-weight:800;line-height:1.05;letter-spacing:-.035em;margin-bottom:20px}
+.login-hero h1 em{font-style:normal;background:linear-gradient(135deg,var(--accent) 0%,var(--accent-3) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.login-hero-desc{font-size:15px;color:var(--text-2);line-height:1.65;max-width:400px}
+.login-features{display:flex;flex-direction:column;gap:16px;margin-top:36px;position:relative;z-index:1}
+.login-feature{display:flex;align-items:flex-start;gap:12px;font-size:13.5px;color:var(--text-2)}
+.login-feature-ic{width:20px;height:20px;flex-shrink:0;border-radius:50%;background:var(--accent-dim);border:1px solid var(--accent-border);display:flex;align-items:center;justify-content:center;margin-top:1px}
+.login-feature-ic svg{width:11px;height:11px;stroke:var(--accent);fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.login-form-side{padding:56px 48px;display:flex;flex-direction:column;justify-content:center;background:var(--bg-elev)}
+.login-step{display:none;animation:stepIn .4s cubic-bezier(.16,1,.3,1)}
+.login-step.active{display:block}
+@keyframes stepIn{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:none}}
+.login-form-head{margin-bottom:32px}
+.login-form-head h3{font-size:24px;font-weight:700;letter-spacing:-.025em;margin-bottom:8px}
+.login-form-head p{font-size:14px;color:var(--text-2)}
+.login-fields{display:flex;flex-direction:column;gap:20px}
+.lf-field{display:flex;flex-direction:column;gap:8px}
+.lf-field label{font-size:12.5px;font-weight:600;color:var(--text-2)}
+.lf-input-wrap{position:relative;display:flex;align-items:center}
+.lf-input-wrap svg{position:absolute;left:15px;width:16px;height:16px;stroke:var(--text-3);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:stroke .2s;pointer-events:none}
+.lf-input-wrap input{width:100%;padding:14px 14px 14px 44px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-size:14px;outline:none;transition:border-color .2s,background .2s,box-shadow .2s}
+.lf-input-wrap input::placeholder{color:var(--text-3)}
+.lf-input-wrap input:hover{border-color:var(--border-2)}
+.lf-input-wrap input:focus{border-color:var(--accent-border);background:#0d1318;box-shadow:0 0 0 4px rgba(0,224,164,.1)}
+.lf-input-wrap input:focus + svg{stroke:var(--accent)}
+.lf-error{padding:12px 14px;background:var(--danger-dim);border:1px solid var(--danger-border);border-radius:var(--radius);color:#ffa3a3;font-size:13px;display:none;align-items:center;gap:8px}
+.lf-error.show{display:flex;animation:shake .4s}
+.lf-error svg{width:15px;height:15px;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:2}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+.lf-submit{margin-top:6px;width:100%;padding:15px;background:linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 100%);color:#032a1e;border:none;border-radius:var(--radius);font-size:14px;font-weight:700;cursor:pointer;transition:transform .15s,box-shadow .2s,filter .2s;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 8px 24px rgba(0,224,164,.28),inset 0 1px 0 rgba(255,255,255,.2)}
+.lf-submit:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(0,224,164,.4);filter:brightness(1.05)}
+.lf-submit:active{transform:translateY(0)}
+.lf-submit svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.lf-back{margin-top:18px;text-align:center;font-size:12.5px;color:var(--text-2);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:color .15s}
+.lf-back:hover{color:var(--accent)}
+.lf-back svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2}
+@media(max-width:900px){.login-card{grid-template-columns:1fr;max-width:480px}.login-hero{display:none}.login-form-side{padding:40px 28px}}
+.app{display:none;min-height:100vh}
+.app.active{display:block}
+.topbar{position:sticky;top:0;z-index:900;height:64px;background:rgba(7,8,11,.78);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center}
+.topbar-inner{max-width:1480px;width:100%;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.topbar-left{display:flex;align-items:center;gap:16px}
+.menu-btn{width:38px;height:38px;background:transparent;border:1px solid var(--border);border-radius:var(--radius-s);cursor:pointer;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px;transition:border-color .2s,background .2s}
+.menu-btn:hover{border-color:var(--border-3);background:var(--surface)}
+.menu-btn span{width:15px;height:1.5px;background:var(--text-2);border-radius:1px;transition:all .3s cubic-bezier(.4,0,.2,1)}
+.menu-btn.active span{background:var(--accent)}
+.menu-btn.active span:nth-child(1){transform:rotate(45deg) translate(4px,4px)}
+.menu-btn.active span:nth-child(2){opacity:0}
+.menu-btn.active span:nth-child(3){transform:rotate(-45deg) translate(4px,-4px)}
+.brand{display:flex;align-items:center;gap:11px;font-size:15px;font-weight:700;letter-spacing:-.015em}
+.brand-mark{width:32px;height:32px;border-radius:9px;background:linear-gradient(145deg,#141a20 0%,#0a0d11 100%);border:1px solid var(--border-2);display:flex;align-items:center;justify-content:center;box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
+.brand-mark svg{width:17px;height:17px}
+.topbar-right{display:flex;align-items:center;gap:8px}
+.icon-btn{position:relative;width:38px;height:38px;background:transparent;border:1px solid var(--border);border-radius:var(--radius-s);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-2);transition:border-color .2s,background .2s,color .2s}
+.icon-btn:hover{border-color:var(--border-3);background:var(--surface);color:var(--text)}
+.icon-btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.icon-btn .badge{position:absolute;top:8px;right:8px;width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 2px var(--bg),0 0 10px var(--accent);animation:blink 2s ease-in-out infinite}
+.sb-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(6px);z-index:998;opacity:0;pointer-events:none;transition:opacity .3s}
+.sb-overlay.active{opacity:1;pointer-events:auto}
+.sidebar{position:fixed;left:-300px;top:0;width:280px;height:100vh;background:var(--bg-elev);border-right:1px solid var(--border);z-index:999;transition:left .4s cubic-bezier(.16,1,.3,1);display:flex;flex-direction:column;overflow-y:auto}
+.sidebar.active{left:0}
+.sb-user{padding:22px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px}
+.sb-avatar{width:42px;height:42px;border-radius:11px;background:linear-gradient(145deg,var(--accent-dim) 0%,rgba(0,224,164,.04) 100%);border:1px solid var(--accent-border);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--accent);flex-shrink:0}
+.sb-user-info{flex:1;min-width:0}
+.sb-user-info h3{font-size:13.5px;font-weight:600;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sb-user-info p{font-size:11.5px;color:var(--text-3);font-family:var(--mono);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sb-menu{padding:14px 12px;flex:1;display:flex;flex-direction:column;gap:2px}
+.sb-group{margin-bottom:10px}
+.sb-group-head{padding:10px 10px 8px;font-size:10.5px;font-weight:700;color:var(--text-3);letter-spacing:.12em;text-transform:uppercase;cursor:pointer;user-select:none;display:flex;align-items:center;justify-content:space-between;border-radius:6px;transition:color .2s}
+.sb-group-head:hover{color:var(--text-2)}
+.sb-group-head::after{content:'';width:6px;height:6px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg) translate(-2px,-2px);transition:transform .25s;opacity:.7}
+.sb-group.collapsed .sb-group-head::after{transform:rotate(-45deg) translate(-1px,1px)}
+.sb-group.collapsed .sb-item{display:none}
+.sb-item{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:9px;color:var(--text-2);font-size:13px;font-weight:500;cursor:pointer;transition:background .15s,color .15s;position:relative}
+.sb-item svg{width:16px;height:16px;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;opacity:.85}
+.sb-item:hover{background:var(--surface);color:var(--text)}
+.sb-item.active{background:linear-gradient(90deg,var(--accent-dim) 0%,transparent 100%);color:var(--text);font-weight:600}
+.sb-item.active::before{content:'';position:absolute;left:0;top:9px;bottom:9px;width:3px;border-radius:0 3px 3px 0;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+.sb-item.active svg{stroke:var(--accent);opacity:1}
+.page{display:none;max-width:1480px;margin:0 auto;padding:32px 24px 80px}
+.page.active{display:block;animation:pageIn .35s cubic-bezier(.16,1,.3,1)}
+@keyframes pageIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.welcome{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;flex-wrap:wrap;margin-bottom:28px}
+.welcome-text h1{font-size:28px;font-weight:800;letter-spacing:-.03em;margin-bottom:6px;background:linear-gradient(135deg,var(--text) 0%,#b8bfcc 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.welcome-text p{font-size:14px;color:var(--text-2)}
+.welcome-actions{display:flex;gap:10px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 16px;font-size:13px;font-weight:600;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-s);color:var(--text);cursor:pointer;transition:background .15s,border-color .15s,transform .15s,box-shadow .2s;white-space:nowrap}
+.btn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.btn:hover{background:var(--surface-hover);border-color:var(--border-3);transform:translateY(-1px)}
+.btn:active{transform:translateY(0)}
+.btn-primary{background:linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 100%);border-color:transparent;color:#032a1e;font-weight:700;box-shadow:0 4px 16px rgba(0,224,164,.25)}
+.btn-primary:hover{filter:brightness(1.08);box-shadow:0 8px 24px rgba(0,224,164,.35)}
+.btn-danger{background:var(--danger-dim);border-color:var(--danger-border);color:#ffa3a3}
+.btn-danger:hover{background:rgba(255,92,92,.2);border-color:rgba(255,92,92,.5)}
+.btn-ghost{background:transparent}
+.btn-ghost:hover{background:var(--surface)}
+.btn-sm{padding:7px 12px;font-size:12px;border-radius:7px}
+.btn-sm svg{width:12px;height:12px}
+.balance-overview{position:relative;background:linear-gradient(155deg,#101520 0%,#0a0d13 60%,#080a0e 100%);border:1px solid var(--border);border-radius:var(--radius-xl);padding:32px;margin-bottom:24px;overflow:hidden;box-shadow:var(--shadow-2)}
+.balance-overview::before{content:'';position:absolute;top:-100px;right:-80px;width:400px;height:400px;background:radial-gradient(circle,rgba(0,224,164,.14) 0%,transparent 60%);pointer-events:none;animation:pulseGlow 7s ease-in-out infinite}
+.balance-overview::after{content:'';position:absolute;bottom:-120px;left:20%;width:400px;height:400px;background:radial-gradient(circle,rgba(91,157,255,.06) 0%,transparent 60%);pointer-events:none}
+.bo-top{position:relative;z-index:1;display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap;margin-bottom:28px}
+.bo-label{font-size:12px;color:var(--text-2);font-weight:600;letter-spacing:.04em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.bo-label .live{display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border-radius:5px;background:var(--accent-dim);color:var(--accent);font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.bo-label .live::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent);animation:blink 2s ease-in-out infinite}
+.bo-amount{font-size:44px;font-weight:800;letter-spacing:-.04em;line-height:1;margin-bottom:10px;cursor:pointer;transition:opacity .2s;font-variant-numeric:tabular-nums;background:linear-gradient(135deg,#ffffff 0%,#c7d2dc 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.bo-amount:hover{opacity:.85}
+.bo-usd{font-size:15px;color:var(--text-2);font-family:var(--mono);font-weight:500}
+.bo-trend{display:inline-flex;align-items:center;gap:7px;padding:8px 13px;background:var(--accent-dim);border:1px solid var(--accent-border);border-radius:9px;font-size:12.5px;font-weight:700;color:var(--accent);backdrop-filter:blur(8px)}
+.bo-trend svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.bo-chart{height:80px;margin-top:8px;position:relative;z-index:1}
+.bo-chart svg{width:100%;height:100%;display:block}
+.bo-hidden{filter:blur(12px);user-select:none;-webkit-text-fill-color:initial;background:none;-webkit-background-clip:initial;background-clip:initial}
+.stats-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:28px}
+.stat{position:relative;background:linear-gradient(160deg,var(--surface) 0%,var(--surface-2) 100%);border:1px solid var(--border);border-radius:var(--radius-l);padding:20px;transition:border-color .25s,transform .25s,box-shadow .25s;overflow:hidden}
+.stat::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at top right,rgba(0,224,164,.06),transparent 60%);opacity:0;transition:opacity .3s}
+.stat:hover{border-color:var(--border-3);transform:translateY(-3px);box-shadow:var(--shadow-2)}
+.stat:hover::before{opacity:1}
+.stat-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;position:relative;z-index:1}
+.stat-ic{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:var(--surface-2);border:1px solid var(--border)}
+.stat-ic svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.stat-ic.green{color:var(--accent);background:var(--accent-dim);border-color:var(--accent-border)}
+.stat-ic.blue{color:var(--info);background:var(--info-dim);border-color:var(--info-border)}
+.stat-ic.amber{color:var(--warning);background:var(--warning-dim);border-color:var(--warning-border)}
+.stat-ic.red{color:var(--danger);background:var(--danger-dim);border-color:var(--danger-border)}
+.stat-ic.purple{color:var(--purple);background:var(--purple-dim);border-color:rgba(167,139,250,.3)}
+.stat-change{font-size:11.5px;font-weight:700;color:var(--accent);font-family:var(--mono)}
+.stat-change.down{color:var(--danger)}
+.stat-label{font-size:12px;color:var(--text-2);margin-bottom:8px;position:relative;z-index:1}
+.stat-value{font-size:21px;font-weight:700;letter-spacing:-.025em;font-variant-numeric:tabular-nums;position:relative;z-index:1}
+.stat-value.positive{color:var(--accent)}
+.stat-value.negative{color:var(--danger)}
+.section{margin-bottom:32px}
+.section-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;gap:16px;flex-wrap:wrap}
+.section-head h2{font-size:16px;font-weight:700;letter-spacing:-.015em;display:flex;align-items:center;gap:11px}
+.section-head h2 .mark{width:4px;height:16px;border-radius:3px;background:linear-gradient(180deg,var(--accent) 0%,var(--accent-3) 100%);box-shadow:0 0 12px rgba(0,224,164,.4)}
+.section-head .link{font-size:12.5px;color:var(--text-2);cursor:pointer;display:inline-flex;align-items:center;gap:5px;transition:color .15s}
+.section-head .link:hover{color:var(--accent)}
+.section-head .link svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2}
+.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.grid-3{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.asset{position:relative;background:linear-gradient(160deg,var(--surface) 0%,var(--surface-2) 100%);border:1px solid var(--border);border-radius:var(--radius-l);padding:18px;cursor:pointer;transition:border-color .25s,transform .25s,box-shadow .25s;overflow:hidden}
+.asset:hover{border-color:var(--accent-border);transform:translateY(-4px);box-shadow:var(--shadow-2),0 0 30px rgba(0,224,164,.08)}
+.asset-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px;position:relative;z-index:1}
+.asset-id{display:flex;align-items:center;gap:11px;min-width:0}
+.asset-symbol{width:38px;height:38px;border-radius:11px;background:linear-gradient(145deg,var(--surface-2) 0%,var(--surface) 100%);border:1px solid var(--border-2);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:var(--text);flex-shrink:0}
+.asset-name{min-width:0}
+.asset-name .code{font-size:13.5px;font-weight:700;margin-bottom:2px}
+.asset-name .full{font-size:11.5px;color:var(--text-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.asset-amount{text-align:right;flex-shrink:0}
+.asset-amount .amt{font-size:13.5px;font-weight:700;margin-bottom:3px;font-family:var(--mono);font-variant-numeric:tabular-nums}
+.asset-amount .val{font-size:11.5px;color:var(--text-3)}
+.asset-spark{height:36px;margin:8px -4px 8px;position:relative;z-index:1}
+.asset-spark svg{width:100%;height:100%;display:block}
+.asset-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:12px;border-top:1px solid var(--border);font-size:11.5px;position:relative;z-index:1}
+.asset-chg{display:inline-flex;align-items:center;gap:4px;font-weight:700}
+.asset-chg.up{color:var(--accent)}
+.asset-chg.down{color:var(--danger)}
+.asset-usd{color:var(--text-3);font-family:var(--mono)}
+.tx-list{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-l);overflow:hidden}
+.tx-row{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:15px 20px;border-bottom:1px solid var(--border);transition:background .15s;cursor:pointer}
+.tx-row:last-child{border-bottom:none}
+.tx-row:hover{background:var(--surface-2)}
+.tx-left{display:flex;align-items:center;gap:13px;flex:1;min-width:0}
+.tx-ic{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:var(--surface-2);border:1px solid var(--border);flex-shrink:0}
+.tx-ic svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.tx-ic.in{color:var(--accent);background:var(--accent-dim);border-color:var(--accent-border)}
+.tx-ic.out{color:var(--danger);background:var(--danger-dim);border-color:var(--danger-border)}
+.tx-ic.swap{color:var(--info);background:var(--info-dim);border-color:var(--info-border)}
+.tx-ic.ref{color:var(--purple);background:var(--purple-dim);border-color:rgba(167,139,250,.3)}
+.tx-info{min-width:0;flex:1}
+.tx-type{font-size:13.5px;font-weight:600;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tx-date{font-size:11.5px;color:var(--text-3)}
+.tx-right{text-align:right;flex-shrink:0}
+.tx-amt{font-size:13.5px;font-weight:700;font-family:var(--mono);font-variant-numeric:tabular-nums;margin-bottom:4px}
+.tx-amt.positive{color:var(--accent)}
+.tx-amt.negative{color:var(--text)}
+.tx-status{display:inline-block;font-size:10.5px;font-weight:700;padding:3px 8px;border-radius:5px;letter-spacing:.03em}
+.tx-status.ok{background:var(--accent-dim);color:var(--accent)}
+.tx-status.wait{background:var(--warning-dim);color:var(--warning)}
+.tx-status.progress{background:var(--info-dim);color:var(--info)}
+.tx-status.fail{background:var(--danger-dim);color:var(--danger)}
+.tx-filter{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.tx-filter button{padding:7px 14px;font-size:12.5px;font-weight:600;background:var(--surface);border:1px solid var(--border);border-radius:100px;color:var(--text-2);cursor:pointer;transition:all .15s}
+.tx-filter button:hover{border-color:var(--border-3);color:var(--text)}
+.tx-filter button.active{background:var(--accent-dim);border-color:var(--accent-border);color:var(--accent)}
+.panel{background:linear-gradient(160deg,var(--surface) 0%,var(--surface-2) 100%);border:1px solid var(--border);border-radius:var(--radius-l);padding:28px;margin-bottom:20px}
+.panel-head{margin-bottom:24px}
+.panel-head h2{font-size:18px;font-weight:700;letter-spacing:-.02em;margin-bottom:6px}
+.panel-head p{font-size:13.5px;color:var(--text-2)}
+.form-page{max-width:800px;margin:0 auto}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:640px){.form-grid{grid-template-columns:1fr}}
+.field{display:flex;flex-direction:column;gap:8px}
+.field label{font-size:12.5px;color:var(--text-2);font-weight:600}
+.field input,.field select,.field textarea{width:100%;padding:12px 14px;background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--radius-s);color:var(--text);font-size:13.5px;outline:none;transition:border-color .15s,background .15s,box-shadow .15s}
+.field input::placeholder,.field textarea::placeholder{color:var(--text-3)}
+.field input:hover,.field select:hover,.field textarea:hover{border-color:var(--border-2)}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--accent-border);box-shadow:0 0 0 4px rgba(0,224,164,.08)}
+.field input:read-only{color:var(--text-2);background:var(--surface);cursor:not-allowed}
+.field textarea{resize:vertical;min-height:110px;font-family:inherit}
+.field select{appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%238b919c' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.8' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");background-position:right 12px center;background-repeat:no-repeat;background-size:16px;padding-right:38px}
+.field select option{background:#0f1114;color:var(--text)}
+.form-actions{display:flex;gap:10px;margin-top:26px;padding-top:24px;border-top:1px solid var(--border);justify-content:flex-end;flex-wrap:wrap}
+.form-actions .btn{min-width:130px}
+.alert{display:flex;align-items:flex-start;gap:11px;padding:13px 15px;border-radius:var(--radius-s);font-size:12.5px;line-height:1.55;margin-bottom:18px}
+.alert svg{width:16px;height:16px;flex-shrink:0;margin-top:1px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.alert-info{background:var(--info-dim);border:1px solid var(--info-border);color:#93c5fd}
+.alert-warning{background:var(--warning-dim);border:1px solid var(--warning-border);color:#fcd34d}
+.alert-success{background:var(--accent-dim);border:1px solid var(--accent-border);color:var(--accent)}
+.alert-danger{background:var(--danger-dim);border:1px solid var(--danger-border);color:#ffa3a3}
+.req-card{background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--radius-l);padding:22px;margin-bottom:20px}
+.req-head{display:flex;align-items:center;gap:9px;font-size:13.5px;font-weight:700;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.req-head svg{width:16px;height:16px;stroke:var(--accent);fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.req-row{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid var(--border);flex-wrap:wrap}
+.req-row:last-child{border-bottom:none}
+.req-label{font-size:12.5px;color:var(--text-2)}
+.req-val{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.req-val code{font-family:var(--mono);font-size:12.5px;color:var(--text);font-weight:600;word-break:break-all}
+.copy{padding:5px 11px;background:var(--surface);border:1px solid var(--border);border-radius:7px;font-size:11px;font-weight:600;color:var(--text-2);cursor:pointer;transition:all .15s;white-space:nowrap;display:inline-flex;align-items:center;gap:5px}
+.copy svg{width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2}
+.copy:hover{background:var(--surface-hover);border-color:var(--border-3);color:var(--text)}
+.copy.copied{background:var(--accent-dim);border-color:var(--accent-border);color:var(--accent)}
+.p-row{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 0;border-bottom:1px solid var(--border);flex-wrap:wrap}
+.p-row:last-child{border-bottom:none}
+.p-row-label{font-size:13.5px;font-weight:600}
+.p-row-sub{font-size:12px;color:var(--text-3);margin-top:4px}
+.p-row-value{font-size:13.5px;color:var(--text-2);font-family:var(--mono)}
+.p-row-toggle{display:flex;align-items:center;gap:11px}
+.p-row-toggle-status{font-size:12.5px;color:var(--text-2)}
+.toggle{width:40px;height:22px;border-radius:11px;background:var(--surface-2);border:1px solid var(--border-2);position:relative;cursor:pointer;transition:all .25s;flex-shrink:0}
+.toggle::after{content:'';position:absolute;top:50%;left:2px;width:16px;height:16px;border-radius:50%;background:var(--text-2);transform:translateY(-50%);transition:all .25s cubic-bezier(.4,0,.2,1)}
+.toggle.active{background:linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 100%);border-color:var(--accent)}
+.toggle.active::after{left:20px;background:#032a1e}
+.support-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-bottom:20px}
+.support-tile{background:linear-gradient(160deg,var(--surface) 0%,var(--surface-2) 100%);border:1px solid var(--border);border-radius:var(--radius-l);padding:18px;display:flex;align-items:center;gap:13px;cursor:pointer;transition:border-color .25s,transform .25s,box-shadow .25s}
+.support-tile:hover{border-color:var(--accent-border);transform:translateY(-3px);box-shadow:var(--shadow-2)}
+.support-tile-ic{width:38px;height:38px;border-radius:10px;background:var(--accent-dim);border:1px solid var(--accent-border);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.support-tile-ic svg{width:16px;height:16px;stroke:var(--accent);fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.support-tile-body{flex:1;min-width:0}
+.support-tile-body h4{font-size:13.5px;font-weight:700;margin-bottom:3px}
+.support-tile-body p{font-size:11.5px;color:var(--text-3)}
+.support-tile-arrow{color:var(--text-3);transition:transform .2s}
+.support-tile:hover .support-tile-arrow{transform:translateX(4px);color:var(--accent)}
+.support-tile-arrow svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2}
+.faq{border:1px solid var(--border);border-radius:var(--radius-l);overflow:hidden;background:var(--surface)}
+.faq-item{border-bottom:1px solid var(--border)}
+.faq-item:last-child{border-bottom:none}
+.faq-q{padding:16px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;cursor:pointer;font-size:13.5px;font-weight:600;transition:background .15s}
+.faq-q:hover{background:var(--surface-2)}
+.faq-arrow{color:var(--text-3);font-size:10px;transition:transform .25s}
+.faq-item.open .faq-arrow{transform:rotate(180deg);color:var(--accent)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .3s}
+.faq-item.open .faq-a{max-height:400px}
+.faq-a p{padding:0 20px 18px;color:var(--text-2);font-size:12.5px;line-height:1.65}
+.chat{background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--radius-l);padding:20px;display:flex;flex-direction:column;gap:14px;max-height:520px}
+.chat-messages{display:flex;flex-direction:column;gap:16px;overflow-y:auto;padding-right:6px;flex:1;min-height:200px}
+.chat-msg{display:flex;gap:11px;animation:msgIn .3s cubic-bezier(.16,1,.3,1)}
+@keyframes msgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.chat-msg.user{flex-direction:row-reverse}
+.chat-av{width:34px;height:34px;border-radius:9px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700}
+.chat-msg.support .chat-av{background:linear-gradient(145deg,var(--accent-dim),rgba(0,224,164,.04));border:1px solid var(--accent-border);color:var(--accent)}
+.chat-msg.user .chat-av{background:linear-gradient(145deg,var(--info-dim),rgba(91,157,255,.04));border:1px solid var(--info-border);color:var(--info)}
+.chat-body{flex:1;min-width:0;max-width:78%}
+.chat-msg.user .chat-body{text-align:right}
+.chat-name{font-size:11.5px;font-weight:700;margin-bottom:5px;color:var(--text-2)}
+.chat-text{font-size:13px;color:var(--text);line-height:1.55;background:var(--surface);padding:10px 14px;border-radius:12px;display:inline-block;text-align:left;border:1px solid var(--border)}
+.chat-msg.support .chat-text{border-top-left-radius:3px}
+.chat-msg.user .chat-text{background:linear-gradient(135deg,rgba(0,224,164,.15),rgba(0,224,164,.08));border-color:var(--accent-border);border-top-right-radius:3px}
+.chat-time{font-size:10.5px;color:var(--text-3);margin-top:5px}
+.chat-input-row{display:flex;gap:8px;margin-top:6px;flex-shrink:0}
+.chat-input{flex:1;padding:12px 16px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-s);color:var(--text);font-size:13px;outline:none;transition:border-color .15s,box-shadow .15s}
+.chat-input:focus{border-color:var(--accent-border);box-shadow:0 0 0 4px rgba(0,224,164,.08)}
+.chat-send{width:44px;height:44px;border-radius:var(--radius-s);background:linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 100%);border:none;color:#032a1e;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:filter .15s,transform .15s}
+.chat-send:hover{filter:brightness(1.1);transform:scale(1.05)}
+.chat-send svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.period{background:linear-gradient(160deg,var(--surface) 0%,var(--surface-2) 100%);border:1px solid var(--border);border-radius:var(--radius-l);padding:20px;margin-bottom:12px;transition:border-color .2s}
+.period:hover{border-color:var(--border-2)}
+.period-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;gap:12px;flex-wrap:wrap}
+.period-title{font-size:14px;font-weight:700}
+.period-badge{padding:4px 9px;border-radius:5px;background:var(--accent-dim);color:var(--accent);font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;border:1px solid var(--accent-border)}
+.period-value{font-size:24px;font-weight:800;letter-spacing:-.03em;margin-bottom:12px;color:var(--accent);font-variant-numeric:tabular-nums}
+.period-desc{font-size:12.5px;color:var(--text-2);line-height:1.6}
+.chart-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-l);padding:22px;margin-top:18px}
+.chart-box h3{font-size:14px;font-weight:700;margin-bottom:18px}
+.chart-real{position:relative;height:240px;padding:10px 0}
+.chart-real svg{width:100%;height:100%;overflow:visible}
+.chart-bar{cursor:pointer;transition:filter .2s}
+.chart-bar:hover{filter:brightness(1.2)}
+.req-item{background:linear-gradient(160deg,var(--surface) 0%,var(--surface-2) 100%);border:1px solid var(--border);border-radius:var(--radius-l);padding:22px;margin-bottom:16px}
+.req-item-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;gap:12px;flex-wrap:wrap}
+.req-item-id{font-size:14px;font-weight:700}
+.req-item-status{padding:4px 11px;border-radius:6px;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+.req-item-status.pending{background:var(--warning-dim);color:var(--warning);border:1px solid var(--warning-border)}
+.req-item-status.progress{background:var(--info-dim);color:var(--info);border:1px solid var(--info-border)}
+.req-item-status.completed{background:var(--accent-dim);color:var(--accent);border:1px solid var(--accent-border)}
+.req-item-status.cancelled{background:var(--danger-dim);color:var(--danger);border:1px solid var(--danger-border)}
+.req-item-amount{text-align:center;padding:20px;margin-bottom:18px;background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--radius)}
+.req-item-amount-label{font-size:11.5px;color:var(--text-2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em;font-weight:600}
+.req-item-amount-value{font-size:26px;font-weight:800;letter-spacing:-.03em;font-family:var(--mono);font-variant-numeric:tabular-nums}
+.req-item-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+@media(max-width:640px){.req-item-grid{grid-template-columns:1fr}}
+.req-item-cell{display:flex;flex-direction:column;gap:4px}
+.req-item-cell-label{font-size:10.5px;color:var(--text-3);text-transform:uppercase;letter-spacing:.07em;font-weight:700}
+.req-item-cell-value{font-size:12.5px;font-weight:600;font-family:var(--mono);word-break:break-all}
+.req-item-foot{font-size:11.5px;color:var(--text-3);text-align:center;padding-top:14px;border-top:1px solid var(--border)}
+.req-item-actions{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+.req-timer{display:flex;align-items:center;gap:9px;padding:11px 13px;background:var(--info-dim);border:1px solid var(--info-border);border-radius:var(--radius-s);font-size:12.5px;color:#93c5fd;margin-top:14px;font-family:var(--mono)}
+.req-timer svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.req-timer b{color:#bfdbfe;font-weight:700;font-variant-numeric:tabular-nums}
+.req-timer.done{background:var(--accent-dim);border-color:var(--accent-border);color:var(--accent)}
+.req-timer.done b{color:var(--accent)}
+.modal-ov{position:fixed;inset:0;background:rgba(3,4,6,.8);backdrop-filter:blur(8px);z-index:10000;display:none;align-items:center;justify-content:center;padding:20px}
+.modal-ov.active{display:flex;animation:fadeIn .25s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal{background:linear-gradient(160deg,var(--bg-elev) 0%,var(--surface) 100%);border:1px solid var(--border-2);border-radius:var(--radius-l);max-width:500px;width:100%;box-shadow:var(--shadow-3);overflow:hidden;animation:modalIn .3s cubic-bezier(.16,1,.3,1)}
+@keyframes modalIn{from{opacity:0;transform:translateY(24px) scale(.96)}to{opacity:1;transform:none}}
+.modal-head{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.modal-title{font-size:15px;font-weight:700}
+.modal-x{width:30px;height:30px;background:transparent;border:none;color:var(--text-2);font-size:20px;cursor:pointer;border-radius:7px;display:flex;align-items:center;justify-content:center;transition:background .15s,color .15s}
+.modal-x:hover{background:var(--surface);color:var(--text)}
+.modal-body{padding:24px}
+.modal-icon{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;margin:0 auto 16px}
+.modal-icon.info{background:var(--info-dim);color:var(--info);border:1px solid var(--info-border)}
+.modal-icon.warning{background:var(--warning-dim);color:var(--warning);border:1px solid var(--warning-border)}
+.modal-icon.success{background:var(--accent-dim);color:var(--accent);border:1px solid var(--accent-border)}
+.modal-msg{font-size:13.5px;line-height:1.6;text-align:center;color:var(--text-2);margin-bottom:20px}
+.modal-details{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px}
+.modal-details .row{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--border);flex-wrap:wrap}
+.modal-details .row:last-child{border-bottom:none}
+.modal-details .row .lbl{font-size:12.5px;color:var(--text-2)}
+.modal-details .row .val{font-size:12.5px;font-weight:700;font-family:var(--mono);text-align:right;word-break:break-all}
+.modal-details input[type=password]{width:100%;padding:12px 16px;margin-top:10px;background:var(--surface-2);border:1px solid var(--border-2);border-radius:var(--radius-s);color:var(--text);font-family:var(--mono);font-size:16px;letter-spacing:6px;text-align:center;outline:none}
+.modal-details input[type=password]:focus{border-color:var(--accent-border);box-shadow:0 0 0 4px rgba(0,224,164,.1)}
+.modal-foot{padding:18px 24px;border-top:1px solid var(--border);display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}
+.modal-foot .btn{min-width:100px;justify-content:center}
+.toast-wrap{position:fixed;top:78px;right:20px;z-index:10001;display:flex;flex-direction:column;gap:10px;max-width:400px;pointer-events:none}
+@media(max-width:640px){.toast-wrap{right:12px;left:12px;top:74px;max-width:none}}
+.toast{background:linear-gradient(160deg,var(--bg-elev) 0%,var(--surface) 100%);border:1px solid var(--border-2);border-radius:var(--radius);padding:14px 16px;display:flex;align-items:flex-start;gap:12px;min-width:300px;max-width:400px;box-shadow:var(--shadow-3);pointer-events:auto;animation:toastIn .35s cubic-bezier(.16,1,.3,1) both}
+@media(max-width:640px){.toast{min-width:0;max-width:none}}
+@keyframes toastIn{from{opacity:0;transform:translateX(440px)}to{opacity:1;transform:none}}
+.toast.hiding{animation:toastOut .3s ease forwards}
+@keyframes toastOut{to{opacity:0;transform:translateX(440px)}}
+.toast-ic{width:24px;height:24px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0}
+.toast.success .toast-ic{background:var(--accent-dim);color:var(--accent)}
+.toast.warning .toast-ic{background:var(--warning-dim);color:var(--warning)}
+.toast.error .toast-ic,.toast.danger .toast-ic{background:var(--danger-dim);color:var(--danger)}
+.toast.info .toast-ic{background:var(--info-dim);color:var(--info)}
+.toast-body{flex:1;min-width:0}
+.toast-title{font-size:13px;font-weight:700;margin-bottom:3px}
+.toast-text{font-size:12.5px;color:var(--text-2);line-height:1.5}
+.toast-close{background:transparent;border:none;color:var(--text-3);font-size:17px;cursor:pointer;padding:0;width:20px;height:20px;display:flex;align-items:center;justify-content:center;border-radius:5px;flex-shrink:0}
+.toast-close:hover{background:var(--surface);color:var(--text)}
+@media(max-width:768px){.topbar{padding:0 14px}.brand span:not(.brand-mark){font-size:13.5px}.page{padding:24px 14px 60px}.welcome-text h1{font-size:22px}.bo-amount{font-size:32px}.balance-overview,.panel{padding:22px}.form-actions{flex-direction:column}.form-actions .btn{width:100%}.sb-user{padding:16px 14px}.sidebar{width:270px}}
+.row-split{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.quick-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
+.quick-btn{position:relative;background:linear-gradient(160deg,var(--surface) 0%,var(--surface-2) 100%);border:1px solid var(--border);border-radius:var(--radius-l);padding:20px;transition:.3s;cursor:pointer;text-align:left;overflow:hidden}
+.quick-btn:hover{transform:translateY(-4px);border-color:var(--accent-border);box-shadow:var(--shadow-2),0 0 30px rgba(0,224,164,.1)}
+.quick-btn svg{width:26px;height:26px;stroke:var(--accent);fill:none;stroke-width:2;margin-bottom:12px;stroke-linecap:round;stroke-linejoin:round}
+.quick-btn div{font-size:14px;font-weight:700;letter-spacing:-.01em}
+.ref-banner{background:linear-gradient(135deg,rgba(0,224,164,.14),rgba(91,157,255,.08));border:1px solid var(--accent-border);border-radius:var(--radius-l);padding:26px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;position:relative;overflow:hidden}
+.ref-banner h2{font-size:17px;font-weight:800;margin-bottom:6px;letter-spacing:-.02em}
+.ref-banner p{font-size:13px;color:var(--text-2)}
+.server-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.server{background:linear-gradient(160deg,var(--surface) 0%,var(--surface-2) 100%);border:1px solid var(--border);border-radius:var(--radius);padding:16px;text-align:center;font-size:12.5px;color:var(--text-2);transition:border-color .2s}
+.server:hover{border-color:var(--border-2)}
+.server strong{color:var(--accent);font-weight:700}
+.dot{width:9px;height:9px;border-radius:50%;display:inline-block;background:var(--accent);box-shadow:0 0 12px var(--accent);margin-right:6px;animation:blink 2s ease-in-out infinite}
+.friends-table{width:100%;border-collapse:collapse;font-size:13px}
+.friends-table th{text-align:left;padding:12px 14px;font-size:11px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--border)}
+.friends-table td{padding:14px;border-bottom:1px solid var(--border);color:var(--text-2)}
+.friends-table tr:last-child td{border-bottom:none}
+.friends-table tr:hover td{background:var(--surface-2)}
+.friend-name{display:flex;align-items:center;gap:10px;font-weight:600;color:var(--text)}
+.friend-av{width:34px;height:34px;border-radius:9px;background:linear-gradient(145deg,var(--accent-dim),rgba(0,224,164,.04));border:1px solid var(--accent-border);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--accent);flex-shrink:0}
+.friend-amount{font-family:var(--mono);font-weight:700;color:var(--accent)}
+.empty{padding:40px 20px;text-align:center;color:var(--text-2);font-size:13.5px}
+.empty svg{width:44px;height:44px;stroke:var(--text-3);fill:none;stroke-width:1.5;margin:0 auto 12px;display:block;stroke-linecap:round;stroke-linejoin:round}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-wrap" id="loginPage">
+  <div class="login-card">
+    <div class="login-hero">
+      <div class="login-brand">
+        <div class="login-brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#00e0a4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L3 7l9 5 9-5-9-5z"/><path d="M3 12l9 5 9-5"/><path d="M3 17l9 5 9-5"/></svg></div>
+        <div class="login-brand-text"><h2>Nebula Wallet</h2><p>Crypto Terminal</p></div>
+      </div>
+      <div class="login-hero-body">
+        <div class="login-eyebrow"><span class="dot"></span>Система активна</div>
+        <h1>Ваш капитал<br><em>под контролем</em></h1>
+        <p class="login-hero-desc">Строгий интерфейс, точные данные, безопасные операции. Всё, что нужно для управления криптоактивами.</p>
+      </div>
+      <div class="login-features">
+        <div class="login-feature"><div class="login-feature-ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><span>Защита 2FA и шифрование данных</span></div>
+        <div class="login-feature"><div class="login-feature-ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><span>6 криптовалют и мгновенные обмены</span></div>
+        <div class="login-feature"><div class="login-feature-ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><span>Поддержка 24/7 и аналитика онлайн</span></div>
+      </div>
+    </div>
+    <div class="login-form-side">
+      <div class="login-step active" id="loginStep1">
+        <div class="login-form-head"><h3>Вход в систему</h3><p>Введите логин и пароль</p></div>
+        <form class="login-fields" id="loginFormStep1">
+          <div class="lf-field"><label for="loginUsername">Логин</label><div class="lf-input-wrap"><input type="text" id="loginUsername" placeholder="Введите логин" required autocomplete="username"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div></div>
+          <div class="lf-field"><label for="loginPassword">Пароль</label><div class="lf-input-wrap"><input type="password" id="loginPassword" placeholder="Введите пароль" required autocomplete="current-password"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div></div>
+          <div class="lf-error" id="loginErrorStep1"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>Неверный логин или пароль</div>
+          <button type="submit" class="lf-submit">Далее<svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+        </form>
+      </div>
+      <div class="login-step" id="loginStep2">
+        <div class="login-form-head"><h3>Двухфакторная аутентификация</h3><p>Введите код 2FA для подтверждения входа</p></div>
+        <form class="login-fields" id="loginFormStep2">
+          <div class="lf-field"><label for="login2FA">Код 2FA</label><div class="lf-input-wrap"><input type="password" id="login2FA" placeholder="Введите код 2FA" required autocomplete="one-time-code"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div></div>
+          <div class="lf-error" id="loginErrorStep2"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>Неверный код 2FA</div>
+          <button type="submit" class="lf-submit">Войти в кабинет<svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+          <div class="lf-back" id="backToStep1"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Назад</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- APP -->
+<div class="app" id="appContainer">
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="topbar-left">
+        <button class="menu-btn" id="burgerBtn" aria-label="Меню"><span></span><span></span><span></span></button>
+        <div class="brand">
+          <div class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#00e0a4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L3 7l9 5 9-5-9-5z"/><path d="M3 12l9 5 9-5"/><path d="M3 17l9 5 9-5"/></svg></div>
+          <span>Nebula Wallet</span>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <button class="icon-btn" id="notificationBtn" aria-label="Уведомления"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span class="badge"></span></button>
+        <button class="icon-btn" id="logoutBtn" aria-label="Выход"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
+      </div>
+    </div>
+  </header>
+
+  <div class="sb-overlay" id="sidebarOverlay"></div>
+  <aside class="sidebar" id="sidebar">
+    <div class="sb-user">
+      <div class="sb-avatar" id="sidebarUserAvatar">МС</div>
+      <div class="sb-user-info"><h3 id="sidebarUserName">Мирзабеков Саид</h3><p id="sidebarUserLogin">saidik05</p></div>
+    </div>
+    <nav class="sb-menu">
+      <div class="sb-group">
+        <div class="sb-group-head">Обзор</div>
+        <a class="sb-item active" data-page="dashboard"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg><span>Главная</span></a>
+        <a class="sb-item" data-page="wallet"><svg viewBox="0 0 24 24"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg><span>Кошелек</span></a>
+      </div>
+      <div class="sb-group">
+        <div class="sb-group-head">Финансы</div>
+        <a class="sb-item" data-page="deposit"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg><span>Пополнить</span></a>
+        <a class="sb-item" data-page="withdrawal"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg><span>Вывести</span></a>
+        <a class="sb-item" data-page="transfers"><svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5"/><path d="M21 12H3"/></svg><span>Переводы</span></a>
+        <a class="sb-item" data-page="swap"><svg viewBox="0 0 24 24"><path d="M7 16H3M3 16l4 4M3 16l4-4"/><path d="M17 8h4M21 8l-4-4M21 8l-4 4"/></svg><span>Обменник</span></a>
+      </div>
+      <div class="sb-group">
+        <div class="sb-group-head">Сервис</div>
+        <a class="sb-item" data-page="referrals"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg><span>Рефералы</span></a>
+        <a class="sb-item" data-page="analytics"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-6"/></svg><span>Аналитика</span></a>
+        <a class="sb-item" data-page="history"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span>История</span></a>
+        <a class="sb-item" data-page="support"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Поддержка</span></a>
+        <a class="sb-item" data-page="profile"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Профиль</span></a>
+      </div>
+      <a class="sb-item" data-page="withdrawalRequests" id="withdrawalRequestsMenuItem" style="display:none"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>Заявки на вывод</span></a>
+      <div id="adminMenu" style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border);display:none">
+        <div class="sb-group">
+          <div class="sb-group-head">Администрирование</div>
+          <a class="sb-item" data-page="adminUsers"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg><span>Пользователи</span></a>
+          <a class="sb-item" data-page="adminRequests"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span>Все заявки</span></a>
+        </div>
+      </div>
+    </nav>
+  </aside>
+
+  <!-- DASHBOARD -->
+  <div class="page active" id="dashboardPage">
+    <div class="welcome">
+      <div class="welcome-text"><h1 id="welcomeName">Добро пожаловать, Саид</h1><p>Ваши активы и последние операции</p></div>
+      <div class="welcome-actions">
+        <button class="btn" onclick="showPage('deposit')"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Пополнить</button>
+        <button class="btn" onclick="showPage('withdrawal')"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>Вывести</button>
+        <button class="btn btn-primary" onclick="showPage('swap')"><svg viewBox="0 0 24 24"><path d="M7 16H3M3 16l4 4M3 16l4-4"/><path d="M17 8h4M21 8l-4-4M21 8l-4 4"/></svg>Обменять</button>
+      </div>
+    </div>
+
+    <div id="frozenAccountWarning" class="alert alert-warning" style="display:none"><svg viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01"/><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg><div><strong>Счет заморожен.</strong> Разморозьте его в настройках профиля. <button class="btn btn-sm btn-ghost" style="margin-left:8px" onclick="showPage('profile')">Профиль</button></div></div>
+
+    <div class="balance-overview">
+      <div class="bo-top">
+        <div>
+          <div class="bo-label">Общий баланс <span class="live">live</span></div>
+          <div class="bo-amount" id="balanceValueMain" onclick="toggleBalanceVisibility()">—</div>
+          <div class="bo-usd" id="balanceValueUsdMain">—</div>
+        </div>
+        <div class="bo-trend" id="balanceTrend"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg><span>+12.5% / 24ч</span></div>
+      </div>
+      <div class="bo-chart">
+        <svg viewBox="0 0 400 80" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="cgArea" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="rgba(0,224,164,.3)"/><stop offset="100%" stop-color="rgba(0,224,164,0)"/></linearGradient>
+            <linearGradient id="cgLine" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#00e0a4"/><stop offset="100%" stop-color="#5eead4"/></linearGradient>
+          </defs>
+          <path d="M0,60 Q50,50 100,46 T200,38 T300,28 T400,22 L400,80 L0,80 Z" fill="url(#cgArea)"/>
+          <path d="M0,60 Q50,50 100,46 T200,38 T300,28 T400,22" stroke="url(#cgLine)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <circle cx="400" cy="22" r="4" fill="#00e0a4"/>
+          <circle cx="400" cy="22" r="8" fill="rgba(0,224,164,.25)"><animate attributeName="r" values="8;14;8" dur="2s" repeatCount="indefinite"/><animate attributeName="opacity" values=".6;0;.6" dur="2s" repeatCount="indefinite"/></circle>
+        </svg>
+      </div>
+    </div>
+
+    <div class="stats-bar" id="dashboardStatsBar"></div>
+
+    <div class="section">
+      <div class="section-head"><h2><span class="mark"></span>Ваши активы</h2><span class="link" onclick="showPage('wallet')">Смотреть все<svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div>
+      <div class="grid-3" id="cryptoAssetsGrid"></div>
+    </div>
+
+    <div class="section">
+      <div class="section-head"><h2><span class="mark"></span>Последние операции</h2><span class="link" onclick="showPage('history')">Вся история<svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div>
+      <div class="tx-list" id="cryptoTransactionsList"></div>
+    </div>
+
+    <div class="section">
+      <div class="section-head"><h2><span class="mark"></span>Быстрые действия</h2></div>
+      <div class="quick-grid">
+        <button class="quick-btn" onclick="showPage('deposit')"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg><div>Пополнить</div></button>
+        <button class="quick-btn" onclick="showPage('withdrawal')"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg><div>Вывести</div></button>
+        <button class="quick-btn" onclick="showPage('history')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><div>История</div></button>
+        <button class="quick-btn" onclick="showPage('referrals')"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg><div>Рефералы</div></button>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="ref-banner">
+        <div><h2 id="refBannerTitle">Реферальная программа</h2><p id="refBannerDesc">Приглашайте друзей и получайте 5% с каждого их пополнения.</p></div>
+        <button class="btn btn-primary" onclick="showPage('referrals')">Пригласить друга</button>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-head"><h2><span class="mark"></span>Статус серверов</h2></div>
+      <div class="server-grid">
+        <div class="server"><span class="dot"></span>Финляндия<br><strong>Online</strong></div>
+        <div class="server"><span class="dot"></span>Германия<br><strong>Online</strong></div>
+        <div class="server"><span class="dot"></span>Нидерланды<br><strong>Online</strong></div>
+        <div class="server"><span class="dot"></span>Турция<br><strong>Online</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WITHDRAWAL -->
+  <div class="page" id="withdrawalPage">
+    <div class="form-page">
+      <div class="panel">
+        <div class="panel-head"><h2>Вывод средств</h2><p>Минимум 1 000 ₽ · Без комиссии · Срок зачисления: от 24 часов до 3 суток</p></div>
+        <div class="alert alert-info"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>Заявка обрабатывается от 24 часов до 3 суток. Отслеживайте статус на странице «Заявки на вывод».</span></div>
+        <div class="form-grid">
+          <div class="field"><label for="withdrawalAmount">Сумма (₽)</label><input type="number" id="withdrawalAmount" placeholder="Введите сумму" min="1000" step="0.01"></div>
+          <div class="field"><label for="withdrawalCurrency">Валюта</label><select id="withdrawalCurrency"><option value="RUB" selected>Рубли (RUB)</option><option value="USD">Доллары (USD)</option></select></div>
+          <div class="field"><label for="withdrawalFullName">ФИО получателя</label><input type="text" id="withdrawalFullName" placeholder="Иванов Иван Иванович"></div>
+          <div class="field"><label for="withdrawalPhone">Телефон</label><input type="tel" id="withdrawalPhone" placeholder="+7 999 123-45-67"></div>
+          <div class="field"><label for="withdrawalBank">Банк</label>
+            <select id="withdrawalBank">
+              <option value="OZON" selected>Озон Банк</option><option value="SBER">Сбербанк</option><option value="TINKOFF">Тинькофф</option><option value="ALFA">Альфа-Банк</option><option value="VTB">ВТБ</option><option value="RAIFFEISEN">Райффайзенбанк</option><option value="GAZPROM">Газпромбанк</option><option value="MTS">МТС Банк</option><option value="YANDEX">ЮMoney</option><option value="QIWI">QIWI</option>
+            </select>
+          </div>
+          <div class="field"><label for="withdrawalCard">Карта или счёт</label><input type="text" id="withdrawalCard" placeholder="0000 0000 0000 0000" maxlength="23"></div>
+        </div>
+        <div class="form-actions"><button class="btn" onclick="showPage('dashboard')">Отмена</button><button class="btn btn-primary" id="submitWithdrawalBtn">Вывести средства</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DEPOSIT -->
+  <div class="page" id="depositPage">
+    <div class="form-page">
+      <div class="panel">
+        <div class="panel-head"><h2>Пополнение счета</h2><p>Минимум 1 000 ₽ · Без комиссии · Реквизиты ниже</p></div>
+        <div class="req-card">
+          <div class="req-head"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>Реквизиты для перевода</div>
+          <div class="req-row"><span class="req-label">Номер карты</span><div class="req-val"><code>4276 1845 2938 4751</code><button class="copy" onclick="copyToClipboard('4276 1845 2938 4751', this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Копировать</button></div></div>
+          <div class="req-row"><span class="req-label">Получатель</span><div class="req-val"><code>ИП Козлов Артем Викторович</code><button class="copy" onclick="copyToClipboard('ИП Козлов Артем Викторович', this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Копировать</button></div></div>
+          <div class="req-row"><span class="req-label">Назначение</span><div class="req-val"><code id="depositPurpose">Пополнение счета saidik05</code><button class="copy" onclick="copyToClipboard(document.getElementById('depositPurpose').innerText, this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Копировать</button></div></div>
+          <div class="req-row"><span class="req-label">БИК</span><div class="req-val"><code>044525593</code><button class="copy" onclick="copyToClipboard('044525593', this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Копировать</button></div></div>
+          <div class="req-row"><span class="req-label">ИНН</span><div class="req-val"><code>771234567890</code><button class="copy" onclick="copyToClipboard('771234567890', this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Копировать</button></div></div>
+          <div class="req-row"><span class="req-label">Расчетный счет</span><div class="req-val"><code>40817810123456789012</code><button class="copy" onclick="copyToClipboard('40817810123456789012', this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Копировать</button></div></div>
+        </div>
+        <div class="alert alert-warning"><svg viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01"/><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg><span>После перевода нажмите «Подтвердить пополнение» и укажите данные отправителя.</span></div>
+        <div class="form-grid">
+          <div class="field"><label for="depositAmount">Сумма (₽)</label><input type="number" id="depositAmount" placeholder="Введите сумму" min="1000" step="0.01"></div>
+          <div class="field"><label for="depositFullName">ФИО отправителя</label><input type="text" id="depositFullName" placeholder="Иванов Иван Иванович"></div>
+          <div class="field"><label for="depositPhone">Телефон</label><input type="tel" id="depositPhone" placeholder="+7 999 123-45-67"></div>
+          <div class="field"><label for="depositBank">Банк отправителя</label><select id="depositBank"><option value="OZON" selected>Озон Банк</option><option value="SBER">Сбербанк</option><option value="TINKOFF">Тинькофф</option><option value="ALFA">Альфа-Банк</option><option value="VTB">ВТБ</option></select></div>
+          <div class="field" style="grid-column:1/-1"><label for="depositCard">Номер карты отправителя</label><input type="text" id="depositCard" placeholder="0000 0000 0000 0000" maxlength="23"></div>
+        </div>
+        <div class="form-actions"><button class="btn" onclick="showPage('dashboard')">Отмена</button><button class="btn btn-primary" id="submitDepositBtn">Подтвердить пополнение</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WALLET -->
+  <div class="page" id="walletPage">
+    <div class="welcome"><div class="welcome-text"><h1>Кошелек</h1><p>Все ваши криптоактивы в одном месте</p></div></div>
+    <div class="grid-3" id="walletAssetsList"></div>
+  </div>
+
+  <!-- ANALYTICS -->
+  <div class="page" id="analyticsPage">
+    <div class="welcome"><div class="welcome-text"><h1>Аналитика</h1><p>Статистика заработка и торговых сессий</p></div></div>
+    <div class="stats-bar" id="analyticsStatsBar"></div>
+    <div class="panel">
+      <div class="panel-head"><h2>Периоды активности</h2><p>Ваши торговые сессии по месяцам</p></div>
+      <div id="analyticsPeriods"></div>
+    </div>
+    <div class="chart-box">
+      <h3>График доходов · последние 6 месяцев</h3>
+      <div class="chart-real" id="analyticsChart"></div>
+    </div>
+    <div class="panel" style="margin-top:20px">
+      <div class="panel-head"><h2>Топ сделок за месяц</h2><p>Лучшие операции по прибыли</p></div>
+      <div class="tx-list" id="analyticsTopTrades"></div>
+    </div>
+  </div>
+
+  <!-- HISTORY -->
+  <div class="page" id="historyPage">
+    <div class="welcome"><div class="welcome-text"><h1>История операций</h1><p>Полный список транзакций</p></div></div>
+    <div class="tx-filter" id="historyFilter">
+      <button class="active" data-filter="all">Все</button>
+      <button data-filter="in">Пополнения</button>
+      <button data-filter="out">Выводы</button>
+      <button data-filter="swap">Обмены</button>
+      <button data-filter="ref">Реферальные</button>
+    </div>
+    <div class="tx-list" id="historyList"></div>
+  </div>
+
+  <!-- TRANSFERS -->
+  <div class="page" id="transfersPage">
+    <div class="form-page">
+      <div class="panel">
+        <div class="panel-head"><h2>Внутренний перевод</h2><p>Мгновенно по секретному ID · Комиссия 0,5%</p></div>
+        <div class="form-grid">
+          <div class="field" style="grid-column:1/-1"><label for="transferSecretId">Секретный ID получателя</label><input type="text" id="transferSecretId" placeholder="Например, DV-7X9K"></div>
+          <div class="field"><label for="transferAmount">Сумма (₽)</label><input type="number" id="transferAmount" placeholder="Введите сумму" min="1" step="0.01"></div>
+          <div class="field"><label>Комиссия (0,5%)</label><input type="text" id="transferFee" readonly placeholder="0,00 ₽"></div>
+          <div class="field" style="grid-column:1/-1"><label>Итого к списанию</label><input type="text" id="transferTotal" readonly placeholder="0,00 ₽"></div>
+        </div>
+        <div class="form-actions"><button class="btn" onclick="showPage('dashboard')">Отмена</button><button class="btn btn-primary" id="submitTransferBtn">Перевести</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SWAP -->
+  <div class="page" id="swapPage">
+    <div class="form-page">
+      <div class="panel">
+        <div class="panel-head"><h2>Обменник</h2><p>Мгновенный обмен криптовалют</p></div>
+        <div class="form-grid">
+          <div class="field"><label for="swapFromCurrency">Отдаю</label><select id="swapFromCurrency"><option value="USDT">USDT</option><option value="BTC">BTC</option><option value="ETH">ETH</option></select></div>
+          <div class="field"><label for="swapToCurrency">Получаю</label><select id="swapToCurrency"><option value="BTC">BTC</option><option value="ETH">ETH</option><option value="USDT">USDT</option></select></div>
+          <div class="field"><label for="swapAmount">Сумма</label><input type="number" id="swapAmount" placeholder="Введите сумму" min="0" step="0.0001"></div>
+          <div class="field"><label for="swapResult">Результат (примерно)</label><input type="text" id="swapResult" readonly placeholder="0"></div>
+        </div>
+        <div class="form-actions"><button class="btn" onclick="showPage('dashboard')">Отмена</button><button class="btn btn-primary" id="submitSwapBtn">Обменять</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROFILE -->
+  <div class="page" id="profilePage">
+    <div class="form-page">
+      <div class="panel">
+        <div class="panel-head"><h2>Личные данные</h2><p>Основная информация аккаунта</p></div>
+        <div class="p-row"><div class="p-row-label">Логин</div><div class="p-row-value" id="profileLogin">saidik05</div></div>
+        <div class="p-row"><div class="p-row-label">ФИО</div><div class="p-row-value" id="profileName">Мирзабеков Саид</div></div>
+        <div class="p-row"><div class="p-row-label">Никнейм</div><div class="row-split"><input type="text" id="profileNickname" value="saidik05" style="padding:9px 13px;background:var(--bg-elev);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;outline:none;width:200px"><button class="btn btn-sm btn-primary" id="saveNicknameBtn">Сохранить</button></div></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h2>Безопасность</h2><p>Настройки защиты аккаунта</p></div>
+        <div class="p-row"><div><div class="p-row-label">Скрыть баланс</div><div class="p-row-sub">Нажмите на баланс для быстрого скрытия</div></div><div class="p-row-toggle"><span class="p-row-toggle-status" id="balanceHiddenStatus">Показан</span><div class="toggle" id="balanceToggle"></div></div></div>
+        <div class="p-row"><div><div class="p-row-label">Заморозить счет</div><div class="p-row-sub">Блокирует операции до разморозки</div></div><div class="p-row-toggle"><span class="p-row-toggle-status" id="accountFrozenStatus">Активен</span><div class="toggle" id="accountFreezeToggle"></div></div></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h2>Разделы</h2></div>
+        <div class="p-row"><div class="p-row-label">Безопасность входа</div><button class="btn btn-sm" onclick="showPage('security')">Открыть</button></div>
+        <div class="p-row"><div class="p-row-label">Верификация (KYC)</div><button class="btn btn-sm" onclick="showPage('kyc')">Управлять</button></div>
+        <div class="p-row"><div class="p-row-label">Секретный ID</div><button class="btn btn-sm" onclick="showPage('secretId')">Посмотреть</button></div>
+        <div class="p-row"><div class="p-row-label">Адресная книга</div><button class="btn btn-sm" onclick="showPage('addressBook')">Открыть</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECRET ID -->
+  <div class="page" id="secretIdPage">
+    <div class="form-page">
+      <div class="panel">
+        <div class="panel-head"><h2>Мой секретный ID</h2><p>Используйте его для получения переводов</p></div>
+        <div class="field"><label>ID</label><div class="row-split"><input type="text" id="secretIdValue" readonly style="flex:1;min-width:200px;font-family:var(--mono);font-weight:700;letter-spacing:3px;font-size:15px"><button class="btn btn-sm" id="copySecretIdBtn"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Копировать</button><button class="btn btn-sm btn-primary" id="regenerateSecretIdBtn">Сменить</button></div></div>
+        <div class="alert alert-info" style="margin-top:16px"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>Передавайте ID только доверенным получателям.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECURITY -->
+  <div class="page" id="securityPage">
+    <div class="form-page">
+      <div class="panel">
+        <div class="panel-head"><h2>Безопасность</h2><p>Пароль и двухфакторная аутентификация</p></div>
+        <div class="p-row"><div class="p-row-label">Смена пароля</div><button class="btn btn-sm" id="changePasswordBtn">Сменить</button></div>
+        <div class="p-row"><div><div class="p-row-label">Двухфакторная аутентификация</div><div class="p-row-sub">Дополнительная защита входа</div></div><div class="p-row-toggle"><span class="p-row-toggle-status" id="twoFaStatus">Отключена</span><div class="toggle" id="twoFaToggle"></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- KYC -->
+  <div class="page" id="kycPage">
+    <div class="form-page">
+      <div class="panel">
+        <div class="panel-head"><h2>Верификация личности</h2><p>Загрузите документы для увеличения лимитов</p></div>
+        <div class="form-grid">
+          <div class="field" style="grid-column:1/-1"><label>Статус</label><input type="text" id="kycStatus" readonly value="Не пройдена"></div>
+          <div class="field"><label for="kycPassport">Фото паспорта</label><input type="file" id="kycPassport"></div>
+          <div class="field"><label for="kycSelfie">Селфи с документом</label><input type="file" id="kycSelfie"></div>
+        </div>
+        <div class="form-actions"><button class="btn" onclick="showPage('dashboard')">Позже</button><button class="btn btn-primary" id="submitKycBtn">Отправить</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADDRESS BOOK -->
+  <div class="page" id="addressBookPage">
+    <div class="form-page">
+      <div class="panel">
+        <div class="panel-head"><h2>Адресная книга</h2><p>Сохраняйте часто используемые адреса</p></div>
+        <div class="form-grid">
+          <div class="field"><label for="addressLabel">Название</label><input type="text" id="addressLabel" placeholder="Например, Binance"></div>
+          <div class="field"><label for="addressValue">Адрес / ID</label><input type="text" id="addressValue" placeholder="Введите адрес"></div>
+        </div>
+        <div class="form-actions"><button class="btn btn-primary" id="addAddressBtn">Добавить адрес</button></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h2>Сохранённые адреса</h2></div>
+        <div id="addressBookList" class="empty">Адресов пока нет</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SETTINGS -->
+  <div class="page" id="settingsPage">
+    <div class="form-page">
+      <div class="panel">
+        <div class="panel-head"><h2>Настройки</h2><p>Персонализация интерфейса</p></div>
+        <div class="form-grid">
+          <div class="field"><label>Язык</label><select id="settingsLanguage"><option value="ru">Русский</option><option value="en">English</option></select></div>
+          <div class="field"><label>Валюта отображения</label><select id="settingsCurrency"><option value="RUB">RUB</option><option value="USD">USD</option><option value="EUR">EUR</option></select></div>
+        </div>
+        <div class="p-row" style="margin-top:20px"><div class="p-row-label">Показывать USD-эквивалент</div><div class="toggle" id="toggleShowUsd"></div></div>
+        <div class="form-actions"><button class="btn btn-primary" id="saveSettingsBtn">Сохранить</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REFERRALS -->
+  <div class="page" id="referralsPage">
+    <div class="form-page">
+      <div class="panel">
+        <div class="panel-head"><h2>Партнёрская программа</h2><p>Приглашайте друзей и получайте 5% с каждого их пополнения</p></div>
+        <div class="field"><label>Ваша ссылка</label><div class="row-split"><input type="text" id="referralLink" readonly style="flex:1;min-width:200px"><button class="btn btn-sm btn-primary" id="copyReferralLinkBtn"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Копировать</button></div></div>
+        <div class="grid-2" style="margin-top:22px" id="referralsStats"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h2>Приглашённые друзья</h2><p>Статистика по каждому рефералу</p></div>
+        <div id="referralsTableWrap"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUPPORT -->
+  <div class="page" id="supportPage">
+    <div class="welcome"><div class="welcome-text"><h1>Поддержка</h1><p>Онлайн 24/7 · Среднее время ответа: 2–4 часа</p></div></div>
+    <div class="support-grid">
+      <div class="support-tile" onclick="showSupportCategory('deposit')"><div class="support-tile-ic"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div><div class="support-tile-body"><h4>Пополнение</h4><p>Проблемы с зачислением</p></div><div class="support-tile-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div></div>
+      <div class="support-tile" onclick="showSupportCategory('withdrawal')"><div class="support-tile-ic"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></div><div class="support-tile-body"><h4>Вывод</h4><p>Задержки и отклонения</p></div><div class="support-tile-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div></div>
+      <div class="support-tile" onclick="showSupportCategory('security')"><div class="support-tile-ic"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div class="support-tile-body"><h4>Безопасность</h4><p>Подозрительная активность</p></div><div class="support-tile-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div></div>
+      <div class="support-tile" onclick="showSupportCategory('other')"><div class="support-tile-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></div><div class="support-tile-body"><h4>Другое</h4><p>Общие вопросы</p></div><div class="support-tile-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div></div>
+    </div>
+    <div class="panel">
+      <div class="panel-head"><h2>Чат с поддержкой</h2><p>Онлайн 24/7 · Отвечаем в течение 2–4 часов</p></div>
+      <div class="chat">
+        <div class="chat-messages" id="chatMessages"></div>
+        <div class="chat-input-row">
+          <input type="text" class="chat-input" placeholder="Введите сообщение..." id="supportChatInput">
+          <button class="chat-send" id="supportChatSend" aria-label="Отправить"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-head"><h2>Создать обращение</h2><p>Опишите проблему подробно</p></div>
+      <div class="form-grid">
+        <div class="field" style="grid-column:1/-1"><label for="supportTopic">Тема</label><input type="text" id="supportTopic" placeholder="Например: не пришло пополнение"></div>
+        <div class="field" style="grid-column:1/-1"><label for="supportCategory">Категория</label>
+          <select id="supportCategory"><option value="">Выберите категорию</option><option value="deposit">Пополнение</option><option value="withdrawal">Вывод</option><option value="transfer">Переводы</option><option value="security">Безопасность</option><option value="other">Другое</option></select>
+        </div>
+        <div class="field" style="grid-column:1/-1"><label for="supportMessage">Описание</label><textarea id="supportMessage" placeholder="Опишите ситуацию подробно..."></textarea></div>
+      </div>
+      <div class="form-actions"><button class="btn" id="clearSupportBtn">Очистить</button><button class="btn btn-primary" id="submitSupportTicketBtn">Отправить</button></div>
+    </div>
+    <div class="panel">
+      <div class="panel-head"><h2>Частые вопросы</h2></div>
+      <div class="faq">
+        <div class="faq-item" onclick="toggleFaqItem(this)"><div class="faq-q"><span>Как пополнить счет?</span><span class="faq-arrow">▼</span></div><div class="faq-a"><p>Перейдите в раздел «Пополнить», скопируйте реквизиты, переведите нужную сумму и подтвердите пополнение. Минимум — 1 000 ₽, комиссия отсутствует.</p></div></div>
+        <div class="faq-item" onclick="toggleFaqItem(this)"><div class="faq-q"><span>Сколько ждать вывод?</span><span class="faq-arrow">▼</span></div><div class="faq-a"><p>Заявка обрабатывается от 24 часов до 3 суток. Статус меняется автоматически: «В обработке» → «Средства в пути» → «Зачислено».</p></div></div>
+        <div class="faq-item" onclick="toggleFaqItem(this)"><div class="faq-q"><span>Как защитить аккаунт?</span><span class="faq-arrow">▼</span></div><div class="faq-a"><p>Включите 2FA, используйте надёжный уникальный пароль, не сообщайте коды и следите за историей операций.</p></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WITHDRAWAL REQUESTS -->
+  <div class="page" id="withdrawalRequestsPage">
+    <div class="welcome"><div class="welcome-text"><h1>Заявки на вывод</h1><p>История и статус ваших заявок</p></div></div>
+    <div id="withdrawalRequestsList"></div>
+  </div>
+
+  <!-- ADMIN USERS -->
+  <div class="page" id="adminUsersPage">
+    <div class="welcome"><div class="welcome-text"><h1>Пользователи</h1><p>Управление аккаунтами клиентов</p></div></div>
+    <div id="adminUsersList"></div>
+  </div>
+
+  <!-- ADMIN REQUESTS -->
+  <div class="page" id="adminRequestsPage">
+    <div class="welcome"><div class="welcome-text"><h1>Все заявки</h1><p>Заявки всех пользователей системы</p></div></div>
+    <div id="adminRequestsList"></div>
+  </div>
+
+  <!-- ADMIN BALANCE -->
+  <div class="page" id="adminBalancePage">
+    <div class="form-page">
+      <div class="panel">
+        <div class="panel-head"><h2>Управление пользователем</h2><p id="adminBalanceSubtitle">Изменение баланса</p></div>
+        <div class="form-grid">
+          <div class="field"><label>Пользователь</label><input type="text" id="adminSelectedUser" readonly></div>
+          <div class="field"><label>Текущий баланс</label><input type="text" id="adminUserBalance" readonly></div>
+          <div class="field"><label for="adminBalanceAction">Действие</label>
+            <select id="adminBalanceAction"><option value="add">Пополнить (добавить)</option><option value="subtract">Списать (вычесть)</option><option value="set">Установить точную сумму</option></select>
+          </div>
+          <div class="field"><label for="adminBalanceAmount">Сумма (₽)</label><input type="number" id="adminBalanceAmount" placeholder="0.00" step="0.01" min="0"></div>
+        </div>
+        <div class="p-row" style="margin-top:20px;border-top:1px solid var(--border);padding-top:20px">
+          <div><div class="p-row-label">Заморозить счёт</div><div class="p-row-sub">Блокирует операции пользователя до разморозки</div></div>
+          <div class="p-row-toggle"><span class="p-row-toggle-status" id="adminFrozenStatus">Активен</span><div class="toggle" id="adminFreezeToggle"></div></div>
+        </div>
+        <div class="form-actions"><button class="btn" onclick="showPage('adminUsers')">Назад</button><button class="btn btn-primary" id="submitAdminBalanceBtn">Применить</button></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h2>Заявки пользователя</h2><p>Все заявки на вывод выбранного пользователя</p></div>
+        <div id="adminUserRequestsList"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-ov" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-head"><div class="modal-title" id="modalTitle">Уведомление</div><button class="modal-x" id="modalClose">×</button></div>
+    <div class="modal-body">
+      <div class="modal-icon" id="modalIcon"></div>
+      <div class="modal-msg" id="modalMessage"></div>
+      <div class="modal-details" id="modalConfirmDetails" style="display:none"></div>
+    </div>
+    <div class="modal-foot"><button class="btn" id="modalCancel" style="display:none">Отмена</button><button class="btn btn-primary" id="modalConfirm">ОК</button></div>
+  </div>
+</div>
+
+<div class="toast-wrap" id="toastContainer"></div>
+
+<script>
+'use strict';
+
+/* ==================== КОНСТАНТЫ ==================== */
+const USERS = {
+  'saidik05': { password:'200812345678Said', twoFa:'магият19670404050505', role:'user', name:'Мирзабеков Саид', nickname:'saidik05' },
+  'admin':    { password:'admin123',         twoFa:'admin2fa2024',          role:'admin', name:'Администратор',    nickname:'admin'    }
+};
+const USD_RATE = 84.34;
+const walletAssets = [
+  { code:'BTC',  name:'Bitcoin',     amount:0.098, usdPrice:81281 },
+  { code:'ETH',  name:'Ethereum',    amount:1.52,  usdPrice:2641  },
+  { code:'USDT', name:'Tether USDT', amount:4250,  usdPrice:1.00  },
+  { code:'BNB',  name:'BNB',         amount:3.54,  usdPrice:576   },
+  { code:'SOL',  name:'Solana',      amount:11.82, usdPrice:117.32},
+  { code:'ADA',  name:'Cardano',     amount:1788,  usdPrice:0.2535}
+];
+const bankNames = { OZON:'Озон Банк', SBER:'Сбербанк', TINKOFF:'Тинькофф', ALFA:'Альфа-Банк', VTB:'ВТБ', RAIFFEISEN:'Райффайзенбанк', GAZPROM:'Газпромбанк', MTS:'МТС Банк', YANDEX:'ЮMoney', QIWI:'QIWI' };
+const monthNames = ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
+
+function calcTotalRub(){ return walletAssets.reduce((s,a)=>s + a.amount * a.usdPrice * USD_RATE, 0); }
+
+/* ==================== СИД-ДАННЫЕ ==================== */
+// Генератор реалистичной истории транзакций (относительно сегодня)
+function buildSeedTransactions(){
+  const now = Date.now();
+  const d = 24*60*60*1000;
+  const h = 60*60*1000;
+  return [
+    // Сегодня
+    { id: now - 2*h,     type:'Обмен BTC → USDT',      amount:62000,   rub:62000,   status:'ok',   cls:'swap', desc:'0.01 BTC → 810 USDT', date: now - 2*h },
+    { id: now - 5*h,     type:'Реферальный бонус',     amount:3850,    rub:3850,    status:'ok',   cls:'ref',  desc:'5% от пополнения от Магомедов А.', date: now - 5*h },
+    { id: now - 8*h,     type:'Покупка SOL/USDT',      amount:18400,   rub:18400,   status:'ok',   cls:'in',   desc:'Куплено 12 SOL', date: now - 8*h },
+    { id: now - 11*h,    type:'Обмен ETH → BTC',       amount:24800,   rub:24800,   status:'ok',   cls:'swap', desc:'0.6 ETH → 0.019 BTC', date: now - 11*h },
+
+    // Вчера
+    { id: now - 1*d - 3*h,  type:'Пополнение картой',    amount:150000,  rub:150000,  status:'ok',   cls:'in',   desc:'Сбербанк · 4276 **** 4751', date: now - 1*d - 3*h },
+    { id: now - 1*d - 7*h,  type:'Продажа ADA/USDT',     amount:9200,    rub:9200,    status:'ok',   cls:'swap', desc:'Продано 3 500 ADA', date: now - 1*d - 7*h },
+    { id: now - 1*d - 12*h, type:'Вывод на карту',       amount:45000,   rub:45000,   status:'ok',   cls:'out',  desc:'Тинькофф · 5536 **** 8890', date: now - 1*d - 12*h },
+    { id: now - 1*d - 18*h, type:'Реферальный бонус',    amount:1250,    rub:1250,    status:'ok',   cls:'ref',  desc:'5% от пополнения от Ахмедов Р.', date: now - 1*d - 18*h },
+
+    // 2 дня назад
+    { id: now - 2*d,        type:'Обмен USDT → ETH',     amount:47800,   rub:47800,   status:'ok',   cls:'swap', desc:'4 780 USDT → 1.1 ETH', date: now - 2*d },
+    { id: now - 2*d - 4*h,  type:'Пополнение USDT',      amount:85000,   rub:85000,   status:'ok',   cls:'in',   desc:'TRC-20 · поступление', date: now - 2*d - 4*h },
+    { id: now - 2*d - 9*h,  type:'Прибыльная сделка',    amount:32100,   rub:32100,   status:'ok',   cls:'in',   desc:'BNB/USDT долгосрочная', date: now - 2*d - 9*h },
+    { id: now - 2*d - 15*h, type:'Реферальный бонус',    amount:2400,    rub:2400,    status:'ok',   cls:'ref',  desc:'5% от пополнения от Магомедов А.', date: now - 2*d - 15*h },
+
+    // 3-5 дней
+    { id: now - 3*d,        type:'Обмен BTC → ETH',      amount:58900,   rub:58900,   status:'ok',   cls:'swap', desc:'0.012 BTC → 0.75 ETH', date: now - 3*d },
+    { id: now - 3*d - 6*h,  type:'Вывод на карту',       amount:80000,   rub:80000,   status:'ok',   cls:'out',  desc:'Сбербанк · 2202 **** 1102', date: now - 3*d - 6*h },
+    { id: now - 4*d,        type:'Пополнение картой',    amount:250000,  rub:250000,  status:'ok',   cls:'in',   desc:'Тинькофф · 5536 **** 8890', date: now - 4*d },
+    { id: now - 4*d - 8*h,  type:'Покупка BNB/USDT',     amount:38200,   rub:38200,   status:'ok',   cls:'in',   desc:'Куплено 3.54 BNB', date: now - 4*d - 8*h },
+    { id: now - 5*d,        type:'Реферальный бонус',    amount:5100,    rub:5100,    status:'ok',   cls:'ref',  desc:'5% от пополнения от Ибрагимов Т.', date: now - 5*d },
+    { id: now - 5*d - 10*h, type:'Прибыльная сделка',    amount:41300,   rub:41300,   status:'ok',   cls:'in',   desc:'SOL/USDT · среднесрочная', date: now - 5*d - 10*h },
+
+    // 6-10 дней
+    { id: now - 6*d,        type:'Вывод на карту',       amount:120000,  rub:120000,  status:'ok',   cls:'out',  desc:'Альфа-Банк · 4154 **** 7788', date: now - 6*d },
+    { id: now - 7*d,        type:'Пополнение картой',    amount:180000,  rub:180000,  status:'ok',   cls:'in',   desc:'Озон Банк · 2202 **** 4455', date: now - 7*d },
+    { id: now - 8*d,        type:'Реферальный бонус',    amount:3200,    rub:3200,    status:'ok',   cls:'ref',  desc:'5% от пополнения от Ахмедов Р.', date: now - 8*d },
+    { id: now - 9*d,        type:'Обмен ETH → USDT',     amount:35200,   rub:35200,   status:'ok',   cls:'swap', desc:'0.85 ETH → 3 520 USDT', date: now - 9*d },
+    { id: now - 10*d,       type:'Прибыльная сделка',    amount:28700,   rub:28700,   status:'ok',   cls:'in',   desc:'BTC/USDT · интрадей', date: now - 10*d },
+
+    // 11-20 дней
+    { id: now - 12*d,       type:'Пополнение картой',    amount:300000,  rub:300000,  status:'ok',   cls:'in',   desc:'Сбербанк · 4276 **** 4751', date: now - 12*d },
+    { id: now - 14*d,       type:'Вывод на карту',       amount:95000,   rub:95000,   status:'ok',   cls:'out',  desc:'ВТБ · 4890 **** 3322', date: now - 14*d },
+    { id: now - 16*d,       type:'Реферальный бонус',    amount:7400,    rub:7400,    status:'ok',   cls:'ref',  desc:'5% от пополнения от Ибрагимов Т.', date: now - 16*d },
+    { id: now - 18*d,       type:'Покупка BTC',          amount:224000,  rub:224000,  status:'ok',   cls:'in',   desc:'Куплено 0.045 BTC', date: now - 18*d },
+    { id: now - 20*d,       type:'Обмен BTC → USDT',     amount:89000,   rub:89000,   status:'ok',   cls:'swap', desc:'0.018 BTC → 8 900 USDT', date: now - 20*d },
+
+    // 21-30 дней
+    { id: now - 22*d,       type:'Пополнение картой',    amount:200000,  rub:200000,  status:'ok',   cls:'in',   desc:'Тинькофф · 5536 **** 8890', date: now - 22*d },
+    { id: now - 25*d,       type:'Реферальный бонус',    amount:9100,    rub:9100,    status:'ok',   cls:'ref',  desc:'5% от пополнения от Магомедов А.', date: now - 25*d },
+    { id: now - 27*d,       type:'Вывод на карту',       amount:150000,  rub:150000,  status:'ok',   cls:'out',  desc:'Сбербанк · 2202 **** 1102', date: now - 27*d },
+    { id: now - 30*d,       type:'Прибыльная сделка',    amount:56700,   rub:56700,   status:'ok',   cls:'in',   desc:'ETH/BTC · свинг', date: now - 30*d }
+  ];
+}
+
+// Реферальная программа — приглашённые друзья
+function buildSeedReferrals(){
+  const now = Date.now();
+  const d = 24*60*60*1000;
+  return [
+    { name:'Магомедов А.',      login:'magomed_a',   joinedAt: now - 42*d, deposits:245000, earned:12250,  status:'active'  },
+    { name:'Ахмедов Руслан',    login:'akhmedov_r',  joinedAt: now - 30*d, deposits:180000, earned:9000,   status:'active'  },
+    { name:'Ибрагимов Тимур',   login:'ibragimov_t', joinedAt: now - 20*d, deposits:310000, earned:15500,  status:'active'  },
+    { name:'Смирнов Дмитрий',   login:'smirnov_d',   joinedAt: now - 14*d, deposits:85000,  earned:4250,   status:'active'  },
+    { name:'Кузнецов Артём',    login:'kuznetsov_a', joinedAt: now - 7*d,  deposits:120000, earned:6000,   status:'active'  }
+  ];
+}
+
+// Аналитика по месяцам (6 месяцев)
+function buildSeedAnalytics(){
+  const now = new Date();
+  const months = [];
+  for (let i=5; i>=0; i--){
+    const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+    months.push({ year: d.getFullYear(), month: d.getMonth() });
+  }
+  const profits = [180000, 245000, 320000, 425000, 506040, 312500];
+  const startBalances = [800000, 980000, 1225000, 1545000, 1970000, 2476040];
+  const endBalances = [980000, 1225000, 1545000, 1970000, 2476040, 2788540];
+  const tradeCounts = [98, 124, 156, 189, 245, 168];
+  const winRates = [72, 76, 78, 82, 85, 81];
+  return months.map((m, i) => ({
+    ...m,
+    profit: profits[i],
+    startBalance: startBalances[i],
+    endBalance: endBalances[i],
+    trades: tradeCounts[i],
+    winRate: winRates[i],
+    bestTrade: [28000, 35000, 49000, 42000, 49500, 38000][i]
+  }));
+}
+
+/* ==================== STATE ==================== */
+let currentLogin = null;
+let currentUser = null;
+let userData = null;
+let pendingUser = null;
+let adminSelectedLogin = null;
+let historyFilter = 'all';
+
+function initUserData(login){
+  const key = 'nebula_user_' + login;
+  const saved = JSON.parse(localStorage.getItem(key) || 'null');
+  if (saved && saved.version === 2) return saved;
+
+  // Для saidik05 создаём богатые сид-данные
+  const isSeed = login === 'saidik05';
+  const fresh = {
+    version: 2,
+    balanceRub: isSeed ? calcTotalRub() : calcTotalRub(),
+    withdrawalRequests: [],
+    balanceHidden: false,
+    accountFrozen: false,
+    userNickname: USERS[login].nickname,
+    secretId: 'DV-' + Math.random().toString(36).slice(2,7).toUpperCase(),
+    addressBook: isSeed ? [
+      { label:'Мой Binance', value:'TY8aKd91LpZm4xNq3vRt7uWc2sKf6bHe' },
+      { label:'Обменник Garantex', value:'0x8f3Ae21bB94c7D58f1e9C4a2d6B803E7f12A' }
+    ] : [],
+    showUsd: true,
+    chatHistory: [
+      { id:'init', from:'support', text:'Здравствуйте! Чем можем помочь?', time: Date.now() }
+    ],
+    // Seed-данные
+    transactions: isSeed ? buildSeedTransactions() : [],
+    referrals: isSeed ? buildSeedReferrals() : [],
+    analytics: isSeed ? buildSeedAnalytics() : [],
+    // KYC
+    kycStatus: isSeed ? 'Пройдена' : 'Не пройдена'
+  };
+  localStorage.setItem(key, JSON.stringify(fresh));
+  return fresh;
+}
+function saveUserData(){ if (currentLogin && userData) localStorage.setItem('nebula_user_' + currentLogin, JSON.stringify(userData)); }
+function saveAnyUser(login, data){ localStorage.setItem('nebula_user_' + login, JSON.stringify(data)); }
+
+/* ==================== HELPERS ==================== */
+const $ = s => document.querySelector(s);
+const $$ = s => document.querySelectorAll(s);
+const fmtRub = v => Number(v).toLocaleString('ru-RU',{minimumFractionDigits:2,maximumFractionDigits:2}) + ' ₽';
+const fmtRubShort = v => Number(v).toLocaleString('ru-RU',{maximumFractionDigits:0}) + ' ₽';
+const fmtUsd = v => Number(v).toLocaleString('ru-RU',{minimumFractionDigits:2,maximumFractionDigits:2}) + ' $';
+const fmtNum = (v,d=8) => Number(v).toLocaleString('ru-RU',{maximumFractionDigits:d});
+const formatDateTime = ts => {
+  const d = new Date(ts);
+  const p = n => String(n).padStart(2,'0');
+  const today = new Date();
+  const yesterday = new Date(today); yesterday.setDate(yesterday.getDate()-1);
+  const isToday = d.toDateString() === today.toDateString();
+  const isYesterday = d.toDateString() === yesterday.toDateString();
+  if (isToday) return `Сегодня, ${p(d.getHours())}:${p(d.getMinutes())}`;
+  if (isYesterday) return `Вчера, ${p(d.getHours())}:${p(d.getMinutes())}`;
+  return `${p(d.getDate())}.${p(d.getMonth()+1)}.${d.getFullYear()}, ${p(d.getHours())}:${p(d.getMinutes())}`;
+};
+const escapeHtml = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+/* ==================== TOAST / MODAL ==================== */
+function showToast(message, type='info', title=null, duration=5000){
+  const c = $('#toastContainer'); if (!c) return;
+  const t = document.createElement('div');
+  t.className = `toast ${type}`;
+  const ic = {success:'✓', error:'✕', danger:'✕', warning:'⚠', info:'ℹ'};
+  const tt = {success:'Успешно', error:'Ошибка', danger:'Ошибка', warning:'Внимание', info:'Уведомление'};
+  t.innerHTML = `<div class="toast-ic">${ic[type]||ic.info}</div><div class="toast-body"><div class="toast-title">${title||tt[type]||tt.info}</div><div class="toast-text">${escapeHtml(message)}</div></div><button class="toast-close" aria-label="Закрыть">×</button>`;
+  t.querySelector('.toast-close').addEventListener('click', () => t.remove());
+  c.appendChild(t);
+  setTimeout(() => { if (t.parentElement){ t.classList.add('hiding'); setTimeout(() => t.remove(), 300); } }, duration);
+}
+function showModal(title, message, type='info', details=null, onConfirm=null, onCancel=null){
+  const ov=$('#modalOverlay'), mt=$('#modalTitle'), mm=$('#modalMessage'), mi=$('#modalIcon'), md=$('#modalConfirmDetails');
+  const cf=$('#modalConfirm'), cc=$('#modalCancel'), cl=$('#modalClose');
+  mt.textContent = title; mm.textContent = message;
+  mi.className = 'modal-icon ' + type;
+  mi.textContent = type==='success' ? '✓' : type==='warning' ? '⚠' : 'ℹ';
+  if (details){ md.style.display='block'; md.innerHTML = details; } else { md.style.display='none'; md.innerHTML=''; }
+  if (onConfirm || onCancel){ cc.style.display='inline-flex'; cf.textContent='Да'; cc.textContent='Нет'; }
+  else { cc.style.display='none'; cf.textContent='ОК'; }
+  ov.classList.add('active');
+  const close = () => { ov.classList.remove('active'); cf.onclick=null; cc.onclick=null; cl.onclick=null; ov.onclick=null; };
+  cf.onclick = () => { const f=onConfirm; close(); f && f(); };
+  cc.onclick = () => { const f=onCancel; close(); f && f(); };
+  cl.onclick = () => { const f=onCancel; close(); f && f(); };
+  ov.onclick = e => { if (e.target===ov){ const f=onCancel; close(); f && f(); } };
+  setTimeout(() => {
+    const inp = document.getElementById('transfer2FA');
+    if (inp){ inp.focus(); inp.addEventListener('keydown', function h(e){ if (e.key==='Enter'){ e.preventDefault(); inp.removeEventListener('keydown',h); cf.click(); } }); }
+  }, 80);
+}
+function showAlert(msg, type='info'){
+  if (type==='warning' || type==='error' || type==='danger') showModal('Внимание', msg, type);
+  else showToast(msg, type);
+}
+window.showModal = showModal;
+
+/* ==================== LOGIN ==================== */
+const loginPage = $('#loginPage'), app = $('#appContainer');
+const step1 = $('#loginStep1'), step2 = $('#loginStep2');
+
+$('#loginFormStep1').addEventListener('submit', e => {
+  e.preventDefault();
+  const u = $('#loginUsername').value.trim();
+  const p = $('#loginPassword').value;
+  const err = $('#loginErrorStep1');
+  const user = USERS[u];
+  if (user && user.password === p){ pendingUser = { login: u, ...user }; err.classList.remove('show'); goToStep2(); return; }
+  err.classList.add('show');
+});
+$('#loginFormStep2').addEventListener('submit', e => {
+  e.preventDefault();
+  const t = $('#login2FA').value.trim();
+  const err = $('#loginErrorStep2');
+  if (pendingUser && pendingUser.twoFa === t){
+    err.classList.remove('show');
+    currentLogin = pendingUser.login;
+    currentUser = pendingUser;
+    userData = initUserData(currentLogin);
+    localStorage.setItem('isLoggedIn','true');
+    localStorage.setItem('currentUserLogin', currentLogin);
+    loginPage.style.display = 'none';
+    app.classList.add('active');
+    applyUserProfile();
+    updateMenuForRole(currentUser.role);
+    updateMonthNames();
+    showPage('dashboard');
+    showToast(`Добро пожаловать, ${currentUser.name}!`,'success','Вход выполнен',3500);
+    $('#loginFormStep1').reset();
+    $('#loginFormStep2').reset();
+    step2.classList.remove('active');
+    step1.classList.add('active');
+    pendingUser = null;
+    return;
+  }
+  err.classList.add('show');
+});
+function goToStep2(){ step1.classList.remove('active'); step2.classList.add('active'); setTimeout(() => $('#login2FA').focus(), 100); }
+$('#backToStep1').addEventListener('click', () => { step2.classList.remove('active'); step1.classList.add('active'); pendingUser = null; $('#loginErrorStep2').classList.remove('show'); });
+$('#logoutBtn').addEventListener('click', () => {
+  localStorage.removeItem('isLoggedIn'); localStorage.removeItem('currentUserLogin');
+  loginPage.style.display = 'flex'; app.classList.remove('active');
+  $('#sidebar').classList.remove('active'); $('#sidebarOverlay').classList.remove('active'); $('#burgerBtn').classList.remove('active');
+  step2.classList.remove('active'); step1.classList.add('active');
+  currentLogin = null; currentUser = null; userData = null;
+});
+
+/* ==================== MENU ==================== */
+const burger = $('#burgerBtn');
+burger.addEventListener('click', () => { burger.classList.toggle('active'); $('#sidebar').classList.toggle('active'); $('#sidebarOverlay').classList.toggle('active'); });
+$('#sidebarOverlay').addEventListener('click', () => { burger.classList.remove('active'); $('#sidebar').classList.remove('active'); $('#sidebarOverlay').classList.remove('active'); });
+
+function initMenuGroups(){
+  $$('.sb-group').forEach((g, i) => {
+    const h = g.querySelector('.sb-group-head'); if (!h) return;
+    const key = `menuGroup_${i}_collapsed`;
+    if (localStorage.getItem(key) === 'true') g.classList.add('collapsed');
+    h.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); g.classList.toggle('collapsed'); localStorage.setItem(key, g.classList.contains('collapsed')); });
+  });
+}
+function updateMenuForRole(role){
+  const admin = $('#adminMenu');
+  const wm = $('#withdrawalRequestsMenuItem');
+  if (role === 'admin'){ admin.style.display = 'block'; wm.style.display = 'none'; }
+  else { admin.style.display = 'none'; wm.style.display = 'flex'; }
+}
+function applyUserProfile(){
+  $('#sidebarUserName').textContent = currentUser.name;
+  $('#sidebarUserLogin').textContent = currentLogin;
+  $('#sidebarUserAvatar').textContent = currentUser.role === 'admin' ? 'A' : 'МС';
+  const wn = $('#welcomeName');
+  if (wn) wn.textContent = `Добро пожаловать, ${currentUser.role === 'admin' ? 'Администратор' : 'Саид'}`;
+  const pl = $('#profileLogin'); if (pl) pl.textContent = currentLogin;
+  const pn = $('#profileName'); if (pn) pn.textContent = currentUser.name;
+  const nn = $('#profileNickname'); if (nn && userData) nn.value = userData.userNickname;
+  const ks = $('#kycStatus'); if (ks && userData) ks.value = userData.kycStatus || 'Не пройдена';
+}
+
+function showPage(pageId){
+  $$('.page').forEach(p => p.classList.remove('active'));
+  $$('.sb-item').forEach(i => i.classList.remove('active'));
+  const p = document.getElementById(pageId + 'Page');
+  if (p) p.classList.add('active');
+  const it = document.querySelector(`.sb-item[data-page="${pageId}"]`);
+  if (it) it.classList.add('active');
+  localStorage.setItem('lastPage', pageId);
+
+  if (pageId === 'analytics') renderAnalytics();
+  if (pageId === 'withdrawalRequests') renderWithdrawalRequests();
+  if (pageId === 'adminUsers') renderAdminUsers();
+  if (pageId === 'adminRequests') renderAdminRequests();
+  if (pageId === 'profile') updateProfileDisplay();
+  if (pageId === 'dashboard'){ updateFrozenAccountWarning(); renderCryptoDashboard(); updateBalanceDisplay(); renderDashboardStats(); renderReferralBanner(); }
+  if (pageId === 'wallet') renderWallet();
+  if (pageId === 'addressBook') renderAddressBook();
+  if (pageId === 'history') renderHistory();
+  if (pageId === 'deposit') updateDepositPurpose();
+  if (pageId === 'support') renderChat();
+  if (pageId === 'referrals') renderReferrals();
+
+  if (window.innerWidth < 768){
+    burger.classList.remove('active');
+    $('#sidebar').classList.remove('active');
+    $('#sidebarOverlay').classList.remove('active');
+  }
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+window.showPage = showPage;
+$$('.sb-item').forEach(item => {
+  item.addEventListener('click', e => { e.preventDefault(); const p = item.getAttribute('data-page'); if (p) showPage(p); });
+});
+
+/* ==================== BALANCE ==================== */
+function updateBalanceDisplay(){
+  if (!userData) return;
+  const v3 = $('#balanceValueMain'), v4 = $('#balanceValueUsdMain');
+  const rubText = fmtRub(userData.balanceRub);
+  const usdText = '≈ ' + fmtUsd(userData.balanceRub / USD_RATE);
+  if (userData.balanceHidden){
+    if (v3){ v3.textContent = '••••••'; v3.classList.add('bo-hidden'); }
+    if (v4){ v4.textContent = '••••••'; v4.classList.add('bo-hidden'); }
+  } else {
+    if (v3){ v3.textContent = rubText; v3.classList.remove('bo-hidden'); }
+    if (v4){ v4.style.display = userData.showUsd ? '' : 'none'; v4.textContent = usdText; v4.classList.remove('bo-hidden'); }
+  }
+}
+window.toggleBalanceVisibility = function(){ if (!userData) return; userData.balanceHidden = !userData.balanceHidden; saveUserData(); updateBalanceDisplay(); updateProfileDisplay(); };
+
+/* ==================== PROFILE ==================== */
+function updateProfileDisplay(){
+  if (!userData) return;
+  const s1=$('#balanceHiddenStatus'), t1=$('#balanceToggle');
+  const s2=$('#accountFrozenStatus'), t2=$('#accountFreezeToggle');
+  if (s1) s1.textContent = userData.balanceHidden ? 'Скрыт' : 'Показан';
+  if (t1) t1.classList.toggle('active', userData.balanceHidden);
+  if (s2){ s2.textContent = userData.accountFrozen ? 'Заморожен' : 'Активен'; s2.style.color = userData.accountFrozen ? 'var(--danger)' : 'var(--accent)'; }
+  if (t2) t2.classList.toggle('active', userData.accountFrozen);
+  const tsu = $('#toggleShowUsd'); if (tsu) tsu.classList.toggle('active', userData.showUsd);
+  const ks = $('#kycStatus'); if (ks) ks.value = userData.kycStatus || 'Не пройдена';
+}
+document.addEventListener('click', e => {
+  if (e.target.id === 'balanceToggle' && userData){ userData.balanceHidden = !userData.balanceHidden; saveUserData(); updateBalanceDisplay(); updateProfileDisplay(); }
+  if (e.target.id === 'accountFreezeToggle' && userData){ userData.accountFrozen = !userData.accountFrozen; saveUserData(); updateProfileDisplay(); updateFrozenAccountWarning(); showToast(userData.accountFrozen ? 'Счет заморожен' : 'Счет разморожен', userData.accountFrozen ? 'warning' : 'success'); }
+  if (e.target.id === 'toggleShowUsd' && userData){ userData.showUsd = !userData.showUsd; saveUserData(); e.target.classList.toggle('active', userData.showUsd); updateBalanceDisplay(); }
+});
+function updateFrozenAccountWarning(){
+  if (!userData) return;
+  const w = $('#frozenAccountWarning');
+  if (w) w.style.display = userData.accountFrozen ? 'flex' : 'none';
+}
+
+/* ==================== SPARKLINE / CHART ==================== */
+function sparkline(seed, up=true){
+  const points = [];
+  let v = 50;
+  for (let i=0;i<20;i++){ const seedVal = Math.sin(seed * 7 + i * 0.8) * 12 + Math.sin(seed * 3 + i * 1.7) * 8; v += seedVal * (up ? -0.4 : 0.4) * ((i%2) ? 1 : -1) * 0.6; v = Math.max(15, Math.min(85, v)); points.push(v); }
+  const w = 200, h = 36, step = w / (points.length - 1);
+  const path = points.map((y, i) => `${i===0?'M':'L'}${(i*step).toFixed(1)},${y.toFixed(1)}`).join(' ');
+  const areaPath = path + ` L${w},${h} L0,${h} Z`;
+  const color = up ? '#00e0a4' : '#ff5c5c';
+  const fillColor = up ? 'rgba(0,224,164,.15)' : 'rgba(255,92,92,.15)';
+  return `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none"><path d="${areaPath}" fill="${fillColor}"/><path d="${path}" stroke="${color}" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+}
+
+/* ==================== ASSET CARD ==================== */
+function assetCard(a, onclick){
+  const usd = a.amount * a.usdPrice;
+  const rub = usd * USD_RATE;
+  const seed = a.code.charCodeAt(0) % 10;
+  const chg = (Math.sin(seed) * 12).toFixed(2);
+  const pos = parseFloat(chg) >= 0;
+  return `<div class="asset" ${onclick ? `onclick="${onclick}"` : ''}><div class="asset-top"><div class="asset-id"><div class="asset-symbol">${a.code[0]}</div><div class="asset-name"><div class="code">${a.code}</div><div class="full">${a.name}</div></div></div><div class="asset-amount"><div class="amt">${fmtNum(a.amount)}</div><div class="val">${fmtRub(rub)}</div></div></div><div class="asset-spark">${sparkline(seed, pos)}</div><div class="asset-bottom"><span class="asset-chg ${pos ? 'up' : 'down'}">${pos ? '▲' : '▼'} ${Math.abs(chg)}%</span><span class="asset-usd">≈ ${fmtUsd(usd)}</span></div></div>`;
+}
+function renderWallet(){ const c = $('#walletAssetsList'); if (!c) return; c.innerHTML = walletAssets.map(a => assetCard(a, '')).join(''); }
+function renderCryptoAssets(){ const c = $('#cryptoAssetsGrid'); if (!c) return; c.innerHTML = walletAssets.slice(0,6).map(a => assetCard(a, "showPage('wallet')")).join(''); }
+
+/* ==================== ТРАНЗАКЦИИ ==================== */
+function txIcon(cls){
+  if (cls === 'in')   return '<svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>';
+  if (cls === 'out')  return '<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>';
+  if (cls === 'swap') return '<svg viewBox="0 0 24 24"><path d="M7 16H3M3 16l4 4M3 16l4-4"/><path d="M17 8h4M21 8l-4-4M21 8l-4 4"/></svg>';
+  if (cls === 'ref')  return '<svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>';
+  return '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>';
+}
+function txRowHTML(t){
+  const statusCls = t.status === 'ok' ? 'ok' : t.status === 'progress' ? 'progress' : t.status === 'fail' ? 'fail' : 'wait';
+  const statusText = t.status === 'ok' ? 'Завершено' : t.status === 'progress' ? 'В пути' : t.status === 'fail' ? 'Ошибка' : 'Обработка';
+  const sign = (t.cls === 'in' || t.cls === 'ref') ? '+' : '−';
+  const posClass = (t.cls === 'in' || t.cls === 'ref') ? 'positive' : 'negative';
+  const amountStr = sign + fmtRub(t.rub || t.amount);
+  return `<div class="tx-row">
+    <div class="tx-left"><div class="tx-ic ${t.cls}">${txIcon(t.cls)}</div><div class="tx-info"><div class="tx-type">${escapeHtml(t.type)}</div><div class="tx-date">${formatDateTime(t.date)}${t.desc ? ' · ' + escapeHtml(t.desc) : ''}</div></div></div>
+    <div class="tx-right"><div class="tx-amt ${posClass}">${amountStr}</div><div class="tx-status ${statusCls}">${statusText}</div></div>
+  </div>`;
+}
+function renderCryptoTransactions(){
+  const c = $('#cryptoTransactionsList'); if (!c) return;
+  const txs = (userData.transactions || []).slice(0, 6);
+  if (!txs.length){ c.innerHTML = `<div class="empty">Операций пока нет</div>`; return; }
+  c.innerHTML = txs.map(txRowHTML).join('');
+}
+function renderHistory(){
+  const c = $('#historyList'); if (!c) return;
+  let txs = userData.transactions || [];
+  if (historyFilter !== 'all') txs = txs.filter(t => t.cls === historyFilter);
+  if (!txs.length){ c.innerHTML = `<div class="empty"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Нет операций</div>`; return; }
+  c.innerHTML = txs.map(txRowHTML).join('');
+}
+document.addEventListener('click', e => {
+  const btn = e.target.closest('#historyFilter button');
+  if (btn){
+    $$('#historyFilter button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    historyFilter = btn.dataset.filter;
+    renderHistory();
+  }
+});
+
+/* ==================== ДАШБОРД-СТАТИСТИКА ==================== */
+function renderDashboardStats(){
+  if (!userData) return;
+  const c = $('#dashboardStatsBar'); if (!c) return;
+  const an = userData.analytics || [];
+  const thisMonth = an[an.length-1] || { profit:0, trades:0, winRate:0 };
+  const prevMonth = an[an.length-2] || { profit:0 };
+  const growth = prevMonth.profit ? ((thisMonth.profit - prevMonth.profit) / prevMonth.profit * 100) : 0;
+  const activeAssets = walletAssets.length;
+  const recentTx = (userData.transactions || []).filter(t => Date.now() - t.date < 24*60*60*1000).length;
+  const refEarnings = (userData.referrals || []).reduce((s,r)=>s+r.earned,0);
+
+  c.innerHTML = `
+    <div class="stat"><div class="stat-top"><div class="stat-ic green"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div><span class="stat-change ${growth<0?'down':''}">${growth>=0?'+':''}${growth.toFixed(1)}%</span></div><div class="stat-label">Доход за месяц</div><div class="stat-value positive">+${fmtRubShort(thisMonth.profit)}</div></div>
+    <div class="stat"><div class="stat-top"><div class="stat-ic blue"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div></div><div class="stat-label">Активных активов</div><div class="stat-value">${activeAssets}</div></div>
+    <div class="stat"><div class="stat-top"><div class="stat-ic amber"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div></div><div class="stat-label">Транзакций за 24ч</div><div class="stat-value">${recentTx}</div></div>
+    <div class="stat"><div class="stat-top"><div class="stat-ic purple"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div></div><div class="stat-label">Доход с рефералов</div><div class="stat-value positive">${fmtRubShort(refEarnings)}</div></div>
+  `;
+}
+function renderCryptoDashboard(){ renderCryptoAssets(); renderCryptoTransactions(); renderDashboardStats(); renderReferralBanner(); }
+function renderReferralBanner(){
+  const t = $('#refBannerTitle'), d = $('#refBannerDesc');
+  if (!userData || !t) return;
+  const count = (userData.referrals || []).length;
+  const earned = (userData.referrals || []).reduce((s,r)=>s+r.earned,0);
+  t.textContent = `Реферальная программа · ${count} ${count===1?'друг':count<5?'друга':'друзей'}`;
+  d.textContent = `Ваш доход: ${fmtRub(earned)} · Приглашайте друзей и получайте 5% с каждого пополнения.`;
+}
+
+/* ==================== АНАЛИТИКА ==================== */
+function renderAnalytics(){
+  if (!userData) return;
+  const c = $('#analyticsStatsBar');
+  const an = userData.analytics || [];
+  if (c){
+    const totalProfit = an.reduce((s,a)=>s+a.profit,0);
+    const totalTrades = an.reduce((s,a)=>s+a.trades,0);
+    const avgWin = an.length ? an.reduce((s,a)=>s+a.winRate,0)/an.length : 0;
+    const start = an[0]?.startBalance || 0;
+    const end = an[an.length-1]?.endBalance || 0;
+    const growth = start ? ((end - start) / start * 100) : 0;
+    c.innerHTML = `
+      <div class="stat"><div class="stat-top"><div class="stat-ic green"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg></div></div><div class="stat-label">Общий доход</div><div class="stat-value positive">+${fmtRubShort(totalProfit)}</div></div>
+      <div class="stat"><div class="stat-top"><div class="stat-ic blue"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div></div><div class="stat-label">Всего сделок</div><div class="stat-value">${totalTrades}</div></div>
+      <div class="stat"><div class="stat-top"><div class="stat-ic amber"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div></div><div class="stat-label">Средний винрейт</div><div class="stat-value">${avgWin.toFixed(0)}%</div></div>
+      <div class="stat"><div class="stat-top"><div class="stat-ic purple"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-6"/></svg></div><span class="stat-change">${growth>=0?'+':''}${growth.toFixed(1)}%</span></div><div class="stat-label">Общий рост капитала</div><div class="stat-value positive">${growth>=0?'+':''}${growth.toFixed(1)}%</div></div>
+    `;
+  }
+
+  const p = $('#analyticsPeriods');
+  if (p){
+    if (!an.length){ p.innerHTML = `<div class="empty">Нет данных</div>`; }
+    else {
+      p.innerHTML = [...an].reverse().map(m => {
+        const name = monthNames[m.month];
+        const isCurrent = m.month === new Date().getMonth() && m.year === new Date().getFullYear();
+        return `<div class="period">
+          <div class="period-head"><div class="period-title">${name} ${m.year}${isCurrent?' (текущий)':''}</div><div class="period-badge">${isCurrent?'Активен':'Завершён'}</div></div>
+          <div class="period-value">+${fmtRub(m.profit)}</div>
+          <div class="period-desc">${m.trades} сделок · винрейт ${m.winRate}% · лучшая сделка +${fmtRub(m.bestTrade)}<br>Баланс: ${fmtRubShort(m.startBalance)} → ${fmtRubShort(m.endBalance)}</div>
+        </div>`;
+      }).join('');
+    }
+  }
+
+  const chart = $('#analyticsChart');
+  if (chart && an.length){
+    const w = 800, h = 220, padX = 40, padY = 20;
+    const max = Math.max(...an.map(m=>m.profit));
+    const bw = (w - padX*2) / an.length;
+    const bars = an.map((m, i) => {
+      const bh = (m.profit / max) * (h - padY*2);
+      const x = padX + i*bw + bw*0.15;
+      const y = h - padY - bh;
+      const bwidth = bw*0.7;
+      const isLast = i === an.length-1;
+      return `<g class="chart-bar">
+        <rect x="${x}" y="${y}" width="${bwidth}" height="${bh}" rx="6" fill="url(#chartGrad${isLast?'Active':''})"/>
+        <text x="${x + bwidth/2}" y="${y - 6}" text-anchor="middle" fill="${isLast?'#00e0a4':'#8b919c'}" font-size="11" font-weight="700">+${(m.profit/1000).toFixed(0)}k</text>
+        <text x="${x + bwidth/2}" y="${h - 4}" text-anchor="middle" fill="#5a6069" font-size="11">${monthNames[m.month].slice(0,3)}</text>
+      </g>`;
+    }).join('');
+    chart.innerHTML = `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="rgba(0,224,164,.55)"/><stop offset="100%" stop-color="rgba(0,224,164,.1)"/></linearGradient>
+        <linearGradient id="chartGradActive" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#00e0a4"/><stop offset="100%" stop-color="#34d399"/></linearGradient>
+      </defs>
+      ${bars}
+    </svg>`;
+  }
+
+  const top = $('#analyticsTopTrades');
+  if (top){
+    const txs = (userData.transactions || []).filter(t => t.cls === 'in' || t.cls === 'swap').sort((a,b)=>b.rub-a.rub).slice(0,5);
+    if (!txs.length){ top.innerHTML = `<div class="empty">Нет данных</div>`; }
+    else { top.innerHTML = txs.map(txRowHTML).join(''); }
+  }
+}
+
+/* ==================== РЕФЕРАЛЫ ==================== */
+function renderReferrals(){
+  if (!userData) return;
+  const refs = userData.referrals || [];
+  const totalEarned = refs.reduce((s,r)=>s+r.earned,0);
+  const totalDeposits = refs.reduce((s,r)=>s+r.deposits,0);
+  const stats = $('#referralsStats');
+  if (stats){
+    stats.innerHTML = `
+      <div class="stat"><div class="stat-label">Приглашено друзей</div><div class="stat-value">${refs.length}</div></div>
+      <div class="stat"><div class="stat-label">Всего пополнений</div><div class="stat-value">${fmtRubShort(totalDeposits)}</div></div>
+      <div class="stat"><div class="stat-label">Ваш доход (5%)</div><div class="stat-value positive">${fmtRub(totalEarned)}</div></div>
+      <div class="stat"><div class="stat-label">Средний чек</div><div class="stat-value">${fmtRubShort(refs.length ? totalDeposits/refs.length : 0)}</div></div>
+    `;
+  }
+  const tbl = $('#referralsTableWrap');
+  if (tbl){
+    if (!refs.length){ tbl.innerHTML = `<div class="empty">Пока никого не пригласили</div>`; return; }
+    tbl.innerHTML = `<div style="overflow-x:auto"><table class="friends-table"><thead><tr><th>Друг</th><th>Дата регистрации</th><th>Пополнений</th><th>Ваш доход</th><th>Статус</th></tr></thead><tbody>${refs.map(r => `
+      <tr>
+        <td><div class="friend-name"><div class="friend-av">${r.name.split(' ').map(w=>w[0]).join('').slice(0,2)}</div><div><div>${escapeHtml(r.name)}</div><div style="font-size:11px;color:var(--text-3);font-family:var(--mono);margin-top:2px">@${escapeHtml(r.login)}</div></div></div></td>
+        <td>${formatDateTime(r.joinedAt).split(',')[0]}</td>
+        <td>${fmtRubShort(r.deposits)}</td>
+        <td class="friend-amount">+${fmtRub(r.earned)}</td>
+        <td><span class="tx-status ok">Активен</span></td>
+      </tr>`).join('')}</tbody></table></div>`;
+  }
+  // Обновить реферальную ссылку
+  const refInput = $('#referralLink');
+  if (refInput && userData) refInput.value = `${location.origin}${location.pathname}?ref=${userData.userNickname}`;
+}
+
+/* ==================== АДРЕСНАЯ КНИГА ==================== */
+function renderAddressBook(){
+  if (!userData) return;
+  const c = $('#addressBookList'); if (!c) return;
+  if (!userData.addressBook.length){ c.innerHTML = `<div class="empty"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Адресов пока нет</div>`; return; }
+  c.innerHTML = userData.addressBook.map(e => `<div style="padding:14px 0;border-bottom:1px solid var(--border)"><div style="font-weight:700;font-size:13.5px;margin-bottom:5px">${escapeHtml(e.label)}</div><div style="font-size:12.5px;color:var(--text-2);word-break:break-all;font-family:var(--mono)">${escapeHtml(e.value)}</div></div>`).join('');
+}
+
+/* ==================== ЧАТ ==================== */
+function renderChat(){
+  if (!userData) return;
+  const c = $('#chatMessages'); if (!c) return;
+  const hist = userData.chatHistory || [];
+  c.innerHTML = hist.map(m => {
+    const isUser = m.from === 'user';
+    const time = new Date(m.time);
+    const timeStr = `${String(time.getHours()).padStart(2,'0')}:${String(time.getMinutes()).padStart(2,'0')}`;
+    return `<div class="chat-msg ${isUser ? 'user' : 'support'}"><div class="chat-av">${isUser ? (userData.userNickname[0]||'Я').toUpperCase() : 'S'}</div><div class="chat-body"><div class="chat-name">${isUser ? 'Вы' : 'Поддержка Nebula Wallet'}</div><div class="chat-text">${escapeHtml(m.text)}</div><div class="chat-time">${timeStr}</div></div></div>`;
+  }).join('');
+  c.scrollTop = c.scrollHeight;
+}
+function supportAutoReply(text){
+  const t = text.toLowerCase();
+  if (t.includes('вывод') || t.includes('заявк')) return 'Заявки на вывод обрабатываются от 24 часов до 3 суток. Проверьте статус в разделе «Заявки на вывод».';
+  if (t.includes('пополн') || t.includes('зачисл') || t.includes('реквизит')) return 'Скопируйте реквизиты в разделе «Пополнить», переведите нужную сумму и подтвердите пополнение. Минимум — 1 000 ₽.';
+  if (t.includes('пароль') || t.includes('2fa') || t.includes('код')) return 'Никогда не сообщайте пароли и коды 2FA третьим лицам. Если подозреваете взлом — смените пароль и включите 2FA в разделе «Безопасность».';
+  if (t.includes('баланс')) return 'Баланс можно скрыть в профиле, а также пополнить через раздел «Пополнить».';
+  if (t.includes('реферал') || t.includes('друг')) return 'Ваша реферальная ссылка в разделе «Рефералы». Вы получаете 5% с каждого пополнения приглашённого друга.';
+  if (t.includes('спасибо') || t.includes('благодар')) return 'Рады помочь! Если возникнут ещё вопросы — обращайтесь.';
+  return 'Спасибо за обращение! Мы передали ваш вопрос специалисту. Ожидайте ответа в течение 2–4 часов.';
+}
+function sendChatMessage(){
+  if (!userData) return;
+  const input = $('#supportChatInput');
+  const text = input.value.trim();
+  if (!text) return;
+  if (!userData.chatHistory) userData.chatHistory = [];
+  userData.chatHistory.push({ id: Date.now(), from: 'user', text, time: Date.now() });
+  saveUserData();
+  input.value = '';
+  renderChat();
+  setTimeout(() => {
+    const reply = supportAutoReply(text);
+    userData.chatHistory.push({ id: Date.now()+1, from: 'support', text: reply, time: Date.now() });
+    saveUserData();
+    renderChat();
+  }, 900);
+}
+$('#supportChatSend')?.addEventListener('click', sendChatMessage);
+$('#supportChatInput')?.addEventListener('keypress', e => { if (e.key === 'Enter'){ e.preventDefault(); sendChatMessage(); } });
+
+/* ==================== SECRET ID ==================== */
+function ensureSecretId(){
+  if (!userData) return;
+  if (!userData.secretId){ userData.secretId = 'DV-' + Math.random().toString(36).slice(2,7).toUpperCase(); saveUserData(); }
+  const el = $('#secretIdValue'); if (el) el.value = userData.secretId;
+}
+
+/* ==================== COPY ==================== */
+window.copyToClipboard = function(text, btn){
+  const done = () => { const orig = btn.innerHTML; btn.innerHTML = '<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Скопировано'; btn.classList.add('copied'); setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('copied'); }, 1600); };
+  if (navigator.clipboard && window.isSecureContext){ navigator.clipboard.writeText(text).then(done).catch(done); }
+  else { const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch(e){} document.body.removeChild(ta); done(); }
+};
+
+/* ==================== DEPOSIT PURPOSE ==================== */
+function updateDepositPurpose(){
+  if (!userData) return;
+  const amt = $('#depositAmount'), p = $('#depositPurpose');
+  if (!amt || !p) return;
+  const apply = () => { const v = amt.value; p.textContent = v ? `Пополнение счета ${userData.userNickname} на сумму ${fmtRub(parseFloat(v))}` : `Пополнение счета ${userData.userNickname}`; };
+  amt.oninput = apply; apply();
+}
+
+/* ==================== ОПЕРАЦИИ ==================== */
+function addTransaction(tx){
+  if (!userData) return;
+  if (!userData.transactions) userData.transactions = [];
+  userData.transactions.unshift(tx);
+}
+
+$('#submitWithdrawalBtn')?.addEventListener('click', () => {
+  if (!userData) return;
+  if (userData.accountFrozen){ showAlert('Счет заморожен. Операции недоступны.','warning'); return; }
+  const amount = parseFloat($('#withdrawalAmount').value);
+  const fullName = $('#withdrawalFullName').value.trim();
+  const phone = $('#withdrawalPhone').value.trim();
+  const bank = $('#withdrawalBank').value;
+  const card = $('#withdrawalCard').value.trim();
+  if (!amount || amount < 1000){ showAlert('Минимальная сумма вывода: 1 000 ₽','warning'); return; }
+  if (amount > userData.balanceRub){ showAlert('Недостаточно средств','warning'); return; }
+  if (!fullName || !phone || !bank || !card){ showAlert('Заполните все поля','warning'); return; }
+  showModal('Подтверждение вывода', `Заявка на ${fmtRub(amount)} будет обработана от 24 часов до 3 суток.`, 'info',
+    `<div class="row"><span class="lbl">Сумма:</span><span class="val">${fmtRub(amount)}</span></div><div class="row"><span class="lbl">Банк:</span><span class="val">${bankNames[bank]||bank}</span></div><div class="row"><span class="lbl">Срок:</span><span class="val">24ч – 3 суток</span></div>`,
+    () => {
+      const now = Date.now();
+      userData.withdrawalRequests.unshift({ id: now, amount, fullName, phone, bank, bankName: bankNames[bank]||bank, card, createdAt: now, deadline: now + 72*60*60*1000, date: formatDateTime(now), status:'pending' });
+      addTransaction({ id: now+1, type:'Заявка на вывод', amount, rub: amount, status:'progress', cls:'out', desc:`${bankNames[bank]||bank} · ${card.slice(-4).padStart(card.length,'*')}`, date: now });
+      saveUserData();
+      ['withdrawalAmount','withdrawalFullName','withdrawalPhone','withdrawalCard'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+      showToast('Заявка создана. Срок зачисления: 24ч – 3 суток.','success','Заявка принята',6000);
+      showPage('withdrawalRequests');
+    });
+});
+
+$('#submitDepositBtn')?.addEventListener('click', () => {
+  if (!userData) return;
+  if (userData.accountFrozen){ showAlert('Счет заморожен','warning'); return; }
+  const amount = parseFloat($('#depositAmount').value);
+  const fullName = $('#depositFullName').value.trim();
+  const phone = $('#depositPhone').value.trim();
+  const bank = $('#depositBank').value;
+  const card = $('#depositCard').value.trim();
+  if (!amount || amount < 1000){ showAlert('Минимум 1 000 ₽','warning'); return; }
+  if (!fullName || !phone || !bank || !card){ showAlert('Заполните все поля','warning'); return; }
+  showModal('Подтверждение пополнения', `Пополнить на ${fmtRub(amount)}?`, 'info',
+    `<div class="row"><span class="lbl">Сумма:</span><span class="val">${fmtRub(amount)}</span></div><div class="row"><span class="lbl">Банк:</span><span class="val">${bankNames[bank]||bank}</span></div>`,
+    () => {
+      userData.balanceRub += amount;
+      addTransaction({ id: Date.now(), type:'Пополнение картой', amount, rub: amount, status:'ok', cls:'in', desc:`${bankNames[bank]||bank} · ${card.slice(-4).padStart(card.length,'*')}`, date: Date.now() });
+      saveUserData();
+      updateBalanceDisplay();
+      ['depositAmount','depositFullName','depositPhone','depositCard'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+      showToast('Заявка на пополнение создана','success');
+      showPage('dashboard');
+    });
+});
+
+/* ==================== ПЕРЕВОДЫ ==================== */
+const transferAmount = $('#transferAmount');
+transferAmount?.addEventListener('input', () => { const a = parseFloat(transferAmount.value) || 0; const f = a * 0.005; $('#transferFee').value = fmtRub(f); $('#transferTotal').value = fmtRub(a + f); });
+$('#submitTransferBtn')?.addEventListener('click', () => {
+  if (!userData) return;
+  if (userData.accountFrozen){ showAlert('Счет заморожен','warning'); return; }
+  const sid = $('#transferSecretId').value.trim();
+  const amount = parseFloat($('#transferAmount').value || '0');
+  const fee = amount * 0.005;
+  const total = amount + fee;
+  if (!sid || !amount || amount <= 0){ showToast('Введите ID и сумму','warning'); return; }
+  if (total > userData.balanceRub){ showToast('Недостаточно средств','error'); return; }
+  showModal('Подтверждение перевода','Введите код 2FA для подтверждения','info',
+    `<div class="row"><span class="lbl">Получатель:</span><span class="val">${escapeHtml(sid)}</span></div><div class="row"><span class="lbl">Сумма:</span><span class="val">${fmtRub(amount)}</span></div><div class="row"><span class="lbl">Комиссия:</span><span class="val">${fmtRub(fee)}</span></div><div class="row"><span class="lbl">Итого:</span><span class="val">${fmtRub(total)}</span></div><div style="margin-top:14px"><div style="font-size:12px;color:var(--text-2);margin-bottom:6px;text-align:left">Код 2FA</div><input type="password" id="transfer2FA" placeholder="••••••" autocomplete="one-time-code"></div>`,
+    () => {
+      const code = document.getElementById('transfer2FA')?.value.trim();
+      if (code !== currentUser.twoFa){ showToast('Неверный код 2FA','error'); return; }
+      userData.balanceRub -= total;
+      addTransaction({ id: Date.now(), type:'Внутренний перевод', amount, rub: amount, status:'ok', cls:'out', desc:`Получатель ${sid}`, date: Date.now() });
+      saveUserData();
+      updateBalanceDisplay();
+      ['transferSecretId','transferAmount','transferFee','transferTotal'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+      showToast(`Перевод ${fmtRub(amount)} выполнен`,'success');
+      showPage('dashboard');
+    });
+});
+
+/* ==================== ОБМЕН ==================== */
+const swapAmount = $('#swapAmount');
+swapAmount?.addEventListener('input', () => {
+  const v = parseFloat(swapAmount.value) || 0;
+  const rates = {'BTC-ETH':16.5,'BTC-USDT':65000,'ETH-BTC':0.06,'ETH-USDT':3500,'USDT-BTC':1/65000,'USDT-ETH':1/3500};
+  const key = `${$('#swapFromCurrency').value}-${$('#swapToCurrency').value}`;
+  const r = rates[key] || 1;
+  $('#swapResult').value = (v * r).toLocaleString('ru-RU',{maximumFractionDigits:8});
+});
+$('#swapFromCurrency')?.addEventListener('change', () => swapAmount?.dispatchEvent(new Event('input')));
+$('#swapToCurrency')?.addEventListener('change', () => swapAmount?.dispatchEvent(new Event('input')));
+$('#submitSwapBtn')?.addEventListener('click', () => {
+  const v = parseFloat($('#swapAmount').value || '0');
+  if (!v){ showToast('Введите сумму','warning'); return; }
+  const from = $('#swapFromCurrency').value, to = $('#swapToCurrency').value;
+  addTransaction({ id: Date.now(), type:`Обмен ${from} → ${to}`, amount: v, rub: v * (from === 'USDT' ? USD_RATE : 1), status:'ok', cls:'swap', desc:`${v} ${from} → ${to}`, date: Date.now() });
+  saveUserData();
+  showToast('Обмен выполнен','success');
+  $('#swapAmount').value = ''; $('#swapResult').value = '';
+});
+
+/* ==================== ПОДДЕРЖКА ==================== */
+window.showSupportCategory = function(cat){
+  const map = {deposit:'Пополнение', withdrawal:'Вывод', security:'Безопасность', other:'Другое'};
+  const sel = $('#supportCategory'); if (sel) sel.value = cat;
+  const top = $('#supportTopic'); if (top){ top.value = `Проблема с ${map[cat]||'сервисом'}`; top.focus(); }
+};
+window.toggleFaqItem = function(el){ el.classList.toggle('open'); };
+$('#clearSupportBtn')?.addEventListener('click', () => { $('#supportTopic').value = ''; $('#supportMessage').value = ''; $('#supportCategory').value = ''; });
+$('#submitSupportTicketBtn')?.addEventListener('click', () => {
+  const topic = $('#supportTopic').value.trim(), msg = $('#supportMessage').value.trim(), cat = $('#supportCategory').value;
+  if (!topic || !msg){ showToast('Заполните тему и описание','warning'); return; }
+  if (!cat){ showToast('Выберите категорию','warning'); return; }
+  showToast(`Обращение #${Math.floor(Math.random()*10000)} создано`,'success','Обращение создано',6000);
+  $('#supportTopic').value = ''; $('#supportMessage').value = ''; $('#supportCategory').value = '';
+});
+
+/* ==================== ЗАЯВКИ ==================== */
+const HOUR_MS = 60*60*1000;
+function getRequestStatus(r){
+  const now = Date.now();
+  if (r.status === 'cancelled' || r.status === 'completed') return r.status;
+  const start = r.createdAt || now;
+  const elapsed = now - start;
+  if (elapsed >= 72*HOUR_MS) return 'completed';
+  if (elapsed >= 24*HOUR_MS) return 'progress';
+  return 'pending';
+}
+function fmtDuration(ms){
+  if (ms <= 0) return '00:00:00';
+  const s = Math.floor(ms/1000);
+  const d = Math.floor(s/86400), h = Math.floor((s%86400)/3600), m = Math.floor((s%3600)/60), sec = s%60;
+  const p = n => String(n).padStart(2,'0');
+  if (d > 0) return `${d}д ${p(h)}:${p(m)}:${p(sec)}`;
+  return `${p(h)}:${p(m)}:${p(sec)}`;
+}
+function timerHTML(r){
+  const status = getRequestStatus(r);
+  const elapsed = Date.now() - (r.createdAt || Date.now());
+  const iconClock = '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>';
+  if (status === 'pending'){ const left = 24*HOUR_MS - elapsed; return `<div class="req-timer">${iconClock}До перехода в обработку: <b data-countdown="${left}">${fmtDuration(left)}</b></div>`; }
+  if (status === 'progress'){ const left = 72*HOUR_MS - elapsed; return `<div class="req-timer">${iconClock}Ожидаемое зачисление через: <b data-countdown="${left}">${fmtDuration(left)}</b></div>`; }
+  if (status === 'completed'){ return `<div class="req-timer done">${iconClock}Средства успешно зачислены на вашу карту</div>`; }
+  return '';
+}
+function requestCardHTML(r, actions=false){
+  const status = getRequestStatus(r);
+  const map = { pending:['pending','В обработке'], progress:['progress','Средства в пути'], completed:['completed','Зачислено'], cancelled:['cancelled','Отменена'] };
+  const [cls, text] = map[status] || map.pending;
+  return `<div class="req-item"><div class="req-item-head"><div class="req-item-id">Заявка №${r.id}</div><div class="req-item-status ${cls}">${text}</div></div><div class="req-item-amount"><div class="req-item-amount-label">Сумма вывода</div><div class="req-item-amount-value">${fmtRub(r.amount)}</div></div><div class="req-item-grid"><div class="req-item-cell"><span class="req-item-cell-label">Получатель</span><span class="req-item-cell-value">${escapeHtml(r.fullName)}</span></div><div class="req-item-cell"><span class="req-item-cell-label">Телефон</span><span class="req-item-cell-value">${escapeHtml(r.phone)}</span></div><div class="req-item-cell"><span class="req-item-cell-label">Банк</span><span class="req-item-cell-value">${escapeHtml(r.bankName)}</span></div><div class="req-item-cell"><span class="req-item-cell-label">Карта</span><span class="req-item-cell-value">${escapeHtml(r.card)}</span></div></div>${timerHTML(r)}<div class="req-item-foot">Создано: ${r.date}</div>${actions && status !== 'completed' && status !== 'cancelled' ? `<div class="req-item-actions"><button class="btn btn-sm btn-danger" onclick="cancelRequest(${r.id})">Отменить</button><button class="btn btn-sm btn-primary" onclick="approveRequest(${r.id})">Одобрить</button></div>` : ''}</div>`;
+}
+function tickTimers(){
+  $$('[data-countdown]').forEach(el => { let left = parseInt(el.getAttribute('data-countdown'), 10) - 1000; if (left < 0) left = 0; el.setAttribute('data-countdown', left); el.textContent = fmtDuration(left); });
+}
+setInterval(tickTimers, 1000);
+function renderWithdrawalRequests(){
+  if (!userData) return;
+  const c = $('#withdrawalRequestsList'); if (!c) return;
+  if (!userData.withdrawalRequests.length){ c.innerHTML = `<div class="empty"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Заявок пока нет</div>`; return; }
+  c.innerHTML = userData.withdrawalRequests.map(r => requestCardHTML(r, false)).join('');
+}
+
+/* ==================== АДМИН: ПОЛЬЗОВАТЕЛИ ==================== */
+function getAllUsers(){
+  const users = [];
+  Object.keys(USERS).forEach(login => {
+    if (USERS[login].role === 'admin') return;
+    const key = 'nebula_user_' + login;
+    const data = JSON.parse(localStorage.getItem(key) || 'null') || initUserData(login);
+    users.push({ login, ...USERS[login], data });
+  });
+  return users;
+}
+function renderAdminUsers(){
+  const c = $('#adminUsersList'); if (!c) return;
+  const users = getAllUsers();
+  if (!users.length){ c.innerHTML = `<div class="empty">Пользователей пока нет</div>`; return; }
+  c.innerHTML = users.map(u => {
+    const activeReqs = u.data.withdrawalRequests.filter(r => { const s = getRequestStatus(r); return s === 'pending' || s === 'progress'; }).length;
+    const frozen = u.data.accountFrozen;
+    const initials = (u.name || '?').split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
+    const refEarned = (u.data.referrals || []).reduce((s,r)=>s+r.earned,0);
+    return `<div class="req-item" style="margin-bottom:16px">
+      <div class="req-item-head">
+        <div style="display:flex;align-items:center;gap:12px"><div class="sb-avatar" style="width:46px;height:46px;font-size:15px">${initials}</div><div><div class="req-item-id">${escapeHtml(u.name)}</div><div style="font-size:12px;color:var(--text-2);font-family:var(--mono);margin-top:3px">@${escapeHtml(u.login)}</div></div></div>
+        <div class="req-item-status ${frozen ? 'cancelled' : 'completed'}">${frozen ? 'Заморожен' : 'Активен'}</div>
+      </div>
+      <div class="req-item-grid">
+        <div class="req-item-cell"><span class="req-item-cell-label">Баланс</span><span class="req-item-cell-value" style="font-size:16px;color:var(--accent)">${fmtRub(u.data.balanceRub)}</span></div>
+        <div class="req-item-cell"><span class="req-item-cell-label">Никнейм</span><span class="req-item-cell-value">${escapeHtml(u.data.userNickname || u.nickname)}</span></div>
+        <div class="req-item-cell"><span class="req-item-cell-label">Секретный ID</span><span class="req-item-cell-value">${escapeHtml(u.data.secretId || '—')}</span></div>
+        <div class="req-item-cell"><span class="req-item-cell-label">Реферальный доход</span><span class="req-item-cell-value">${fmtRubShort(refEarned)}</span></div>
+        <div class="req-item-cell"><span class="req-item-cell-label">Транзакций</span><span class="req-item-cell-value">${(u.data.transactions||[]).length}</span></div>
+        <div class="req-item-cell"><span class="req-item-cell-label">Заявок</span><span class="req-item-cell-value">${u.data.withdrawalRequests.length}${activeReqs ? ` · ${activeReqs} активн.` : ''}</span></div>
+      </div>
+      <div class="req-item-actions">
+        <button class="btn btn-sm btn-primary" onclick="openAdminBalance('${escapeHtml(u.login)}')">Управление</button>
+        <button class="btn btn-sm" onclick="adminResetUser('${escapeHtml(u.login)}')">Сбросить данные</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+window.openAdminBalance = function(login){
+  adminSelectedLogin = login;
+  const key = 'nebula_user_' + login;
+  const data = JSON.parse(localStorage.getItem(key) || 'null') || initUserData(login);
+  $('#adminSelectedUser').value = `${USERS[login].name} (@${login})`;
+  $('#adminUserBalance').value = fmtRub(data.balanceRub);
+  $('#adminBalanceSubtitle').textContent = `Управление балансом: ${USERS[login].name}`;
+  const s = $('#adminFrozenStatus'), t = $('#adminFreezeToggle');
+  if (s){ s.textContent = data.accountFrozen ? 'Заморожен' : 'Активен'; s.style.color = data.accountFrozen ? 'var(--danger)' : 'var(--accent)'; }
+  if (t) t.classList.toggle('active', data.accountFrozen);
+  renderAdminUserRequests(data);
+  showPage('adminBalance');
+};
+function renderAdminUserRequests(data){
+  const c = $('#adminUserRequestsList'); if (!c) return;
+  if (!data.withdrawalRequests.length){ c.innerHTML = `<div class="empty">Заявок нет</div>`; return; }
+  c.innerHTML = data.withdrawalRequests.map(r => requestCardHTML(r, true)).join('');
+}
+document.addEventListener('click', e => {
+  if (e.target.id === 'adminFreezeToggle' && adminSelectedLogin){
+    const key = 'nebula_user_' + adminSelectedLogin;
+    const data = JSON.parse(localStorage.getItem(key) || 'null') || initUserData(adminSelectedLogin);
+    data.accountFrozen = !data.accountFrozen;
+    saveAnyUser(adminSelectedLogin, data);
+    const s = $('#adminFrozenStatus');
+    s.textContent = data.accountFrozen ? 'Заморожен' : 'Активен';
+    s.style.color = data.accountFrozen ? 'var(--danger)' : 'var(--accent)';
+    e.target.classList.toggle('active', data.accountFrozen);
+    showToast(data.accountFrozen ? 'Пользователь заморожен' : 'Пользователь разморожен', 'success');
+    renderAdminUsers();
+  }
+});
+$('#submitAdminBalanceBtn')?.addEventListener('click', () => {
+  if (!adminSelectedLogin){ showAlert('Пользователь не выбран','warning'); return; }
+  const key = 'nebula_user_' + adminSelectedLogin;
+  const data = JSON.parse(localStorage.getItem(key) || 'null') || initUserData(adminSelectedLogin);
+  const action = $('#adminBalanceAction').value;
+  const amount = parseFloat($('#adminBalanceAmount').value);
+  if (!amount || amount <= 0){ showAlert('Введите сумму','warning'); return; }
+  let nb = data.balanceRub, txt = '';
+  if (action === 'set'){ nb = amount; txt = `установить ${fmtRub(amount)}`; }
+  if (action === 'add'){ nb = data.balanceRub + amount; txt = `добавить ${fmtRub(amount)}`; }
+  if (action === 'subtract'){ nb = data.balanceRub - amount; txt = `вычесть ${fmtRub(amount)}`; }
+  if (nb < 0){ showAlert('Баланс не может быть отрицательным','warning'); return; }
+  showModal('Изменение баланса', `Вы уверены, что хотите ${txt} для ${USERS[adminSelectedLogin].name}?`, 'warning',
+    `<div class="row"><span class="lbl">Текущий:</span><span class="val">${fmtRub(data.balanceRub)}</span></div><div class="row"><span class="lbl">Новый:</span><span class="val">${fmtRub(nb)}</span></div>`,
+    () => {
+      data.balanceRub = nb;
+      saveAnyUser(adminSelectedLogin, data);
+      $('#adminUserBalance').value = fmtRub(nb);
+      $('#adminBalanceAmount').value = '';
+      showToast('Баланс обновлён','success');
+      renderAdminUsers();
+    });
+});
+window.adminResetUser = function(login){
+  showModal('Сбросить данные пользователя?', `Все заявки, чат и настройки ${USERS[login].name} будут удалены. Баланс вернётся к исходному.`, 'warning', null,
+    () => {
+      localStorage.removeItem('nebula_user_' + login);
+      initUserData(login);
+      renderAdminUsers();
+      showToast('Данные пользователя сброшены','success');
+    });
+};
+window.approveRequest = function(id){
+  if (!adminSelectedLogin) return;
+  const key = 'nebula_user_' + adminSelectedLogin;
+  const data = JSON.parse(localStorage.getItem(key) || 'null') || initUserData(adminSelectedLogin);
+  const idx = data.withdrawalRequests.findIndex(r => r.id === id);
+  if (idx === -1) return;
+  const req = data.withdrawalRequests[idx];
+  showModal('Одобрение заявки', `Подтвердить вывод ${fmtRub(req.amount)}?`, 'warning', null,
+    () => {
+      if (data.balanceRub < req.amount){ showToast('Недостаточно средств','error'); return; }
+      data.balanceRub -= req.amount;
+      data.withdrawalRequests[idx].status = 'completed';
+      saveAnyUser(adminSelectedLogin, data);
+      $('#adminUserBalance').value = fmtRub(data.balanceRub);
+      renderAdminUserRequests(data);
+      renderAdminUsers();
+      showToast('Заявка одобрена, средства списаны','success');
+    });
+};
+window.cancelRequest = function(id){
+  if (!adminSelectedLogin) return;
+  const key = 'nebula_user_' + adminSelectedLogin;
+  const data = JSON.parse(localStorage.getItem(key) || 'null') || initUserData(adminSelectedLogin);
+  showModal('Отмена заявки','Вы уверены?','warning',null,
+    () => {
+      data.withdrawalRequests = data.withdrawalRequests.map(r => r.id === id ? {...r, status:'cancelled'} : r);
+      saveAnyUser(adminSelectedLogin, data);
+      renderAdminUserRequests(data);
+      renderAdminUsers();
+      showToast('Заявка отменена','success');
+    });
+};
+function renderAdminRequests(){
+  const c = $('#adminRequestsList'); if (!c) return;
+  const users = getAllUsers();
+  const allReqs = [];
+  users.forEach(u => u.data.withdrawalRequests.forEach(r => allReqs.push({ ...r, _user: u })));
+  allReqs.sort((a,b) => b.id - a.id);
+  if (!allReqs.length){ c.innerHTML = `<div class="empty">Нет заявок</div>`; return; }
+  c.innerHTML = allReqs.map(r => {
+    const u = r._user;
+    const status = getRequestStatus(r);
+    const map = { pending:['pending','В обработке'], progress:['progress','Средства в пути'], completed:['completed','Зачислено'], cancelled:['cancelled','Отменена'] };
+    const [cls, text] = map[status] || map.pending;
+    return `<div class="req-item"><div class="req-item-head"><div><div class="req-item-id">Заявка №${r.id}</div><div style="font-size:12px;color:var(--text-2);margin-top:4px">От: <strong>${escapeHtml(u.name)}</strong> (@${escapeHtml(u.login)})</div></div><div class="req-item-status ${cls}">${text}</div></div><div class="req-item-amount"><div class="req-item-amount-label">Сумма вывода</div><div class="req-item-amount-value">${fmtRub(r.amount)}</div></div><div class="req-item-grid"><div class="req-item-cell"><span class="req-item-cell-label">Получатель</span><span class="req-item-cell-value">${escapeHtml(r.fullName)}</span></div><div class="req-item-cell"><span class="req-item-cell-label">Телефон</span><span class="req-item-cell-value">${escapeHtml(r.phone)}</span></div><div class="req-item-cell"><span class="req-item-cell-label">Банк</span><span class="req-item-cell-value">${escapeHtml(r.bankName)}</span></div><div class="req-item-cell"><span class="req-item-cell-label">Карта</span><span class="req-item-cell-value">${escapeHtml(r.card)}</span></div></div><div class="req-item-foot">Создано: ${r.date}</div>${status !== 'completed' && status !== 'cancelled' ? `<div class="req-item-actions"><button class="btn btn-sm" onclick="openAdminBalance('${escapeHtml(u.login)}')">К пользователю</button></div>` : ''}</div>`;
+  }).join('');
+}
+
+/* ==================== ПРОФИЛЬ / НАСТРОЙКИ ==================== */
+$('#saveNicknameBtn')?.addEventListener('click', () => { if (!userData) return; const n = $('#profileNickname').value.trim(); if (n.length < 3){ showAlert('Никнейм минимум 3 символа','warning'); return; } userData.userNickname = n; saveUserData(); showToast('Никнейм сохранён','success'); });
+$('#copySecretIdBtn')?.addEventListener('click', () => { const v = $('#secretIdValue')?.value || ''; if (v) copyToClipboard(v, $('#copySecretIdBtn')); });
+$('#regenerateSecretIdBtn')?.addEventListener('click', () => { if (!userData) return; userData.secretId = 'DV-' + Math.random().toString(36).slice(2,7).toUpperCase(); saveUserData(); ensureSecretId(); showToast('ID изменён','success'); });
+$('#addAddressBtn')?.addEventListener('click', () => {
+  if (!userData) return;
+  const l = $('#addressLabel').value.trim(), v = $('#addressValue').value.trim();
+  if (!l || !v){ showAlert('Заполните все поля','warning'); return; }
+  userData.addressBook.push({label:l, value:v});
+  saveUserData();
+  renderAddressBook();
+  $('#addressLabel').value = ''; $('#addressValue').value = '';
+  showToast('Адрес добавлен','success');
+});
+$('#submitKycBtn')?.addEventListener('click', () => { if (!userData) return; userData.kycStatus = 'На проверке'; saveUserData(); $('#kycStatus').value = 'На проверке'; showToast('Заявка на KYC отправлена','success'); });
+$('#saveSettingsBtn')?.addEventListener('click', () => { if (!userData) return; saveUserData(); updateBalanceDisplay(); showToast('Настройки сохранены','success'); });
+$('#copyReferralLinkBtn')?.addEventListener('click', () => { const el = $('#referralLink'); if (el && el.value) copyToClipboard(el.value, $('#copyReferralLinkBtn')); });
+$('#changePasswordBtn')?.addEventListener('click', () => showToast('Смена пароля доступна в службе поддержки','info'));
+
+(function(){
+  const t = $('#twoFaToggle'), s = $('#twoFaStatus'); if (!t || !s) return;
+  let enabled = localStorage.getItem('twoFaEnabled') === 'true';
+  const upd = () => { s.textContent = enabled ? 'Включена' : 'Отключена'; s.style.color = enabled ? 'var(--accent)' : 'var(--text-2)'; t.classList.toggle('active', enabled); };
+  upd();
+  t.addEventListener('click', () => { enabled = !enabled; localStorage.setItem('twoFaEnabled', enabled); upd(); });
+})();
+
+/* ==================== УВЕДОМЛЕНИЯ ==================== */
+$('#notificationBtn')?.addEventListener('click', () => {
+  if (!userData) return;
+  const p = userData.withdrawalRequests.filter(r => { const s = getRequestStatus(r); return s === 'pending' || s === 'progress'; }).length;
+  const refs = (userData.referrals || []).length;
+  const parts = [];
+  if (p) parts.push(`${p} заявок в обработке`);
+  if (refs) parts.push(`${refs} приглашённых друзей`);
+  showToast(parts.length ? parts.join(' · ') : 'Новых уведомлений нет','info','Уведомления',5000);
+});
+
+/* ==================== INIT ==================== */
+function updateMonthNames(){
+  const now = new Date();
+  $$('[data-month-placeholder]').forEach(el => {
+    const k = el.getAttribute('data-month-placeholder');
+    if (k === 'currentMonth') el.textContent = `Этот месяц (${monthNames[now.getMonth()]})`;
+    if (k === 'twoMonthsAgo') el.textContent = `2 месяца назад (${monthNames[(now.getMonth()-2+12)%12]})`;
+  });
+}
+function checkAuth(){
+  const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+  const login = localStorage.getItem('currentUserLogin');
+  if (isLoggedIn && login && USERS[login]){
+    currentLogin = login;
+    currentUser = { login, ...USERS[login] };
+    userData = initUserData(currentLogin);
+    loginPage.style.display = 'none';
+    app.classList.add('active');
+    applyUserProfile();
+    updateMenuForRole(currentUser.role);
+    updateMonthNames();
+    ensureSecretId();
+    const lastPage = localStorage.getItem('lastPage') || 'dashboard';
+    const isAdminPage = lastPage === 'adminRequests' || lastPage === 'adminUsers' || lastPage === 'adminBalance';
+    const safePage = (currentUser.role !== 'admin' && isAdminPage) ? 'dashboard' : lastPage;
+    showPage(safePage);
+  } else {
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('currentUserLogin');
+  }
+}
+(function initAll(){ initMenuGroups(); updateMonthNames(); checkAuth(); })();
+</script>
+</body>
+</html>
