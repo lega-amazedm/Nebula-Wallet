@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="ru">
+<html lang="ru" data-mode="admin">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Nebula Wallet — Личный кабинет</title>
+<title>Nebula Admin — Панель управления</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -19,22 +19,22 @@
     <div class="login-hero">
       <div class="login-brand">
         <div class="login-brand-mark"><svg viewBox="0 0 32 32"><use href="#nebulaLogo"/></svg></div>
-        <div class="login-brand-text"><h2 class="wm">Nebula<b>Wallet</b></h2><p>Crypto Terminal</p></div>
+        <div class="login-brand-text"><h2 class="wm">Nebula<b>Admin</b></h2><p>Admin Console</p></div>
       </div>
       <div class="login-hero-body">
-        <div class="login-eyebrow"><span class="dot"></span>Система активна</div>
-        <h1>Ваш капитал<br><em>под контролем</em></h1>
-        <p class="login-hero-desc">Строгий интерфейс, точные данные, безопасные операции. Всё, что нужно для управления криптоактивами.</p>
+        <div class="login-eyebrow"><span class="dot"></span>Закрытая зона</div>
+        <h1>Центр<br><em>управления</em></h1>
+        <p class="login-hero-desc">Доступ только для администраторов. Пользователи, балансы и заявки на вывод — в одном месте.</p>
       </div>
       <div class="login-features">
-        <div class="login-feature"><div class="login-feature-ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><span>Защита 2FA и шифрование данных</span></div>
-        <div class="login-feature"><div class="login-feature-ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><span>6 криптовалют и мгновенные обмены</span></div>
-        <div class="login-feature"><div class="login-feature-ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><span>Поддержка 24/7 и аналитика онлайн</span></div>
+        <div class="login-feature"><div class="login-feature-ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><span>Отдельный вход с проверкой 2FA</span></div>
+        <div class="login-feature"><div class="login-feature-ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><span>Пользователи, балансы и заморозка счетов</span></div>
+        <div class="login-feature"><div class="login-feature-ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><span>Все заявки на вывод в одном списке</span></div>
       </div>
     </div>
     <div class="login-form-side">
       <div class="login-step active" id="loginStep1">
-        <div class="login-form-head"><h3>Вход в систему</h3><p>Введите логин и пароль</p></div>
+        <div class="login-form-head"><h3>Вход для администратора</h3><p>Введите данные администратора</p></div>
         <form class="login-fields" id="loginFormStep1">
           <div class="lf-field"><label for="loginUsername">Логин</label><div class="lf-input-wrap"><input type="text" id="loginUsername" placeholder="Введите логин" required autocomplete="username"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div></div>
           <div class="lf-field"><label for="loginPassword">Пароль</label><div class="lf-input-wrap"><input type="password" id="loginPassword" placeholder="Введите пароль" required autocomplete="current-password"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><button type="button" class="lf-eye" id="togglePw" aria-label="Показать пароль"><svg viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></button></div></div>
@@ -64,7 +64,7 @@
         <button class="menu-btn" id="burgerBtn" aria-label="Меню"><span></span><span></span><span></span></button>
         <div class="brand">
           <div class="brand-mark"><svg viewBox="0 0 32 32"><use href="#nebulaLogo"/></svg></div>
-          <span class="wm">Nebula<b>Wallet</b></span>
+          <span class="wm">Nebula<b>Admin</b></span><span class="adm-pill">Admin</span>
         </div>
       </div>
       <div class="topbar-right">
@@ -80,29 +80,7 @@
       <div class="sb-avatar" id="sidebarUserAvatar">МС</div>
       <div class="sb-user-info"><h3 id="sidebarUserName">Мирзабеков Саид</h3><p id="sidebarUserLogin">saidik05</p></div>
     </div>
-    <nav class="sb-menu">
-      <div class="sb-group">
-        <div class="sb-group-head">Обзор</div>
-        <a class="sb-item active" data-page="dashboard"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg><span>Главная</span></a>
-        <a class="sb-item" data-page="wallet"><svg viewBox="0 0 24 24"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg><span>Кошелек</span></a>
-      </div>
-      <div class="sb-group">
-        <div class="sb-group-head">Финансы</div>
-        <a class="sb-item" data-page="deposit"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg><span>Пополнить</span></a>
-        <a class="sb-item" data-page="withdrawal"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg><span>Вывести</span></a>
-        <a class="sb-item" data-page="transfers"><svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5"/><path d="M21 12H3"/></svg><span>Переводы</span></a>
-        <a class="sb-item" data-page="swap"><svg viewBox="0 0 24 24"><path d="M7 16H3M3 16l4 4M3 16l4-4"/><path d="M17 8h4M21 8l-4-4M21 8l-4 4"/></svg><span>Обменник</span></a>
-      </div>
-      <div class="sb-group">
-        <div class="sb-group-head">Сервис</div>
-        <a class="sb-item" data-page="referrals"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg><span>Рефералы</span></a>
-        <a class="sb-item" data-page="analytics"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-6"/></svg><span>Аналитика</span></a>
-        <a class="sb-item" data-page="history"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span>История</span></a>
-        <a class="sb-item" data-page="support"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Поддержка</span></a>
-        <a class="sb-item" data-page="profile"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Профиль</span></a>
-      </div>
-      <a class="sb-item" data-page="withdrawalRequests" id="withdrawalRequestsMenuItem" style="display:none"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>Заявки на вывод</span></a>
-    </nav>
+    <nav class="sb-menu"><div class="sb-group"><div class="sb-group-head">Обзор</div><a class="sb-item active" data-page="adminOverview"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg><span>Центр управления</span></a></div><div class="sb-group"><div class="sb-group-head">Управление</div><a class="sb-item" data-page="adminUsers"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg><span>Пользователи</span></a><a class="sb-item" data-page="adminRequests"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span>Все заявки</span></a></div></nav>
   </aside>
 
   <!-- DASHBOARD -->
@@ -139,7 +117,6 @@
           <circle cx="400" cy="22" r="8" fill="rgba(0,224,164,.25)"><animate attributeName="r" values="8;14;8" dur="2s" repeatCount="indefinite"/><animate attributeName="opacity" values=".6;0;.6" dur="2s" repeatCount="indefinite"/></circle>
         </svg>
       </div>
-      <div class="bo-meta" id="balanceMeta"></div>
     </div>
 
     <div class="stats-bar" id="dashboardStatsBar"></div>
@@ -259,13 +236,11 @@
   <!-- HISTORY -->
   <div class="page" id="historyPage">
     <div class="welcome"><div class="welcome-text"><h1>История операций</h1><p>Полный список транзакций</p></div></div>
-    <div class="stats-bar" id="historySummary"></div>
     <div class="tx-filter" id="historyFilter">
       <button class="active" data-filter="all">Все</button>
       <button data-filter="in">Пополнения</button>
       <button data-filter="out">Выводы</button>
       <button data-filter="swap">Обмены</button>
-      <button data-filter="deal">Сделки</button>
       <button data-filter="ref">Реферальные</button>
     </div>
     <div class="tx-list" id="historyList"></div>
@@ -460,7 +435,45 @@
   </div>
 
   <!-- ADMIN USERS -->
-  
+  <div class="page" id="adminOverviewPage"><div class="welcome"><div class="welcome-text"><h1>Центр управления</h1><p>Сводка по пользователям и заявкам</p></div><div class="welcome-actions"><button class="btn" onclick="showPage('adminUsers')">Пользователи</button><button class="btn btn-primary" onclick="showPage('adminRequests')">Все заявки</button></div></div><div class="stats-bar" id="adminStats"></div><div class="panel"><div class="panel-head"><h2>Заявки в обработке</h2><p>Последние заявки, которые ждут решения</p></div><div id="adminOverviewRequests"></div></div></div>
+
+  <div class="page" id="adminUsersPage">
+    <div class="welcome"><div class="welcome-text"><h1>Пользователи</h1><p>Управление аккаунтами клиентов</p></div></div>
+    <div class="panel"><div class="panel-head"><h2>Новый пользователь</h2><p>Создайте аккаунт для входа на сайт кошелька</p></div><div class="form-grid"><div class="field"><label for="nuName">ФИО</label><input id="nuName" placeholder="Иванов Иван" autocomplete="off"></div><div class="field"><label for="nuLogin">Логин</label><input id="nuLogin" placeholder="ivan05" autocomplete="off"></div><div class="field"><label for="nuPass">Пароль</label><input id="nuPass" autocomplete="off"></div><div class="field"><label for="nu2fa">Код 2FA</label><input id="nu2fa" autocomplete="off"></div></div><div class="form-actions"><button class="btn" id="genCredsBtn">Сгенерировать пароль и 2FA</button><button class="btn btn-primary" id="createUserBtn">Создать пользователя</button></div></div><div class="field" style="margin-bottom:16px"><input id="adminUserSearch" placeholder="Поиск по имени или логину"></div>
+    <div id="adminUsersList"></div>
+  </div>
+
+  <!-- ADMIN REQUESTS -->
+  <div class="page" id="adminRequestsPage">
+    <div class="welcome"><div class="welcome-text"><h1>Все заявки</h1><p>Заявки всех пользователей системы</p></div></div>
+    <div id="adminRequestsList"></div>
+  </div>
+
+  <!-- ADMIN BALANCE -->
+  <div class="page" id="adminBalancePage">
+    <div class="form-page">
+      <div class="panel">
+        <div class="panel-head"><h2>Управление пользователем</h2><p id="adminBalanceSubtitle">Изменение баланса</p></div>
+        <div class="form-grid">
+          <div class="field"><label>Пользователь</label><input type="text" id="adminSelectedUser" readonly></div>
+          <div class="field"><label>Текущий баланс</label><input type="text" id="adminUserBalance" readonly></div>
+          <div class="field"><label for="adminBalanceAction">Действие</label>
+            <select id="adminBalanceAction"><option value="add">Пополнить (добавить)</option><option value="subtract">Списать (вычесть)</option><option value="set">Установить точную сумму</option></select>
+          </div>
+          <div class="field"><label for="adminBalanceAmount">Сумма (₽)</label><input type="number" id="adminBalanceAmount" placeholder="0.00" step="0.01" min="0"></div>
+        </div>
+        <div class="p-row" style="margin-top:20px;border-top:1px solid var(--border);padding-top:20px">
+          <div><div class="p-row-label">Заморозить счёт</div><div class="p-row-sub">Блокирует операции пользователя до разморозки</div></div>
+          <div class="p-row-toggle"><span class="p-row-toggle-status" id="adminFrozenStatus">Активен</span><div class="toggle" id="adminFreezeToggle"></div></div>
+        </div>
+        <div class="form-actions"><button class="btn" onclick="showPage('adminUsers')">Назад</button><button class="btn btn-primary" id="submitAdminBalanceBtn">Применить</button></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h2>Заявки пользователя</h2><p>Все заявки на вывод выбранного пользователя</p></div>
+        <div id="adminUserRequestsList"></div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- MODAL -->
@@ -479,6 +492,7 @@
 <div class="toast-wrap" id="toastContainer"></div>
 
 <script src="config.js"></script>
+<script src="admin-config.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
