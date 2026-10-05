@@ -1,484 +1,276 @@
 <!doctype html>
-<html lang="ru">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Nebula Wallet — Личный кабинет</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%2032%2032%27%3E%3Cdefs%3E%3ClinearGradient%20id%3D%27g%27%20x1%3D%274%27%20y1%3D%274%27%20x2%3D%2728%27%20y2%3D%2728%27%20gradientUnits%3D%27userSpaceOnUse%27%3E%3Cstop%20offset%3D%270%27%20stop-color%3D%27%235eead4%27/%3E%3Cstop%20offset%3D%27.55%27%20stop-color%3D%27%2300e0a4%27/%3E%3Cstop%20offset%3D%271%27%20stop-color%3D%27%235b9dff%27/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width%3D%2732%27%20height%3D%2732%27%20rx%3D%278%27%20fill%3D%27%230a0d11%27/%3E%3Cg%20fill%3D%27none%27%20stroke%3D%27url%28%23g%29%27%20stroke-width%3D%271.7%27%3E%3Cellipse%20cx%3D%2716%27%20cy%3D%2716%27%20rx%3D%2711%27%20ry%3D%274.4%27%20transform%3D%27rotate%28-32%2016%2016%29%27/%3E%3Cellipse%20cx%3D%2716%27%20cy%3D%2716%27%20rx%3D%2711%27%20ry%3D%274.4%27%20transform%3D%27rotate%2832%2016%2016%29%27%20opacity%3D%27.5%27/%3E%3C/g%3E%3Ccircle%20cx%3D%2716%27%20cy%3D%2716%27%20r%3D%274.2%27%20fill%3D%27url%28%23g%29%27/%3E%3C/svg%3E">
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="nbG" x1="4" y1="4" x2="28" y2="28" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#5eead4"/><stop offset=".55" stop-color="#00e0a4"/><stop offset="1" stop-color="#5b9dff"/></linearGradient></defs><symbol id="nebulaLogo" viewBox="0 0 32 32"><g fill="none" stroke="url(#nbG)" stroke-width="1.7" stroke-linecap="round"><ellipse cx="16" cy="16" rx="13" ry="5.2" transform="rotate(-32 16 16)"/><ellipse cx="16" cy="16" rx="13" ry="5.2" transform="rotate(32 16 16)" opacity=".5"/></g><circle cx="16" cy="16" r="5" fill="url(#nbG)"/><circle cx="14.6" cy="14.6" r="1.4" fill="#fff" opacity=".55"/><circle cx="27" cy="8.8" r="1.8" fill="#5eead4"/><circle cx="5" cy="23.2" r="1.3" fill="#5b9dff"/></symbol></svg>
+<html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NebulaWallet — Crypto Terminal</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#07090c;--p:#0e1217;--p2:#141a21;--b:#212a34;--t:#e8edf2;--m:#7f8b99;--a:#2de2b4;--a2:#4f9dff;--r:#ff6b7a;--w:#f5b84a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;margin:0}body{background:var(--bg);color:var(--t);font:14px/1.5 Inter,system-ui,sans-serif;min-height:100vh}
+.mono,.n{font-family:'JetBrains Mono',monospace}
+button,input,select,textarea{font:inherit;color:inherit}
+.btn{background:var(--p2);border:1px solid var(--b);border-radius:9px;padding:10px 16px;cursor:pointer;transition:.15s;min-height:40px}
+.btn:hover{border-color:#34414f}.btn:active{transform:scale(.97)}.btn:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,.nav a:focus-visible{outline:2px solid var(--a2);outline-offset:2px}.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.pri{background:linear-gradient(135deg,#2de2b4,#4f9dff);color:#04110d;border:0;font-weight:600}
+.btn.dng{border-color:#5a2a31;color:var(--r)}
+input,select,textarea{width:100%;background:#0a0e12;border:1px solid var(--b);border-radius:9px;padding:10px 12px}
+label{display:block;color:var(--m);font-size:12.5px;margin-bottom:5px}.f{margin-bottom:14px}
+.card{background:var(--p);border:1px solid var(--b);border-radius:14px;padding:20px;margin-bottom:16px}
+.card h2{font-size:16px;margin-bottom:4px}.sub{color:var(--m);font-size:13px;margin-bottom:14px}
+.g2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}.g3{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.sp{justify-content:space-between}
+.up{color:var(--a)}.dn{color:var(--r)}.mu{color:var(--m)}
+.big{font:600 clamp(28px,6vw,44px)/1.1 'JetBrains Mono',monospace;letter-spacing:-.02em}
+.stat{background:var(--p2);border:1px solid var(--b);border-radius:12px;padding:14px}.stat b{display:block;font:600 19px 'JetBrains Mono',monospace;margin-top:2px}
+.pill{font-size:12px;padding:2px 9px;border-radius:99px;border:1px solid var(--b);background:var(--p2)}.ok{color:var(--a);border-color:#1b5b4b}.wa{color:var(--w);border-color:#5b4620}.er{color:var(--r);border-color:#5a2a31}
+/* login */
+#login{min-height:100vh;display:grid;grid-template-columns:1.1fr 1fr}
+.hero{padding:48px;display:flex;flex-direction:column;justify-content:space-between;background:radial-gradient(900px 500px at 10% 0,#0f2a2a,transparent),var(--p);border-right:1px solid var(--b)}
+.hero h1{font-size:clamp(32px,4.4vw,52px);line-height:1.08;letter-spacing:-.03em;margin:14px 0}.hero li{list-style:none;padding:6px 0;color:#c4cdd6}.hero li:before{content:"✓ ";color:var(--a)}
+.lf{padding:48px;display:flex;flex-direction:column;justify-content:center;max-width:460px;width:100%;margin:auto}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--a);box-shadow:0 0 0 4px #2de2b422;margin-right:8px}
+.err{color:var(--r);font-size:13px;min-height:20px;margin-bottom:8px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px}.logo svg{width:32px;height:32px}.logo small{display:block;font-weight:400;font-size:12px;color:var(--m)}
+/* app */
+#app{display:none}
+.top{position:sticky;top:0;z-index:20;height:58px;background:#0b0f13ee;backdrop-filter:blur(10px);border-bottom:1px solid var(--b);display:flex;align-items:center;justify-content:space-between;padding:0 16px}
+.side{position:fixed;top:58px;bottom:0;left:0;width:248px;background:var(--p);border-right:1px solid var(--b);overflow:auto;padding:14px;transition:transform .2s;z-index:15}
+.main{margin-left:248px;padding:24px;max-width:1240px;animation:in .2s}
+@keyframes in{from{opacity:0;transform:translateY(6px)}}
+.nav h4{font-size:12px;color:var(--m);font-weight:500;margin:14px 8px 4px}.nav a{display:block;padding:9px 12px;border-radius:9px;color:#b6c0cb;cursor:pointer;transition:.15s}.nav a:hover{background:var(--p2)}.nav a.on{background:#143a37;color:var(--a)}
+.ava{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#2de2b4,#4f9dff);display:grid;place-items:center;color:#04110d;font-weight:700;background-size:cover;background-position:center;flex:none}
+.burger{display:none}.bell{position:relative}.bdg{position:absolute;top:-4px;right:-4px;background:var(--r);color:#fff;border-radius:99px;font-size:10px;padding:1px 5px}
+#np{display:none;position:absolute;right:0;top:48px;width:min(340px,92vw);max-height:60vh;overflow:auto;background:var(--p);border:1px solid var(--b);border-radius:12px;padding:8px;box-shadow:0 20px 50px #000a}
+#np div{padding:9px;border-radius:8px;font-size:13px}#np .nw{background:#12202a}
+table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--b);white-space:nowrap}th{color:var(--m);font-weight:500;font-size:12px}.sc{overflow-x:auto}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}.chips .btn{padding:6px 12px;min-height:34px}.chips .btn.on{border-color:var(--a);color:var(--a)}
+.asset{display:flex;justify-content:space-between;gap:10px;padding:14px;background:var(--p2);border:1px solid var(--b);border-radius:12px}
+.warn{background:#2a1d0a;border:1px solid #5b4620;color:var(--w);border-radius:12px;padding:14px;margin-bottom:16px}
+.faq div.q{cursor:pointer;padding:12px 0;border-bottom:1px solid var(--b);display:flex;justify-content:space-between}.faq .a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .2s;color:var(--m)}.faq .a>div{overflow:hidden}.faq .a.o{grid-template-rows:1fr;padding:8px 0}
+.mo{position:fixed;inset:0;background:#000a;display:none;place-items:center;z-index:50;padding:16px}.mo.on{display:grid}.md{background:var(--p);border:1px solid var(--b);border-radius:16px;padding:22px;width:min(440px,100%);animation:in .15s}
+.kv{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--b);gap:12px}
+#ts{position:fixed;right:16px;bottom:16px;z-index:60;display:grid;gap:8px}#ts div{background:var(--p2);border:1px solid var(--b);border-left:3px solid var(--a);padding:11px 14px;border-radius:10px;animation:in .2s}#ts .e{border-left-color:var(--r)}
+.tg{position:relative;width:44px;height:24px;background:var(--b);border-radius:99px;cursor:pointer;border:0;flex:none}.tg:after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:.15s}.tg.on{background:var(--a)}.tg.on:after{left:23px}
+.empty{text-align:center;color:var(--m);padding:28px}
+@media(max-width:900px){#login{grid-template-columns:1fr}.hero{padding:28px}.lf{padding:28px}.side{transform:translateX(-100%)}.side.open{transform:none}.main{margin-left:0;padding:16px}.burger{display:inline-block}}
+body{background:radial-gradient(900px 520px at 88% -10%,#0f3d3c66,transparent),radial-gradient(700px 520px at -8% 35%,#11285a55,transparent),var(--bg);background-attachment:fixed}
+.card{background:linear-gradient(180deg,#141b22e6,#0d1217e6);box-shadow:0 1px 0 #ffffff0a inset,0 22px 44px -28px #000;transition:border-color .2s}.card:hover{border-color:#2d3a47}
+.hc{border-color:#1f5f55;background:radial-gradient(520px 240px at 92% 0,#2de2b426,transparent),linear-gradient(180deg,#131a21,#0d1217)}
+.top{background:#0a0e12cc}.side{background:#0a0e13}
+.nav a{display:flex;gap:11px;align-items:center}.nav a svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.nav a.on{background:linear-gradient(90deg,#17463f,#10252a);box-shadow:inset 2px 0 0 var(--a)}
+.btn.pri{box-shadow:0 10px 24px -12px #2de2b4}.btn.pri:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.stat,.asset{transition:.2s}.stat:hover,.asset:hover{transform:translateY(-2px);border-color:#2de2b44d}
+tr:hover td{background:#ffffff05}
+.main>*{animation:in .4s both}.main>*:nth-child(2){animation-delay:.06s}.main>*:nth-child(3){animation-delay:.12s}.main>*:nth-child(4){animation-delay:.18s}.main>*:nth-child(n+5){animation-delay:.24s}
+.hero{position:relative;overflow:hidden}.hero>*:not(.orb){position:relative;z-index:1}.orb{position:absolute;right:-140px;top:16%;width:460px;height:460px;opacity:.45;animation:spin 60s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+.lf>div{animation:in .35s both}
+.tgm{position:fixed;top:16px;right:16px;z-index:80;width:min(350px,92vw);background:#17212b;border:1px solid #2b5278;border-radius:14px;padding:12px 14px;display:flex;gap:12px;box-shadow:0 24px 60px #000c;cursor:pointer;animation:tgin .45s cubic-bezier(.2,.9,.3,1.2)}
+@keyframes tgin{from{opacity:0;transform:translateY(-24px) scale(.95)}}
+.tgm i{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#37aee2,#1e96c8);display:grid;place-items:center;font-style:normal;flex:none}
+.si{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:#2de2b41a;color:var(--a);margin-bottom:8px}.si svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.coin{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font:700 17px 'JetBrains Mono',monospace;color:#fff;background:radial-gradient(circle at 30% 25%,color-mix(in srgb,var(--c) 55%,#fff),var(--c));flex:none;box-shadow:0 8px 20px -8px var(--c)}
+.ph{margin-bottom:18px}.ph h1{font-size:28px;letter-spacing:-.02em}.ph p{color:var(--m)}
+.bars{display:flex;align-items:flex-end;gap:10px;height:180px}.bars>div{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end}.bars .pair{display:flex;align-items:flex-end;gap:4px;width:100%;justify-content:center}.bars i{display:block;width:40%;max-width:22px;border-radius:5px 5px 0 0;transition:height .6s}
+.leg{display:flex;align-items:center;gap:8px;font-size:13px;padding:4px 0}.leg b{width:10px;height:10px;border-radius:3px;display:inline-block}
+body{background-image:radial-gradient(#ffffff0a 1px,transparent 1px),radial-gradient(900px 520px at 88% -10%,#0f3d3c66,transparent),radial-gradient(700px 520px at -8% 35%,#11285a55,transparent);background-size:26px 26px,auto,auto;background-attachment:fixed}
+.card{position:relative;border-radius:16px;padding:22px}.card:after{content:"";position:absolute;left:22px;right:22px;top:0;height:1px;background:linear-gradient(90deg,transparent,#2de2b466,transparent)}.card h2{font-size:17px;font-weight:600;letter-spacing:-.01em}
+.big{background:linear-gradient(180deg,#fff,#9fecd8);-webkit-background-clip:text;background-clip:text;color:transparent;font-size:clamp(34px,6vw,58px)}
+.dg{display:grid;grid-template-columns:minmax(0,2fr) minmax(260px,1fr);gap:16px;margin-bottom:16px}.dg .card{margin:0}.g6{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+.ph{display:flex;gap:14px;align-items:center}.si.lg{width:50px;height:50px;border-radius:15px;margin:0;flex:none;background:linear-gradient(135deg,#2de2b433,#4f9dff33);border:1px solid #2de2b433}.si.lg svg{width:24px;height:24px}
+.tb{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:#ffffff0d;color:#9fb0c0;flex:none}.tb svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.tb-deposit,.tb-ref{color:var(--a);background:#2de2b41a}.tb-withdraw{color:var(--r);background:#ff6b7a1a}.tb-swap,.tb-transfer{color:var(--a2);background:#4f9dff1a}.tb-trade{color:#c084fc;background:#a855f71a}
+td,th{padding:13px 10px}input:focus,select:focus,textarea:focus{border-color:var(--a);box-shadow:0 0 0 3px #2de2b41f;outline:0}
+.sbf{margin-top:18px;padding:14px;border:1px solid #1f5a52;background:linear-gradient(135deg,#0f2a2a,#0d1a22);border-radius:12px;font-size:13px}
+.hero h1{background:linear-gradient(90deg,#fff,#9fe9d6);-webkit-background-clip:text;background-clip:text;color:transparent}.hero li{background:#ffffff08;border:1px solid var(--b);border-radius:11px;padding:11px 14px;margin-bottom:8px}
+.orb{right:-70px!important;top:auto!important;bottom:-130px;width:380px!important;height:380px!important;opacity:.2!important}
+.lf>div{background:linear-gradient(180deg,#141b22f2,#0d1217f2);border:1px solid var(--b);border-radius:22px;padding:34px;box-shadow:0 30px 70px -30px #000}
+@media(max-width:1100px){.dg{grid-template-columns:1fr}.g6{grid-template-columns:repeat(3,1fr)}}@media(max-width:560px){.g6{grid-template-columns:repeat(2,1fr)}.ph{gap:10px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#5eead4"/><stop offset="1" stop-color="#5b9dff"/></linearGradient><symbol id="lg" viewBox="0 0 32 32"><g fill="none" stroke="url(#g)" stroke-width="1.7"><ellipse cx="16" cy="16" rx="13" ry="5.2" transform="rotate(-32 16 16)"/><ellipse cx="16" cy="16" rx="13" ry="5.2" transform="rotate(32 16 16)" opacity=".5"/></g><circle cx="16" cy="16" r="4.5" fill="url(#g)"/></symbol></defs></svg>
 
-<!-- LOGIN -->
-<div class="login-wrap" id="loginPage">
-  <div class="login-card">
-    <div class="login-hero">
-      <div class="login-brand">
-        <div class="login-brand-mark"><svg viewBox="0 0 32 32"><use href="#nebulaLogo"/></svg></div>
-        <div class="login-brand-text"><h2 class="wm">Nebula<b>Wallet</b></h2><p>Crypto Terminal</p></div>
-      </div>
-      <div class="login-hero-body">
-        <div class="login-eyebrow"><span class="dot"></span>Система активна</div>
-        <h1>Ваш капитал<br><em>под контролем</em></h1>
-        <p class="login-hero-desc">Строгий интерфейс, точные данные, безопасные операции. Всё, что нужно для управления криптоактивами.</p>
-      </div>
-      <div class="login-features">
-        <div class="login-feature"><div class="login-feature-ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><span>Защита 2FA и шифрование данных</span></div>
-        <div class="login-feature"><div class="login-feature-ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><span>6 криптовалют и мгновенные обмены</span></div>
-        <div class="login-feature"><div class="login-feature-ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><span>Поддержка 24/7 и аналитика онлайн</span></div>
-      </div>
-    </div>
-    <div class="login-form-side">
-      <div class="login-step active" id="loginStep1">
-        <div class="login-form-head"><h3>Вход в систему</h3><p>Введите логин и пароль</p></div>
-        <form class="login-fields" id="loginFormStep1">
-          <div class="lf-field"><label for="loginUsername">Логин</label><div class="lf-input-wrap"><input type="text" id="loginUsername" placeholder="Введите логин" required autocomplete="username"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div></div>
-          <div class="lf-field"><label for="loginPassword">Пароль</label><div class="lf-input-wrap"><input type="password" id="loginPassword" placeholder="Введите пароль" required autocomplete="current-password"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><button type="button" class="lf-eye" id="togglePw" aria-label="Показать пароль"><svg viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></button></div></div>
-          <label class="lf-remember"><input type="checkbox" id="rememberLogin"><span>Запомнить логин</span></label>
-          <div class="lf-error" id="loginErrorStep1"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg><span>Неверный логин или пароль</span></div>
-          <button type="submit" class="lf-submit">Далее<svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
-        </form>
-      </div>
-      <div class="login-step" id="loginStep2">
-        <div class="login-form-head"><h3>Двухфакторная аутентификация</h3><p>Введите код 2FA для подтверждения входа</p></div>
-        <form class="login-fields" id="loginFormStep2">
-          <div class="lf-field"><label for="login2FA">Код 2FA</label><div class="lf-input-wrap"><input type="password" id="login2FA" placeholder="Введите код 2FA" required autocomplete="one-time-code"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div></div>
-          <div class="lf-error" id="loginErrorStep2"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg><span>Неверный код 2FA</span></div>
-          <button type="submit" class="lf-submit">Войти в кабинет<svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
-          <div class="lf-back" id="backToStep1"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Назад</div>
-        </form>
-      </div>
-    </div>
-  </div>
+<div id="login">
+ <div class="hero"><svg class="orb" viewBox="0 0 32 32"><use href="#lg"/></svg><div class="logo"><svg><use href="#lg"/></svg><div>NebulaWallet<small>Crypto Terminal</small></div></div>
+  <div><div class="mu"><span class="dot"></span>Система активна</div><h1>Ваш капитал под контролем</h1><p class="mu" style="max-width:440px">Строгий интерфейс, точные данные, безопасные операции. Всё для управления криптоактивами.</p></div>
+  <ul><li>Защита 2FA и шифрование данных</li><li>Криптовалюты и мгновенные обмены</li><li>Поддержка 24/7 и онлайн-аналитика</li></ul></div>
+ <div class="lf">
+  <div id="s1"><h2 style="font-size:24px">Вход в систему</h2><p class="sub">Введите логин и пароль от личного кабинета</p>
+   <div class="f"><label for="lu">Логин</label><input id="lu" autocomplete="username"></div>
+   <div class="f"><label for="lp">Пароль</label><div class="row" style="flex-wrap:nowrap"><input id="lp" type="password" autocomplete="current-password"><button class="btn" data-a="eye" type="button">Показать</button></div></div>
+   <label class="row" style="color:var(--t)"><input type="checkbox" id="lr" style="width:auto">Запомнить логин</label>
+   <div class="err" id="e1"></div><button class="btn pri" style="width:100%" data-a="step1">Далее</button></div>
+  <div id="s2" style="display:none"><h2 style="font-size:24px">Двухфакторная аутентификация</h2><p class="sub">Введите ваш код 2FA для подтверждения входа.</p>
+   <div class="f"><label for="lc">Код 2FA</label><input id="lc" type="password" autocomplete="off" class="mono"></div>
+   <div class="err" id="e2"></div><button class="btn pri" style="width:100%" data-a="step2">Войти в кабинет</button><button class="btn" style="width:100%;margin-top:10px;border:0;color:var(--m)" data-a="back">Назад</button></div>
+ </div></div>
+
+<div id="app">
+ <header class="top"><div class="row"><button class="btn burger" data-a="menu" aria-label="Меню">☰</button><div class="logo"><svg><use href="#lg"/></svg>NebulaWallet</div></div>
+  <div class="row bell"><button class="btn" data-a="bell" aria-label="Уведомления">🔔<span class="bdg" id="bd"></span></button><div id="np"></div><button class="btn" data-a="logout">Выйти</button></div></header>
+ <aside class="side" id="sd"><div class="row" style="padding:12px;margin-bottom:6px;border:1px solid var(--b);border-radius:14px;background:linear-gradient(135deg,#142029,#0e151b)"><div class="ava" id="av"></div><div><b id="un"></b><div class="pill ok" style="font-size:11px;display:block;width:max-content;margin-top:3px">Владелец</div></div></div><nav class="nav" id="nv"></nav><div class="sbf"><div class="row" style="gap:8px"><span class="dot" style="margin:0"></span><b>Защита активна</b></div><div class="mu" style="font-size:12px;margin-top:4px">2FA включена · серверы Online</div></div></aside>
+ <main class="main" id="mn"></main>
 </div>
+<div class="mo" id="mo"><div class="md" id="md"></div></div><div id="ts"></div>
 
-<!-- APP -->
-<div class="app" id="appContainer">
-  <header class="topbar">
-    <div class="topbar-inner">
-      <div class="topbar-left">
-        <button class="menu-btn" id="burgerBtn" aria-label="Меню"><span></span><span></span><span></span></button>
-        <div class="brand">
-          <div class="brand-mark"><svg viewBox="0 0 32 32"><use href="#nebulaLogo"/></svg></div>
-          <span class="wm">Nebula<b>Wallet</b></span>
-        </div>
-      </div>
-      <div class="topbar-right">
-        <button class="icon-btn" id="notificationBtn" aria-label="Уведомления"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span class="badge"></span></button>
-        <button class="icon-btn" id="logoutBtn" aria-label="Выход"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
-      </div>
-    </div>
-  </header>
-
-  <div class="sb-overlay" id="sidebarOverlay"></div>
-  <aside class="sidebar" id="sidebar">
-    <div class="sb-user">
-      <div class="sb-avatar" id="sidebarUserAvatar">МС</div>
-      <div class="sb-user-info"><h3 id="sidebarUserName">Мирзабеков Саид</h3><p id="sidebarUserLogin">saidik05</p></div>
-    </div>
-    <nav class="sb-menu">
-      <div class="sb-group">
-        <div class="sb-group-head">Обзор</div>
-        <a class="sb-item active" data-page="dashboard"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg><span>Главная</span></a>
-        <a class="sb-item" data-page="wallet"><svg viewBox="0 0 24 24"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg><span>Кошелек</span></a>
-      </div>
-      <div class="sb-group">
-        <div class="sb-group-head">Финансы</div>
-        <a class="sb-item" data-page="deposit"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg><span>Пополнить</span></a>
-        <a class="sb-item" data-page="withdrawal"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg><span>Вывести</span></a>
-        <a class="sb-item" data-page="transfers"><svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5"/><path d="M21 12H3"/></svg><span>Переводы</span></a>
-        <a class="sb-item" data-page="swap"><svg viewBox="0 0 24 24"><path d="M7 16H3M3 16l4 4M3 16l4-4"/><path d="M17 8h4M21 8l-4-4M21 8l-4 4"/></svg><span>Обменник</span></a>
-      </div>
-      <div class="sb-group">
-        <div class="sb-group-head">Сервис</div>
-        <a class="sb-item" data-page="referrals"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg><span>Рефералы</span></a>
-        <a class="sb-item" data-page="analytics"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-6"/></svg><span>Аналитика</span></a>
-        <a class="sb-item" data-page="history"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span>История</span></a>
-        <a class="sb-item" data-page="support"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Поддержка</span></a>
-        <a class="sb-item" data-page="profile"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Профиль</span></a>
-      </div>
-      <a class="sb-item" data-page="withdrawalRequests" id="withdrawalRequestsMenuItem" style="display:none"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>Заявки на вывод</span></a>
-    </nav>
-  </aside>
-
-  <!-- DASHBOARD -->
-  <div class="page active" id="dashboardPage">
-    <div class="welcome">
-      <div class="welcome-text"><h1 id="welcomeName">Добро пожаловать, Саид</h1><p>Ваши активы и последние операции</p></div>
-      <div class="welcome-actions">
-        <button class="btn" onclick="showPage('deposit')"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Пополнить</button>
-        <button class="btn" onclick="showPage('withdrawal')"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>Вывести</button>
-        <button class="btn btn-primary" onclick="showPage('swap')"><svg viewBox="0 0 24 24"><path d="M7 16H3M3 16l4 4M3 16l4-4"/><path d="M17 8h4M21 8l-4-4M21 8l-4 4"/></svg>Обменять</button>
-      </div>
-    </div>
-
-    <div id="frozenAccountWarning" class="alert alert-warning" style="display:none"><svg viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01"/><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg><div><strong>Счет заморожен.</strong> Разморозьте его в настройках профиля. <button class="btn btn-sm btn-ghost" style="margin-left:8px" onclick="showPage('profile')">Профиль</button></div></div>
-
-    <div class="balance-overview">
-      <div class="bo-top">
-        <div>
-          <div class="bo-label">Общий баланс <span class="live">live</span></div>
-          <div class="bo-amount" id="balanceValueMain" onclick="toggleBalanceVisibility()">—</div>
-          <div class="bo-usd" id="balanceValueUsdMain">—</div>
-        </div>
-        <div class="bo-trend" id="balanceTrend"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg><span>+12.5% / 24ч</span></div>
-      </div>
-      <div class="bo-chart">
-        <svg viewBox="0 0 400 80" preserveAspectRatio="none">
-          <defs>
-            <linearGradient id="cgArea" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="rgba(0,224,164,.3)"/><stop offset="100%" stop-color="rgba(0,224,164,0)"/></linearGradient>
-            <linearGradient id="cgLine" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#00e0a4"/><stop offset="100%" stop-color="#5eead4"/></linearGradient>
-          </defs>
-          <path d="M0,60 Q50,50 100,46 T200,38 T300,28 T400,22 L400,80 L0,80 Z" fill="url(#cgArea)"/>
-          <path d="M0,60 Q50,50 100,46 T200,38 T300,28 T400,22" stroke="url(#cgLine)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-          <circle cx="400" cy="22" r="4" fill="#00e0a4"/>
-          <circle cx="400" cy="22" r="8" fill="rgba(0,224,164,.25)"><animate attributeName="r" values="8;14;8" dur="2s" repeatCount="indefinite"/><animate attributeName="opacity" values=".6;0;.6" dur="2s" repeatCount="indefinite"/></circle>
-        </svg>
-      </div>
-      <div class="bo-meta" id="balanceMeta"></div>
-    </div>
-
-    <div class="stats-bar" id="dashboardStatsBar"></div>
-
-    <div class="section">
-      <div class="section-head"><h2><span class="mark"></span>Ваши активы</h2><span class="link" onclick="showPage('wallet')">Смотреть все<svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div>
-      <div class="grid-3" id="cryptoAssetsGrid"></div>
-    </div>
-
-    <div class="section">
-      <div class="section-head"><h2><span class="mark"></span>Последние операции</h2><span class="link" onclick="showPage('history')">Вся история<svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div>
-      <div class="tx-list" id="cryptoTransactionsList"></div>
-    </div>
-
-    <div class="section">
-      <div class="section-head"><h2><span class="mark"></span>Быстрые действия</h2></div>
-      <div class="quick-grid">
-        <button class="quick-btn" onclick="showPage('deposit')"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg><div>Пополнить</div></button>
-        <button class="quick-btn" onclick="showPage('withdrawal')"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg><div>Вывести</div></button>
-        <button class="quick-btn" onclick="showPage('history')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><div>История</div></button>
-        <button class="quick-btn" onclick="showPage('referrals')"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg><div>Рефералы</div></button>
-      </div>
-    </div>
-
-    <div class="section">
-      <div class="ref-banner">
-        <div><h2 id="refBannerTitle">Реферальная программа</h2><p id="refBannerDesc">Приглашайте друзей и получайте 5% с каждого их пополнения.</p></div>
-        <button class="btn btn-primary" onclick="showPage('referrals')">Пригласить друга</button>
-      </div>
-    </div>
-
-    <div class="section">
-      <div class="section-head"><h2><span class="mark"></span>Статус серверов</h2></div>
-      <div class="server-grid">
-        <div class="server"><span class="dot"></span>Финляндия<br><strong>Online</strong></div>
-        <div class="server"><span class="dot"></span>Германия<br><strong>Online</strong></div>
-        <div class="server"><span class="dot"></span>Нидерланды<br><strong>Online</strong></div>
-        <div class="server"><span class="dot"></span>Турция<br><strong>Online</strong></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- WITHDRAWAL -->
-  <div class="page" id="withdrawalPage">
-    <div class="form-page">
-      <div class="panel">
-        <div class="panel-head"><h2>Вывод средств</h2><p>Минимум 1 000 ₽ · Без комиссии · Срок зачисления: от 24 часов до 3 суток</p></div>
-        <div class="alert alert-info"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>Заявка обрабатывается от 24 часов до 3 суток. Отслеживайте статус на странице «Заявки на вывод».</span></div>
-        <div class="form-grid">
-          <div class="field"><label for="withdrawalAmount">Сумма (₽)</label><input type="number" id="withdrawalAmount" placeholder="Введите сумму" min="1000" step="0.01"></div>
-          <div class="field"><label for="withdrawalCurrency">Валюта</label><select id="withdrawalCurrency"><option value="RUB" selected>Рубли (RUB)</option><option value="USD">Доллары (USD)</option></select></div>
-          <div class="field"><label for="withdrawalFullName">ФИО получателя</label><input type="text" id="withdrawalFullName" placeholder="Иванов Иван Иванович"></div>
-          <div class="field"><label for="withdrawalPhone">Телефон</label><input type="tel" id="withdrawalPhone" placeholder="+7 999 123-45-67"></div>
-          <div class="field"><label for="withdrawalBank">Банк</label>
-            <select id="withdrawalBank">
-              <option value="OZON" selected>Озон Банк</option><option value="SBER">Сбербанк</option><option value="TINKOFF">Тинькофф</option><option value="ALFA">Альфа-Банк</option><option value="VTB">ВТБ</option><option value="RAIFFEISEN">Райффайзенбанк</option><option value="GAZPROM">Газпромбанк</option><option value="MTS">МТС Банк</option><option value="YANDEX">ЮMoney</option><option value="QIWI">QIWI</option>
-            </select>
-          </div>
-          <div class="field"><label for="withdrawalCard">Карта или счёт</label><input type="text" id="withdrawalCard" placeholder="0000 0000 0000 0000" maxlength="23"></div>
-        </div>
-        <div class="form-actions"><button class="btn" onclick="showPage('dashboard')">Отмена</button><button class="btn btn-primary" id="submitWithdrawalBtn">Вывести средства</button></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- DEPOSIT -->
-  <div class="page" id="depositPage">
-    <div class="form-page">
-      <div class="panel">
-        <div class="panel-head"><h2>Пополнение счета</h2><p>Минимум 1 000 ₽ · Без комиссии · Реквизиты ниже</p></div>
-        <div class="req-card">
-          <div class="req-head"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>Реквизиты для перевода</div>
-          <div class="req-row"><span class="req-label">Номер карты</span><div class="req-val"><code>4276 1845 2938 4751</code><button class="copy" onclick="copyToClipboard('4276 1845 2938 4751', this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Копировать</button></div></div>
-          <div class="req-row"><span class="req-label">Получатель</span><div class="req-val"><code>ИП Козлов Артем Викторович</code><button class="copy" onclick="copyToClipboard('ИП Козлов Артем Викторович', this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Копировать</button></div></div>
-          <div class="req-row"><span class="req-label">Назначение</span><div class="req-val"><code id="depositPurpose">Пополнение счета saidik05</code><button class="copy" onclick="copyToClipboard(document.getElementById('depositPurpose').innerText, this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Копировать</button></div></div>
-          <div class="req-row"><span class="req-label">БИК</span><div class="req-val"><code>044525593</code><button class="copy" onclick="copyToClipboard('044525593', this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Копировать</button></div></div>
-          <div class="req-row"><span class="req-label">ИНН</span><div class="req-val"><code>771234567890</code><button class="copy" onclick="copyToClipboard('771234567890', this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Копировать</button></div></div>
-          <div class="req-row"><span class="req-label">Расчетный счет</span><div class="req-val"><code>40817810123456789012</code><button class="copy" onclick="copyToClipboard('40817810123456789012', this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Копировать</button></div></div>
-        </div>
-        <div class="alert alert-warning"><svg viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01"/><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg><span>После перевода нажмите «Подтвердить пополнение» и укажите данные отправителя.</span></div>
-        <div class="form-grid">
-          <div class="field"><label for="depositAmount">Сумма (₽)</label><input type="number" id="depositAmount" placeholder="Введите сумму" min="1000" step="0.01"></div>
-          <div class="field"><label for="depositFullName">ФИО отправителя</label><input type="text" id="depositFullName" placeholder="Иванов Иван Иванович"></div>
-          <div class="field"><label for="depositPhone">Телефон</label><input type="tel" id="depositPhone" placeholder="+7 999 123-45-67"></div>
-          <div class="field"><label for="depositBank">Банк отправителя</label><select id="depositBank"><option value="OZON" selected>Озон Банк</option><option value="SBER">Сбербанк</option><option value="TINKOFF">Тинькофф</option><option value="ALFA">Альфа-Банк</option><option value="VTB">ВТБ</option></select></div>
-          <div class="field" style="grid-column:1/-1"><label for="depositCard">Номер карты отправителя</label><input type="text" id="depositCard" placeholder="0000 0000 0000 0000" maxlength="23"></div>
-        </div>
-        <div class="form-actions"><button class="btn" onclick="showPage('dashboard')">Отмена</button><button class="btn btn-primary" id="submitDepositBtn">Подтвердить пополнение</button></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- WALLET -->
-  <div class="page" id="walletPage">
-    <div class="welcome"><div class="welcome-text"><h1>Кошелек</h1><p>Все ваши криптоактивы в одном месте</p></div></div>
-    <div class="grid-3" id="walletAssetsList"></div>
-  </div>
-
-  <!-- ANALYTICS -->
-  <div class="page" id="analyticsPage">
-    <div class="welcome"><div class="welcome-text"><h1>Аналитика</h1><p>Статистика заработка и торговых сессий</p></div></div>
-    <div class="stats-bar" id="analyticsStatsBar"></div>
-    <div class="panel">
-      <div class="panel-head"><h2>Периоды активности</h2><p>Ваши торговые сессии по месяцам</p></div>
-      <div id="analyticsPeriods"></div>
-    </div>
-    <div class="chart-box">
-      <h3>График доходов · последние 6 месяцев</h3>
-      <div class="chart-real" id="analyticsChart"></div>
-    </div>
-    <div class="panel" style="margin-top:20px">
-      <div class="panel-head"><h2>Топ сделок за месяц</h2><p>Лучшие операции по прибыли</p></div>
-      <div class="tx-list" id="analyticsTopTrades"></div>
-    </div>
-  </div>
-
-  <!-- HISTORY -->
-  <div class="page" id="historyPage">
-    <div class="welcome"><div class="welcome-text"><h1>История операций</h1><p>Полный список транзакций</p></div></div>
-    <div class="stats-bar" id="historySummary"></div>
-    <div class="tx-filter" id="historyFilter">
-      <button class="active" data-filter="all">Все</button>
-      <button data-filter="in">Пополнения</button>
-      <button data-filter="out">Выводы</button>
-      <button data-filter="swap">Обмены</button>
-      <button data-filter="deal">Сделки</button>
-      <button data-filter="ref">Реферальные</button>
-    </div>
-    <div class="tx-list" id="historyList"></div>
-  </div>
-
-  <!-- TRANSFERS -->
-  <div class="page" id="transfersPage">
-    <div class="form-page">
-      <div class="panel">
-        <div class="panel-head"><h2>Внутренний перевод</h2><p>Мгновенно по секретному ID · Комиссия 0,5%</p></div>
-        <div class="form-grid">
-          <div class="field" style="grid-column:1/-1"><label for="transferSecretId">Секретный ID получателя</label><input type="text" id="transferSecretId" placeholder="Например, DV-7X9K"></div>
-          <div class="field"><label for="transferAmount">Сумма (₽)</label><input type="number" id="transferAmount" placeholder="Введите сумму" min="1" step="0.01"></div>
-          <div class="field"><label>Комиссия (0,5%)</label><input type="text" id="transferFee" readonly placeholder="0,00 ₽"></div>
-          <div class="field" style="grid-column:1/-1"><label>Итого к списанию</label><input type="text" id="transferTotal" readonly placeholder="0,00 ₽"></div>
-        </div>
-        <div class="form-actions"><button class="btn" onclick="showPage('dashboard')">Отмена</button><button class="btn btn-primary" id="submitTransferBtn">Перевести</button></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SWAP -->
-  <div class="page" id="swapPage">
-    <div class="form-page">
-      <div class="panel">
-        <div class="panel-head"><h2>Обменник</h2><p>Мгновенный обмен криптовалют</p></div>
-        <div class="form-grid">
-          <div class="field"><label for="swapFromCurrency">Отдаю</label><select id="swapFromCurrency"><option value="USDT">USDT</option><option value="BTC">BTC</option><option value="ETH">ETH</option></select></div>
-          <div class="field"><label for="swapToCurrency">Получаю</label><select id="swapToCurrency"><option value="BTC">BTC</option><option value="ETH">ETH</option><option value="USDT">USDT</option></select></div>
-          <div class="field"><label for="swapAmount">Сумма</label><input type="number" id="swapAmount" placeholder="Введите сумму" min="0" step="0.0001"></div>
-          <div class="field"><label for="swapResult">Результат (примерно)</label><input type="text" id="swapResult" readonly placeholder="0"></div>
-        </div>
-        <div class="form-actions"><button class="btn" onclick="showPage('dashboard')">Отмена</button><button class="btn btn-primary" id="submitSwapBtn">Обменять</button></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- PROFILE -->
-  <div class="page" id="profilePage">
-    <div class="form-page">
-      <div class="pf-hero"><div class="pf-cover"></div><div class="pf-main"><div class="pf-ava-wrap"><div class="pf-ava" id="pfAvatar"></div><button class="pf-ava-btn" id="pfAvatarBtn" title="Сменить фото" aria-label="Сменить фото"><svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></button><input type="file" id="pfAvatarInput" accept="image/*" hidden></div><div class="pf-id"><h2 id="pfName"></h2><div class="pf-login">@<span id="pfLogin"></span></div><div class="pf-chips"><span class="pf-chip" id="pfKyc"></span><span class="pf-chip" id="pf2fa"></span><span class="pf-chip" id="pfState"></span></div></div><div class="pf-actions"><button class="btn btn-sm" id="pfAvatarRemove">Удалить фото</button><button class="btn btn-sm btn-primary" onclick="showPage('security')">Безопасность</button></div></div><div class="pf-stats"><div class="pf-stat"><span>Баланс</span><b id="pfBal">—</b></div><div class="pf-stat"><span>Операций</span><b id="pfTx">0</b></div><div class="pf-stat"><span>Приглашено</span><b id="pfRef">0</b></div><div class="pf-stat"><span>В системе с</span><b id="pfSince">—</b></div><div class="pf-stat"><span>Прошлый вход</span><b id="pfLast">—</b></div><div class="pf-stat"><span>Секретный ID</span><b id="pfSecret">—</b></div></div></div>
-      <div class="panel">
-        <div class="panel-head"><h2>Личные данные</h2><p>Основная информация аккаунта</p></div>
-        <div class="p-row"><div class="p-row-label">Логин</div><div class="p-row-value" id="profileLogin">saidik05</div></div>
-        <div class="p-row"><div class="p-row-label">ФИО</div><div class="p-row-value" id="profileName">Мирзабеков Саид</div></div>
-        <div class="p-row"><div class="p-row-label">Никнейм</div><div class="row-split"><input type="text" id="profileNickname" value="saidik05" style="padding:9px 13px;background:var(--bg-elev);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;outline:none;width:200px"><button class="btn btn-sm btn-primary" id="saveNicknameBtn">Сохранить</button></div></div>
-      </div>
-      <div class="panel">
-        <div class="panel-head"><h2>Безопасность</h2><p>Настройки защиты аккаунта</p></div>
-        <div class="p-row"><div><div class="p-row-label">Скрыть баланс</div><div class="p-row-sub">Нажмите на баланс для быстрого скрытия</div></div><div class="p-row-toggle"><span class="p-row-toggle-status" id="balanceHiddenStatus">Показан</span><div class="toggle" id="balanceToggle"></div></div></div>
-        <div class="p-row"><div><div class="p-row-label">Заморозить счет</div><div class="p-row-sub">Блокирует операции до разморозки</div></div><div class="p-row-toggle"><span class="p-row-toggle-status" id="accountFrozenStatus">Активен</span><div class="toggle" id="accountFreezeToggle"></div></div></div>
-      </div>
-      <div class="panel">
-        <div class="panel-head"><h2>Разделы</h2></div>
-        <div class="p-row"><div class="p-row-label">Безопасность входа</div><button class="btn btn-sm" onclick="showPage('security')">Открыть</button></div>
-        <div class="p-row"><div class="p-row-label">Верификация (KYC)</div><button class="btn btn-sm" onclick="showPage('kyc')">Управлять</button></div>
-        <div class="p-row"><div class="p-row-label">Секретный ID</div><button class="btn btn-sm" onclick="showPage('secretId')">Посмотреть</button></div>
-        <div class="p-row"><div class="p-row-label">Адресная книга</div><button class="btn btn-sm" onclick="showPage('addressBook')">Открыть</button></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SECRET ID -->
-  <div class="page" id="secretIdPage">
-    <div class="form-page">
-      <div class="panel">
-        <div class="panel-head"><h2>Мой секретный ID</h2><p>Используйте его для получения переводов</p></div>
-        <div class="field"><label>ID</label><div class="row-split"><input type="text" id="secretIdValue" readonly style="flex:1;min-width:200px;font-family:var(--mono);font-weight:700;letter-spacing:3px;font-size:15px"><button class="btn btn-sm" id="copySecretIdBtn"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Копировать</button><button class="btn btn-sm btn-primary" id="regenerateSecretIdBtn">Сменить</button></div></div>
-        <div class="alert alert-info" style="margin-top:16px"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>Передавайте ID только доверенным получателям.</span></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SECURITY -->
-  <div class="page" id="securityPage">
-    <div class="form-page">
-      <div class="panel">
-        <div class="panel-head"><h2>Безопасность</h2><p>Пароль и двухфакторная аутентификация</p></div>
-        <div class="p-row"><div class="p-row-label">Смена пароля</div><button class="btn btn-sm" id="changePasswordBtn">Сменить</button></div>
-        <div class="p-row"><div><div class="p-row-label">Двухфакторная аутентификация</div><div class="p-row-sub">Дополнительная защита входа</div></div><div class="p-row-toggle"><span class="p-row-toggle-status" id="twoFaStatus">Отключена</span><div class="toggle" id="twoFaToggle"></div></div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- KYC -->
-  <div class="page" id="kycPage">
-    <div class="form-page">
-      <div class="panel">
-        <div class="panel-head"><h2>Верификация личности</h2><p>Загрузите документы для увеличения лимитов</p></div>
-        <div class="form-grid">
-          <div class="field" style="grid-column:1/-1"><label>Статус</label><input type="text" id="kycStatus" readonly value="Не пройдена"></div>
-          <div class="field"><label for="kycPassport">Фото паспорта</label><input type="file" id="kycPassport"></div>
-          <div class="field"><label for="kycSelfie">Селфи с документом</label><input type="file" id="kycSelfie"></div>
-        </div>
-        <div class="form-actions"><button class="btn" onclick="showPage('dashboard')">Позже</button><button class="btn btn-primary" id="submitKycBtn">Отправить</button></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ADDRESS BOOK -->
-  <div class="page" id="addressBookPage">
-    <div class="form-page">
-      <div class="panel">
-        <div class="panel-head"><h2>Адресная книга</h2><p>Сохраняйте часто используемые адреса</p></div>
-        <div class="form-grid">
-          <div class="field"><label for="addressLabel">Название</label><input type="text" id="addressLabel" placeholder="Например, Binance"></div>
-          <div class="field"><label for="addressValue">Адрес / ID</label><input type="text" id="addressValue" placeholder="Введите адрес"></div>
-        </div>
-        <div class="form-actions"><button class="btn btn-primary" id="addAddressBtn">Добавить адрес</button></div>
-      </div>
-      <div class="panel">
-        <div class="panel-head"><h2>Сохранённые адреса</h2></div>
-        <div id="addressBookList" class="empty">Адресов пока нет</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SETTINGS -->
-  <div class="page" id="settingsPage">
-    <div class="form-page">
-      <div class="panel">
-        <div class="panel-head"><h2>Настройки</h2><p>Персонализация интерфейса</p></div>
-        <div class="form-grid">
-          <div class="field"><label>Язык</label><select id="settingsLanguage"><option value="ru">Русский</option><option value="en">English</option></select></div>
-          <div class="field"><label>Валюта отображения</label><select id="settingsCurrency"><option value="RUB">RUB</option><option value="USD">USD</option><option value="EUR">EUR</option></select></div>
-        </div>
-        <div class="p-row" style="margin-top:20px"><div class="p-row-label">Показывать USD-эквивалент</div><div class="toggle" id="toggleShowUsd"></div></div>
-        <div class="form-actions"><button class="btn btn-primary" id="saveSettingsBtn">Сохранить</button></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- REFERRALS -->
-  <div class="page" id="referralsPage">
-    <div class="form-page">
-      <div class="panel">
-        <div class="panel-head"><h2>Партнёрская программа</h2><p>Приглашайте друзей и получайте 5% с каждого их пополнения</p></div>
-        <div class="field"><label>Ваша ссылка</label><div class="row-split"><input type="text" id="referralLink" readonly style="flex:1;min-width:200px"><button class="btn btn-sm btn-primary" id="copyReferralLinkBtn"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Копировать</button></div></div>
-        <div class="grid-2" style="margin-top:22px" id="referralsStats"></div>
-      </div>
-      <div class="panel">
-        <div class="panel-head"><h2>Приглашённые друзья</h2><p>Статистика по каждому рефералу</p></div>
-        <div id="referralsTableWrap"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SUPPORT -->
-  <div class="page" id="supportPage">
-    <div class="welcome"><div class="welcome-text"><h1>Поддержка</h1><p>Онлайн 24/7 · Среднее время ответа: 2–4 часа</p></div></div>
-    <div class="support-grid">
-      <div class="support-tile" onclick="showSupportCategory('deposit')"><div class="support-tile-ic"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div><div class="support-tile-body"><h4>Пополнение</h4><p>Проблемы с зачислением</p></div><div class="support-tile-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div></div>
-      <div class="support-tile" onclick="showSupportCategory('withdrawal')"><div class="support-tile-ic"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></div><div class="support-tile-body"><h4>Вывод</h4><p>Задержки и отклонения</p></div><div class="support-tile-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div></div>
-      <div class="support-tile" onclick="showSupportCategory('security')"><div class="support-tile-ic"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div class="support-tile-body"><h4>Безопасность</h4><p>Подозрительная активность</p></div><div class="support-tile-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div></div>
-      <div class="support-tile" onclick="showSupportCategory('other')"><div class="support-tile-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></div><div class="support-tile-body"><h4>Другое</h4><p>Общие вопросы</p></div><div class="support-tile-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div></div>
-    </div>
-    <div class="panel">
-      <div class="panel-head"><h2>Чат с поддержкой</h2><p>Онлайн 24/7 · Отвечаем в течение 2–4 часов</p></div>
-      <div class="chat">
-        <div class="chat-messages" id="chatMessages"></div>
-        <div class="chat-input-row">
-          <input type="text" class="chat-input" placeholder="Введите сообщение..." id="supportChatInput">
-          <button class="chat-send" id="supportChatSend" aria-label="Отправить"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
-        </div>
-      </div>
-    </div>
-    <div class="panel">
-      <div class="panel-head"><h2>Создать обращение</h2><p>Опишите проблему подробно</p></div>
-      <div class="form-grid">
-        <div class="field" style="grid-column:1/-1"><label for="supportTopic">Тема</label><input type="text" id="supportTopic" placeholder="Например: не пришло пополнение"></div>
-        <div class="field" style="grid-column:1/-1"><label for="supportCategory">Категория</label>
-          <select id="supportCategory"><option value="">Выберите категорию</option><option value="deposit">Пополнение</option><option value="withdrawal">Вывод</option><option value="transfer">Переводы</option><option value="security">Безопасность</option><option value="other">Другое</option></select>
-        </div>
-        <div class="field" style="grid-column:1/-1"><label for="supportMessage">Описание</label><textarea id="supportMessage" placeholder="Опишите ситуацию подробно..."></textarea></div>
-      </div>
-      <div class="form-actions"><button class="btn" id="clearSupportBtn">Очистить</button><button class="btn btn-primary" id="submitSupportTicketBtn">Отправить</button></div>
-    </div>
-    <div class="panel">
-      <div class="panel-head"><h2>Частые вопросы</h2></div>
-      <div class="faq">
-        <div class="faq-item" onclick="toggleFaqItem(this)"><div class="faq-q"><span>Как пополнить счет?</span><span class="faq-arrow">▼</span></div><div class="faq-a"><p>Перейдите в раздел «Пополнить», скопируйте реквизиты, переведите нужную сумму и подтвердите пополнение. Минимум — 1 000 ₽, комиссия отсутствует.</p></div></div>
-        <div class="faq-item" onclick="toggleFaqItem(this)"><div class="faq-q"><span>Сколько ждать вывод?</span><span class="faq-arrow">▼</span></div><div class="faq-a"><p>Заявка обрабатывается от 24 часов до 3 суток. Статус меняется автоматически: «В обработке» → «Средства в пути» → «Зачислено».</p></div></div>
-        <div class="faq-item" onclick="toggleFaqItem(this)"><div class="faq-q"><span>Как защитить аккаунт?</span><span class="faq-arrow">▼</span></div><div class="faq-a"><p>Включите 2FA, используйте надёжный уникальный пароль, не сообщайте коды и следите за историей операций.</p></div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- WITHDRAWAL REQUESTS -->
-  <div class="page" id="withdrawalRequestsPage">
-    <div class="welcome"><div class="welcome-text"><h1>Заявки на вывод</h1><p>История и статус ваших заявок</p></div></div>
-    <div id="withdrawalRequestsList"></div>
-  </div>
-
-  <!-- ADMIN USERS -->
-  
-</div>
-
-<!-- MODAL -->
-<div class="modal-ov" id="modalOverlay">
-  <div class="modal">
-    <div class="modal-head"><div class="modal-title" id="modalTitle">Уведомление</div><button class="modal-x" id="modalClose">×</button></div>
-    <div class="modal-body">
-      <div class="modal-icon" id="modalIcon"></div>
-      <div class="modal-msg" id="modalMessage"></div>
-      <div class="modal-details" id="modalConfirmDetails" style="display:none"></div>
-    </div>
-    <div class="modal-foot"><button class="btn" id="modalCancel" style="display:none">Отмена</button><button class="btn btn-primary" id="modalConfirm">ОК</button></div>
-  </div>
-</div>
-
-<div class="toast-wrap" id="toastContainer"></div>
-
-<script src="config.js"></script>
-<script src="app.js"></script>
-</body>
-</html>
+<script>
+/* ===== MOCK LAYER: demo data and rates. Replace with real API calls (GET /me, /balances, /transactions ...) ===== */
+const R={BTC:2125733,ETH:100000,USDT:90,USD:90,EUR:98,RUB:1},CH={BTC:2.1,ETH:-.8,USDT:.01,USD:.2,EUR:.4,RUB:0};
+const NM={BTC:'Bitcoin',ETH:'Ethereum',USDT:'Tether',USD:'US Dollar',RUB:'Российский рубль',EUR:'Euro'},DEC={BTC:8,ETH:6};
+const FEE_TRANSFER=.005,FEE_SWAP=.003,MIN=1000,NOW=Date.now(),H=36e5;
+const seed=()=>({auth:0,page:'dashboard',hide:0,frozen:0,role:'USER',nick:'saidik05',avatar:'',sid:'NW-SD05-7K29-XP41',kyc:'Подтверждена',tfa:1,
+ a:{BTC:.1842,ETH:2.85,USDT:12500,USD:4200,RUB:486700,EUR:1850},ops:148,
+ tx:[{t:'ref',d:NOW-2*H,c:'RUB',m:1000,s:'Зачислено',i:'Реферальное начисление 5%'},{t:'swap',d:NOW-9*H,c:'USDT',m:-500,s:'Выполнено',i:'USDT → BTC'},{t:'deposit',d:NOW-30*H,c:'RUB',m:50000,s:'Зачислено',i:'Пополнение картой'},{t:'transfer',d:NOW-50*H,c:'RUB',m:-20100,s:'Выполнено',i:'Перевод NW-AB12-…'},{t:'withdraw',d:NOW-80*H,c:'RUB',m:-30000,s:'Зачислено',i:'Ozon Bank'},{t:'trade',d:NOW-100*H,c:'USDT',m:+320,s:'Закрыта',i:'Сделка ETH/USDT'}].map((x,i)=>({id:'TX'+(9040-i),...x})),
+ wd:[],cur:'RUB',lang:'ru',sess:[['Chrome · Windows','Хельсинки',NOW-3*H,1],['Safari · iPhone','Москва',NOW-26*H,0],['Chrome · Android','Махачкала',NOW-120*H,0]],logins:[[NOW-3*H,'Пароль + 2FA','Хельсинки','Успешно'],[NOW-26*H,'Пароль + 2FA','Москва','Успешно'],[NOW-70*H,'Пароль','Неизвестно','Отклонён']],addr:[{n:'Мой резервный',v:'NW-AB12-9XQ3-77LM'}],
+ n:[{t:'KYC подтверждён',d:NOW-90*H,r:1},{t:'Новый вход в аккаунт',d:NOW-3*H,r:0},{t:'Новый реферальный доход: 1 000 ₽',d:NOW-2*H,r:0}],
+ refs:[['alex_m',32000,1600],['kira77',58000,2900],['dag_pro',12000,600],['mila_k',0,0],['ruslan5',104000,5200]],tk:[],chat:[['s','Здравствуйте! Чем помочь?']]});
+let S;try{S={...seed(),...JSON.parse(localStorage.nw_state||'{}')}}catch(e){S=seed()}
+const save=()=>{try{localStorage.nw_state=JSON.stringify(S)}catch(e){toast('Не удалось сохранить фото: файл слишком большой','e')}};
+/* ===== helpers ===== */
+const $=s=>document.querySelector(s),nf=new Intl.NumberFormat('ru-RU');
+const rub=v=>nf.format(Math.round(v))+' ₽',CS={RUB:['₽',1],USD:['$',90],EUR:['€',98]},dv=v=>{const c=CS[S.cur||'RUB'];return (v/c[1]).toLocaleString('ru-RU',{maximumFractionDigits:c[1]>1?2:0})+' '+c[0]},qty=(k,v)=>k=='RUB'?rub(v):(k=='USD'?'$':'')+v.toLocaleString('ru-RU',{minimumFractionDigits:DEC[k]||2,maximumFractionDigits:DEC[k]||2})+(k=='USD'||k=='RUB'?'':' '+k);
+const hd=s=>S.hide?'••••••••':s,total=()=>Object.entries(S.a).reduce((s,[k,v])=>s+v*R[k],0),dt=t=>new Date(t).toLocaleString('ru-RU',{dateStyle:'short',timeStyle:'short'});
+const uid=p=>p+Math.random().toString(36).slice(2,8).toUpperCase(),esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const TYPES={deposit:'Пополнение',withdraw:'Вывод',transfer:'Перевод',swap:'Обмен',trade:'Сделка',ref:'Реферал'};
+function toast(m,e){const d=document.createElement('div');d.textContent=m;if(e)d.className='e';$('#ts').append(d);setTimeout(()=>d.remove(),3200)}
+function modal(title,rows,ok,okText='Подтвердить'){$('#md').innerHTML=`<h2 style="margin-bottom:12px">${title}</h2>${rows.map(r=>`<div class="kv"><span class="mu">${r[0]}</span><b class="n">${r[1]}</b></div>`).join('')}<div class="row" style="margin-top:18px;justify-content:flex-end"><button class="btn" data-a="mc">Отмена</button><button class="btn pri" data-a="mok">${okText}</button></div>`;$('#mo').classList.add('on');modal.ok=ok}
+const addTx=(t,c,m,s,i)=>{S.tx.unshift({id:uid('TX'),t,d:Date.now(),c,m,s,i});S.ops++},note=t=>S.n.unshift({t,d:Date.now(),r:0});
+const frozen=()=>S.frozen?(toast('Счёт заморожен. Операции недоступны','e'),1):0;
+const pageTitle={dashboard:'Главная',wallet:'Кошелёк',deposit:'Пополнить',withdraw:'Вывести',wlist:'Заявки на вывод',transfer:'Переводы',swap:'Обменник',refs:'Рефералы',analytics:'Аналитика',history:'История',support:'Поддержка',profile:'Профиль',kyc:'Верификация KYC',addr:'Адресная книга'};
+Object.assign(pageTitle,{security:'Безопасность',settings:'Настройки',admin:'Админ-панель'});
+const EN={dashboard:'Home',wallet:'Wallet',deposit:'Deposit',withdraw:'Withdraw',wlist:'Withdrawal requests',transfer:'Transfers',swap:'Exchange',refs:'Referrals',analytics:'Analytics',history:'History',support:'Support',profile:'Profile',security:'Security',settings:'Settings',admin:'Admin panel'};
+const SUB={wallet:'Все активы и их стоимость в одном месте',deposit:'Пополнение без комиссии, зачисление после подтверждения',withdraw:'Вывод на карту или счёт, комиссия 0%',wlist:'Статусы всех ваших заявок',transfer:'Переводы между пользователями по Secret ID',swap:'Обмен USDT, BTC и ETH по текущим курсам',refs:'5% с каждого пополнения приглашённых',analytics:'Доходность, динамика и структура портфеля',history:'Все операции с фильтрами и поиском',support:'Чат, обращения и ответы на частые вопросы',profile:'Данные аккаунта, Secret ID и параметры',security:'Пароль, 2FA, сессии и журнал входов',settings:'Валюта и язык интерфейса',admin:'Заявки, KYC и пользователи',kyc:'Подтверждение личности',addr:'Сохранённые адреса и Secret ID'};
+const tt=k=>S.lang=='en'?EN[k]||pageTitle[k]:pageTitle[k];
+const ICO={dashboard:'M3 3h7v9H3zM14 3h7v5h-7zM14 12h7v9h-7zM3 16h7v5H3z',wallet:'M21 12V7H5a2 2 0 0 1 0-4h14v4M3 5v14a2 2 0 0 0 2 2h16v-5M18 12a2 2 0 0 0 0 4h4v-4z',deposit:'M12 5v14M5 12h14',withdraw:'M12 19V5M5 12l7-7 7 7',wlist:'M12 19V5M5 12l7-7 7 7',transfer:'M7 7h13l-4-4M17 17H4l4 4',swap:'M17 3l4 4-4 4M21 7H8M7 21l-4-4 4-4M3 17h13',refs:'M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8M22 21v-2a4 4 0 0 0-3-3.9',analytics:'M3 3v18h18M7 14l4-4 4 3 5-6',history:'M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5M12 7v5l3 2',support:'M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z',profile:'M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8',security:'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z',settings:'M4 6h16M4 12h16M4 18h16M8 4v4M16 10v4M10 16v4',admin:'M3 3h18v4H3zM3 10h18v4H3zM3 17h18v4H3z'};
+const IC=k=>`<svg viewBox="0 0 24 24"><path d="${ICO[k]||ICO.dashboard}"/></svg>`;
+const NAV=[['Обзор',['dashboard','wallet']],['Финансы',['deposit','withdraw','transfer','swap']],['Сервис',['refs','analytics','history','support','profile','security','settings']]],ANAV=[['Администрирование',['admin','security','settings']]];
+/* ===== components ===== */
+const Card=(h,sub,body)=>`<section class="card"><h2>${h}</h2>${sub?`<div class="sub">${sub}</div>`:''}${body}</section>`;
+const CC={BTC:'#f7931a',ETH:'#627eea',USDT:'#26a17b',USD:'#4f9dff',RUB:'#a855f7',EUR:'#2de2b4'},Stat=(l,v,i)=>`<div class="stat">${i?`<span class="si">${IC(i)}</span>`:''}<span class="mu" style="font-size:12px">${l}</span><b>${v}</b></div>`;
+const Empty=t=>`<div class="empty">${t}</div>`;
+const Asset=k=>`<div class="asset"><div class="row" style="flex-wrap:nowrap;gap:12px;align-items:flex-start"><span class="coin" style="--c:${CC[k]}">${{RUB:'₽',USD:'$',EUR:'€',BTC:'₿',ETH:'Ξ',USDT:'₮'}[k]}</span><div><b>${k}</b> <span class="mu">${NM[k]}</span><div class="n" style="margin-top:6px">${hd(qty(k,S.a[k]))}</div><div class="mu n" style="font-size:12px">${hd(dv(S.a[k]*R[k]))}</div></div></div><div style="text-align:right"><div class="n" style="font-size:12px">${rub(R[k])}</div><div class="${CH[k]<0?'dn':'up'} n" style="font-size:12px">${CH[k]>0?'+':''}${CH[k]}%</div></div></div>`;
+const TI={deposit:'deposit',withdraw:'withdraw',transfer:'transfer',swap:'swap',trade:'analytics',ref:'refs'};
+const alloc=()=>{const t=total(),al=Object.keys(S.a).map(k=>[k,S.a[k]*R[k]]).sort((a,b)=>b[1]-a[1]),C=2*Math.PI*52;let o=0;return `<div style="display:grid;place-items:center;margin:4px 0 14px"><svg viewBox="0 0 140 140" style="width:170px">${al.map(([k,v])=>{const l=v/t*C,s=`<circle cx="70" cy="70" r="52" fill="none" stroke="${CC[k]}" stroke-width="14" stroke-dasharray="${Math.max(l-2,0)} ${C-l+2}" stroke-dashoffset="${-o}" transform="rotate(-90 70 70)"/>`;o+=l;return s}).join('')}<text x="70" y="66" text-anchor="middle" fill="#7f8b99" font-size="9">Активов</text><text x="70" y="85" text-anchor="middle" fill="#e8edf2" font-size="20" font-weight="600">${al.length}</text></svg></div>${al.map(([k,v])=>`<div class="leg"><b style="background:${CC[k]}"></b>${k}<span class="mu n" style="margin-left:auto">${hd((v/t*100).toFixed(1)+'%')}</span></div>`).join('')}`};
+const Tx=x=>`<tr><td class="n mu">${x.id}</td><td>${dt(x.d)}</td><td><span class="row" style="flex-wrap:nowrap;gap:9px"><span class="tb tb-${x.t}">${IC(TI[x.t])}</span>${TYPES[x.t]}</span></td><td>${x.c}</td><td class="n ${x.m<0?'dn':'up'}">${hd((x.m>0?'+':'')+qty(x.c,x.m))}</td><td><span class="pill ${/ожид|обраб/i.test(x.s)?'wa':/отклон/i.test(x.s)?'er':'ok'}">${x.s}</span></td><td class="mu">${esc(x.i)}</td></tr>`;
+const TxTable=l=>l.length?`<div class="sc"><table><tr><th>ID</th><th>Дата</th><th>Тип</th><th>Валюта</th><th>Сумма</th><th>Статус</th><th>Описание</th></tr>${l.map(Tx).join('')}</table></div>`:Empty('Операций пока нет');
+const Field=(id,l,ph='',type='text')=>`<div class="f"><label for="${id}">${l}</label><input id="${id}" type="${type}" placeholder="${ph}" data-calc></div>`;
+const Sel=(id,l,o)=>`<div class="f"><label for="${id}">${l}</label><select id="${id}" data-calc>${o.map(x=>`<option>${x}</option>`).join('')}</select></div>`;
+const Warn=()=>S.frozen?`<div class="warn"><b>Счёт заморожен.</b> Разморозьте его в настройках профиля.</div>`:'';
+const BANKS=['Ozon Bank','Сбербанк','Т-Банк','Альфа-Банк','ВТБ','Райффайзен','Газпромбанк','МТС Банк','YooMoney','QIWI'];
+/* ===== chart ===== */
+const PER={'1D':24,'1W':28,'1M':30,'3M':45,'6M':60,'1Y':72};let per='1M';
+function series(){const n=PER[per],end=total(),out=[];let x=7+n,v=end/(1+.04*Math.log(n+2));for(let i=0;i<n;i++){x=(x*9301+49297)%233280;v+= (x/233280-.46)*end*.012;out.push(v)}{const d=end-out[n-1];for(let i=0;i<n;i++)out[i]+=d*i/(n-1)}return out}
+function chart(){const s=series(),mn=Math.min(...s),mx=Math.max(...s),W=700,Hh=200,pts=s.map((v,i)=>[i/(s.length-1)*W,Hh-(v-mn)/(mx-mn||1)*(Hh-20)-10]);const p=pts.map((q,i)=>(i?'L':'M')+q[0].toFixed(1)+' '+q[1].toFixed(1)).join('');
+ return `<div style="position:relative"><svg id="ch" viewBox="0 0 ${W} ${Hh}" preserveAspectRatio="none" style="width:100%;height:270px;display:block"><defs><linearGradient id="ar" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#2de2b4" stop-opacity=".25"/><stop offset="1" stop-color="#2de2b4" stop-opacity="0"/></linearGradient></defs>${[50,100,150].map(y=>`<line x1="0" x2="${W}" y1="${y}" y2="${y}" stroke="#ffffff0f" vector-effect="non-scaling-stroke"/>`).join('')}<path d="${p}L${W} ${Hh}L0 ${Hh}Z" fill="url(#ar)"/><path d="${p}" fill="none" stroke="#2de2b4" stroke-width="2.5" stroke-linejoin="round" vector-effect="non-scaling-stroke"/><line id="cl" y1="0" y2="${Hh}" stroke="#4f9dff" opacity="0" vector-effect="non-scaling-stroke"/></svg><div id="ct" class="pill n" style="position:absolute;top:4px;left:4px;display:none"></div></div>`}
+function bindChart(){const c=$('#ch');if(!c)return;const s=series(),n=s.length;c.onmousemove=c.ontouchmove=e=>{const r=c.getBoundingClientRect(),cx=(e.touches?e.touches[0].clientX:e.clientX),i=Math.max(0,Math.min(n-1,Math.round((cx-r.left)/r.width*(n-1)))),l=$('#cl');l.setAttribute('x1',i/(n-1)*700);l.setAttribute('x2',i/(n-1)*700);l.setAttribute('opacity',1);const t=$('#ct');t.style.display='block';const st=NOW-(n-1-i)*({'1D':H,'1W':6*H,'1M':24*H,'3M':48*H,'6M':72*H,'1Y':120*H}[per]);t.textContent=dt(st)+' · '+hd(rub(s[i]))};c.onmouseleave=()=>{$('#ct').style.display='none';$('#cl').setAttribute('opacity',0)}}
+/* ===== pages ===== */
+const P={
+dashboard:()=>{const t=total(),fz=S.frozen;return `${Warn()}<div class="row sp" style="margin-bottom:16px"><div><h1 style="font-size:26px">Добро пожаловать, ${esc(S.nick)}</h1><div class="mu">Управляйте активами, операциями и инструментами в одном месте.</div></div><div class="row"><button class="btn pri" data-a="go" data-v="deposit">Пополнить</button><button class="btn" data-a="go" data-v="withdraw">Вывести</button><button class="btn" data-a="go" data-v="transfer">Перевести</button><button class="btn" data-a="go" data-v="swap">Обменять</button></div></div>
+<div class="dg">${Card('Общий баланс','<span class="dot"></span>Live',`<div class="row sp"><div><div class="big" id="bal">${hd(dv(t))}</div><div class="mu n" style="margin-top:6px">${hd('≈ $'+nf.format(Math.round(t/R.USD)))} · <span class="up">+12.5% за 24ч (${hd('+'+rub(t*.125/1.125))})</span></div></div><button class="btn" data-a="hide">${S.hide?'Показать баланс':'Скрыть баланс'}</button></div><div class="chips" style="margin:14px 0 6px">${Object.keys(PER).map(p=>`<button class="btn ${p==per?'on':''}" data-a="per" data-v="${p}">${p}</button>`).join('')}</div>${chart()}`)}${Card('Структура портфеля','Доли активов',alloc())}</div>
+<div class="g6" style="margin-bottom:16px">${Stat('Всего операций',S.ops,'history')}${Stat('Пополнений',32+S.tx.filter(x=>x.t=='deposit').length-1,'deposit')}${Stat('Выводов',18+S.wd.length,'withdraw')}${Stat('Обменов',57+S.tx.filter(x=>x.t=='swap').length-1,'swap')}${Stat('Переводов',24+S.tx.filter(x=>x.t=='transfer').length-1,'transfer')}${Stat('Приглашённых',14,'refs')}</div>
+${Card('Ваши активы','',`<div class="g2">${Object.keys(S.a).map(Asset).join('')}</div>`)}
+${Card('Последние операции','',TxTable(S.tx.slice(0,5)))}
+<div class="g2">${Card('Реферальная программа','5% с каждого пополнения приглашённого',`<div class="n up" style="font-size:20px">${hd('86 450 ₽')}</div><button class="btn" style="margin-top:12px" data-a="go" data-v="refs">Подробнее</button>`)}${Card('Статус серверов','',['Финляндия','Германия','Нидерланды','Турция'].map(c=>`<div class="kv"><span>${c}</span><span class="up"><span class="dot"></span>Online</span></div>`).join(''))}</div>`},
+wallet:()=>Card('Мои активы','Стоимость портфеля: '+hd(rub(total())),Object.keys(S.a).length?`<div class="g2">${Object.keys(S.a).map(Asset).join('')}</div>`:Empty('Активов пока нет. Пополните счёт.')),
+deposit:()=>`${Warn()}${Card('Пополнение счёта','Минимум 1 000 ₽ · комиссия 0% · обработка до 24 часов',`<div class="warn">После перевода обязательно подтвердите пополнение ниже.</div>${[['Номер карты','2200 1234 5678 9012'],['Получатель','ИП Козлов Артем Викторович'],['Назначение платежа','Пополнение счета saidik05'],['БИК','044525225'],['ИНН','770123456789'],['Расчётный счёт','40802810000000012345']].map(r=>`<div class="kv"><span class="mu">${r[0]}</span><span class="row"><b class="n">${r[1]}</b><button class="btn" data-a="copy" data-v="${r[1]}">Копировать</button></span></div>`).join('')}`)}
+${Card('Подтвердить пополнение','',`<div class="g2"><div>${Field('dA','Сумма, ₽','1000','number')}${Field('dN','ФИО отправителя')}${Field('dP','Телефон','+7','tel')}</div><div>${Sel('dB','Банк',BANKS)}${Field('dC','Номер карты отправителя','0000 0000 0000 0000')}</div></div><div class="err" id="fe"></div><button class="btn pri" data-a="dep">Подтвердить пополнение</button>`)}`,
+withdraw:()=>`${Warn()}${Card('Вывод средств','Минимум 1 000 ₽ · комиссия 0% · срок от 24 часов до 3 суток · доступно '+hd(rub(S.a.RUB)),`<div class="g2"><div>${Field('wA','Сумма','1000','number')}${Sel('wU','Валюта',['RUB','USD'])}${Field('wN','ФИО получателя')}</div><div>${Field('wP','Телефон','+7','tel')}${Sel('wB','Банк',BANKS)}${Field('wC','Карта / счёт')}</div></div><div class="err" id="fe"></div><button class="btn pri" data-a="wd">Вывести</button>`)}`,
+wlist:()=>Card('Заявки на вывод','',S.wd.length?`<div class="sc"><table><tr><th>№</th><th>Дата</th><th>Сумма</th><th>Банк</th><th>Статус</th><th></th></tr>${S.wd.map((w,i)=>`<tr><td class="n">${w.id}</td><td>${dt(w.d)}</td><td class="n">${hd(qty(w.c,w.m))}</td><td>${w.b}</td><td><span class="pill ${w.s=='Зачислено'?'ok':'wa'}">${w.s}</span></td><td>${0?`<button class="btn" data-a="adv" data-v="${i}">Следующий статус</button>`:''}</td></tr>`).join('')}</table></div>`:Empty('Заявок пока нет')),
+transfer:()=>`${Warn()}${Card('Внутренний перевод','Комиссия 0,5% · по Secret ID получателя',`${Field('tI','Secret ID получателя','NW-XXXX-XXXX-XXXX')}${Field('tA','Сумма, ₽','1000','number')}<div class="stat" id="tp" style="margin-bottom:14px">Итого к списанию: <b>—</b></div><div class="err" id="fe"></div><button class="btn pri" data-a="tr">Перевести</button>`)}`,
+swap:()=>`${Warn()}${Card('Обменник','Мгновенный обмен · комиссия 0,3%',`<div class="g3">${Sel('xF','Отдаю',['USDT','BTC','ETH'])}${Sel('xT','Получаю',['BTC','ETH','USDT'])}${Field('xA','Сумма','0','number')}</div><div class="stat" id="xp" style="margin:6px 0 14px">Результат: <b>—</b></div><div class="err" id="fe"></div><button class="btn pri" data-a="sw">Обменять</button>`)}`,
+history:()=>{const f=P.history.f||'all',q=(P.history.q||'').toLowerCase(),F={all:'Все',deposit:'Пополнения',withdraw:'Выводы',swap:'Обмены',trade:'Сделки',ref:'Рефералы',transfer:'Переводы'};return Card('История операций','',`<div class="chips">${Object.entries(F).map(([k,v])=>`<button class="btn ${k==f?'on':''}" data-a="flt" data-v="${k}">${v}</button>`).join('')}</div><div class="f"><input id="hq" placeholder="Поиск по ID или описанию" value="${esc(P.history.q||'')}" data-calc></div>${TxTable(S.tx.filter(x=>(f=='all'||x.t==f)&&(x.id+x.i).toLowerCase().includes(q)))}`)},
+refs:()=>`${Card('Реферальная программа','Вы получаете 5% с каждого пополнения приглашённого',`<div class="row"><input readonly value="https://nebulawallet.app/ref/saidik05" style="flex:1;min-width:220px"><button class="btn pri" data-a="copy" data-v="https://nebulawallet.app/ref/saidik05">Копировать</button></div><div class="g3" style="margin-top:16px">${Stat('Приглашённых',14)}${Stat('Активных',11)}${Stat('Общий доход',hd('86 450 ₽'))}${Stat('За месяц',hd('18 720 ₽'))}</div>`)}${Card('Приглашённые','',`<div class="sc"><table><tr><th>Логин</th><th>Пополнил</th><th>Ваш доход</th></tr>${S.refs.map(r=>`<tr><td>${r[0]}</td><td class="n">${hd(rub(r[1]))}</td><td class="n up">${hd(rub(r[2]))}</td></tr>`).join('')}</table></div>`)}`,
+analytics:()=>{const m=['Май','Июн','Июл','Авг','Сен','Окт'],inc=[310,420,380,540,490,640],ex=[190,240,260,300,280,350],cm=S.tx.filter(x=>Date.now()-x.d<30*24*H);inc[5]+=cm.filter(x=>x.m>0).reduce((s,x)=>s+x.m*R[x.c],0)/1e3;ex[5]+=cm.filter(x=>x.m<0).reduce((s,x)=>s-x.m*R[x.c],0)/1e3;
+const mx=Math.max(...inc,...ex),pr=inc.map((v,i)=>v-ex[i]),cum=pr.map((_,i)=>pr.slice(0,i+1).reduce((a,b)=>a+b,0)),mc=Math.max(...cum),tot=total(),ab=S.tx.map(x=>Math.abs(x.m*R[x.c])),avg=ab.reduce((a,b)=>a+b,0)/ab.length,Cc=2*Math.PI*54;let off=0;
+const al=Object.keys(S.a).map(k=>[k,S.a[k]*R[k]]),donut=al.map(([k,v])=>{const l=v/tot*Cc,s=`<circle cx="70" cy="70" r="54" fill="none" stroke="${CC[k]}" stroke-width="16" stroke-dasharray="${l} ${Cc-l}" stroke-dashoffset="${-off}" transform="rotate(-90 70 70)"/>`;off+=l;return s}).join('');
+const pl=cum.map((v,i)=>[20+i*116,150-v/mc*120]),path=pl.map((q,i)=>(i?'L':'M')+q[0]+' '+q[1]).join('');
+const dw=[6,9,7,11,8,3,2];S.tx.forEach(x=>dw[(new Date(x.d).getDay()+6)%7]++);const md=Math.max(...dw),deals=S.tx.filter(x=>x.t=='trade'||x.t=='swap').sort((a,b)=>b.m*R[b.c]-a.m*R[a.c]);
+return `<div class="g3" style="margin-bottom:16px">${Stat('Прибыль за месяц',hd('+'+dv(pr[5]*1000)),'analytics')}${Stat('Доходность','+12.5%','swap')}${Stat('Операций',S.ops,'history')}${Stat('Средняя операция',hd(dv(avg)),'transfer')}${Stat('Успешных сделок','72%','security')}</div>
+<div class="g2">${Card('Доходы и расходы','Последние 6 месяцев, тыс. ₽',`<div class="bars">${m.map((n,i)=>`<div><div class="pair"><i style="height:${inc[i]/mx*150}px;background:linear-gradient(#2de2b4,#2de2b433)"></i><i style="height:${ex[i]/mx*150}px;background:linear-gradient(#4f9dff,#4f9dff33)"></i></div><span class="mu" style="font-size:12px">${n}</span></div>`).join('')}</div><div class="row" style="margin-top:10px"><span class="leg"><b style="background:#2de2b4"></b>Доходы</span><span class="leg"><b style="background:#4f9dff"></b>Расходы</span></div>`)}
+${Card('Накопленная прибыль','Динамика по месяцам',`<svg viewBox="0 0 620 175" style="width:100%"><defs><linearGradient id="ag" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#2de2b4" stop-opacity=".3"/><stop offset="1" stop-color="#2de2b4" stop-opacity="0"/></linearGradient></defs><path d="${path}L${pl[5][0]} 158L${pl[0][0]} 158Z" fill="url(#ag)"/><path d="${path}" fill="none" stroke="#2de2b4" stroke-width="2.5"/>${pl.map((q,i)=>`<circle cx="${q[0]}" cy="${q[1]}" r="4" fill="#0e1217" stroke="#2de2b4" stroke-width="2"/><text x="${q[0]}" y="172" fill="#7f8b99" font-size="11" text-anchor="middle">${m[i]}</text>`).join('')}</svg>`)}</div>
+<div class="g2">${Card('Структура портфеля','Доля каждого актива',`<div class="row" style="flex-wrap:nowrap;gap:20px"><svg viewBox="0 0 140 140" style="width:150px;flex:none">${donut}</svg><div style="flex:1">${al.map(([k,v])=>`<div class="leg"><b style="background:${CC[k]}"></b>${k}<span class="mu n" style="margin-left:auto">${hd((v/tot*100).toFixed(1)+'%')}</span></div>`).join('')}</div></div>`)}
+${Card('Торговая активность','Операции по дням недели',`<div class="bars" style="height:150px">${['Пн','Вт','Ср','Чт','Пт','Сб','Вс'].map((d,i)=>`<div><i style="width:60%;max-width:28px;height:${dw[i]/md*120}px;background:linear-gradient(#a855f7,#6366f133)"></i><span class="mu" style="font-size:12px">${d}</span></div>`).join('')}</div>`)}</div>
+${Card('Лучшие сделки','Сортировка по сумме',TxTable(deals.slice(0,3)))}${Card('Худшие сделки','',TxTable(deals.slice(-2).reverse()))}`},
+profile:()=>`${Warn()}${Card('Профиль','',`<div class="row"><div class="ava" style="width:72px;height:72px;font-size:24px;${S.avatar?`background-image:url(${S.avatar})`:''}">${S.avatar?'':esc(S.nick.slice(0,2).toUpperCase())}</div><div><h2 style="font-size:20px">${esc(S.nick)}</h2><div class="row"><span class="pill ok">Активен</span><span class="pill ${S.kyc=='Подтверждена'?'ok':'wa'}">KYC: ${S.kyc}</span><span class="pill ${S.tfa?'ok':'er'}">2FA: ${S.tfa?'включена':'выключена'}</span></div></div></div><div class="row" style="margin-top:14px"><label class="btn" style="margin:0">Загрузить фото<input type="file" accept="image/*" id="pf" hidden></label><button class="btn" data-a="delava">Удалить фото</button></div><div class="row" style="margin-top:12px"><input id="nk" value="${esc(S.nick)}" maxlength="20" style="max-width:240px"><button class="btn" data-a="nick">Сменить никнейм</button></div><div class="g3" style="margin-top:16px">${Stat('Баланс',hd(dv(total())))}${Stat('Операций',S.ops)}${Stat('Приглашённых',14)}${Stat('Регистрация','15.03.2024')}${Stat('Последний вход','Сегодня')}</div>`)}
+${Card('Secret ID','Передавайте его только доверенным пользователям',`<div class="row"><b class="mono" style="font-size:18px">${S.sid}</b><button class="btn" data-a="copy" data-v="${S.sid}">Копировать</button><button class="btn dng" data-a="newsid">Сгенерировать новый</button></div>`)}
+${Card('Безопасность и настройки','',`<div class="kv"><span>Скрыть баланс</span><button class="tg ${S.hide?'on':''}" data-a="hide" aria-label="Скрыть баланс"></button></div><div class="kv"><span>Заморозить счёт</span><button class="tg ${S.frozen?'on':''}" data-a="freeze" aria-label="Заморозить счёт"></button></div><div class="kv"><span>Двухфакторная аутентификация</span><button class="tg ${S.tfa?'on':''}" data-a="tfa" aria-label="2FA"></button></div><div class="kv"><span>Центр безопасности</span><button class="btn" data-a="go" data-v="security">Открыть</button></div><div class="kv"><span>Верификация KYC</span><button class="btn" data-a="go" data-v="kyc">Открыть</button></div><div class="kv"><span>Адресная книга</span><button class="btn" data-a="go" data-v="addr">Открыть</button></div>`)}`,
+security:()=>`${Card('Безопасность входа','Вход по паролю и коду 2FA',`<div class="kv"><span>Двухфакторная аутентификация</span><button class="tg ${S.tfa?'on':''}" data-a="tfa" aria-label="2FA"></button></div><div class="kv"><span>Последний вход</span><b>${dt(S.logins[0][0])}</b></div>`)}
+${Card('Сменить пароль','',`<div class="g2"><div>${Field('pO','Текущий пароль','','password')}</div><div>${Field('pN','Новый пароль (от 8 символов, буквы и цифры)','','password')}${Field('pR','Повторите пароль','','password')}</div></div><div class="err" id="fe"></div><button class="btn pri" data-a="pw">Сменить пароль</button>`)}
+${Card('Активные сессии','',S.sess.map((s,i)=>`<div class="kv"><span><b>${s[0]}</b> <span class="mu">${s[1]} · ${dt(s[2])}</span></span>${s[3]?'<span class="pill ok">Текущая</span>':`<button class="btn dng" data-a="endS" data-v="${i}">Завершить</button>`}</div>`).join(''))}
+${Card('История входов','',`<div class="sc"><table><tr><th>Дата</th><th>Метод</th><th>Локация</th><th>Результат</th></tr>${S.logins.slice(0,8).map(l=>`<tr><td>${dt(l[0])}</td><td>${l[1]}</td><td>${l[2]}</td><td><span class="pill ${l[3]=='Успешно'?'ok':'er'}">${l[3]}</span></td></tr>`).join('')}</table></div>`)}`,
+settings:()=>Card('Настройки','Валюта баланса и язык меню',`<div class="g2"><div class="f"><label for="sC">Валюта отображения баланса</label><select id="sC">${['RUB','USD','EUR'].map(c=>`<option ${S.cur==c?'selected':''}>${c}</option>`).join('')}</select></div><div class="f"><label for="sL">Язык меню</label><select id="sL"><option value="ru" ${S.lang=='ru'?'selected':''}>Русский</option><option value="en" ${S.lang=='en'?'selected':''}>English</option></select></div></div><div class="kv"><span>Скрыть баланс</span><button class="tg ${S.hide?'on':''}" data-a="hide" aria-label="Скрыть баланс"></button></div>`),
+admin:()=>{if(S.role!='ADMIN')return Card('Нет доступа','',Empty('Раздел только для администраторов'));const t=P.admin.tab||'dep',pd=S.tx.filter(x=>x.t=='deposit'&&/ожид/i.test(x.s)),T={dep:'Пополнения',wd:'Выводы',kyc:'KYC',tk:'Тикеты',us:'Пользователи'},open=S.wd.filter(w=>w.s!='Зачислено'&&w.s!='Отклонено');
+const B={dep:pd.length?`<div class="sc"><table><tr><th>ID</th><th>Дата</th><th>Сумма</th><th>Пользователь</th><th></th></tr>${pd.map(x=>`<tr><td class="n">${x.id}</td><td>${dt(x.d)}</td><td class="n">${rub(x.m)}</td><td>saidik05</td><td><div class="row"><button class="btn pri" data-a="adep" data-v="${x.id}|ok">Зачислить</button><button class="btn dng" data-a="adep" data-v="${x.id}|no">Отклонить</button></div></td></tr>`).join('')}</table></div>`:Empty('Нет заявок на пополнение'),
+wd:S.wd.length?`<div class="sc"><table><tr><th>№</th><th>Сумма</th><th>Банк</th><th>Статус</th><th></th></tr>${S.wd.map((w,i)=>`<tr><td class="n">${w.id}</td><td class="n">${qty(w.c,w.m)}</td><td>${w.b}</td><td><span class="pill ${w.s=='Зачислено'?'ok':w.s=='Отклонено'?'er':'wa'}">${w.s}</span></td><td>${open.includes(w)?`<div class="row"><button class="btn pri" data-a="adv" data-v="${i}">Следующий статус</button><button class="btn dng" data-a="rej" data-v="${i}">Отклонить</button></div>`:''}</td></tr>`).join('')}</table></div>`:Empty('Нет заявок на вывод'),
+kyc:`<div class="kv"><span>saidik05 — паспорт и селфи</span><span class="pill wa">${S.kyc}</span></div><div class="row" style="margin-top:12px"><button class="btn pri" data-a="kycset" data-v="Подтверждена">Подтвердить</button><button class="btn dng" data-a="kycset" data-v="Отклонена">Отклонить</button></div>`,
+tk:S.tk.length?S.tk.map(k=>`<div class="kv"><span><b>${esc(k.t)}</b> <span class="mu">${k.c}</span><div class="mu">${esc(k.d)}</div></span></div>`).join(''):Empty('Тикетов нет'),
+us:`<div class="sc"><table><tr><th>Логин</th><th>Роль</th><th>Статус</th><th>Баланс</th></tr>${[['saidik05','USER','Активен',total()],['alex_m','USER','Активен',184000],['kira77','USER','Активен',96500],['mila_k','USER','Заморожен',0],['admin','ADMIN','Активен',0]].map(u=>`<tr><td>${u[0]}</td><td><span class="pill ${u[1]=='ADMIN'?'wa':''}">${u[1]}</span></td><td>${u[2]}</td><td class="n">${rub(u[3])}</td></tr>`).join('')}</table></div>`};
+return `<div class="g3" style="margin-bottom:16px">${Stat('Пользователей',15)}${Stat('Ждут пополнения',pd.length)}${Stat('Заявок на вывод',open.length)}${Stat('Тикетов',S.tk.length)}</div>${Card('Администрирование','В продакшене каждое действие проверяется на сервере по роли и пишется в журнал аудита',`<div class="chips">${Object.entries(T).map(([k,n])=>`<button class="btn ${k==t?'on':''}" data-a="atab" data-v="${k}">${n}</button>`).join('')}</div>${B[t]}`)}`},
+kyc:()=>Card('Верификация личности','Текущий статус: <span class="pill '+(S.kyc=='Подтверждена'?'ok':'wa')+'">'+S.kyc+'</span>',`<div class="g2"><div class="f"><label>Фото паспорта</label><input type="file" accept="image/*"></div><div class="f"><label>Селфи с документом</label><input type="file" accept="image/*"></div></div><button class="btn pri" data-a="kycsend">Отправить на проверку</button>`),
+addr:()=>Card('Адресная книга','',`<div class="g2"><div>${Field('aN','Название')}</div><div>${Field('aV','Secret ID / адрес')}</div></div><button class="btn pri" data-a="adda">Добавить</button><div style="margin-top:14px">${S.addr.length?S.addr.map((a,i)=>`<div class="kv"><span><b>${esc(a.n)}</b> <span class="mono mu">${esc(a.v)}</span></span><span class="row"><button class="btn" data-a="copy" data-v="${esc(a.v)}">Копировать</button><button class="btn" data-a="edita" data-v="${i}">Изменить</button><button class="btn dng" data-a="dela" data-v="${i}">Удалить</button></span></div>`).join(''):Empty('Адресов пока нет')}</div>`),
+support:()=>`${Card('Поддержка 24/7','Среднее время ответа 2–4 часа',`<div class="chips">${['Пополнение','Вывод','Безопасность','Другое'].map(c=>`<button class="btn" data-a="cat" data-v="${c}">${c}</button>`).join('')}</div><div style="max-height:220px;overflow:auto" id="cm">${S.chat.map(m=>`<div style="margin:6px 0;text-align:${m[0]=='u'?'right':'left'}"><span class="pill" style="display:inline-block;padding:6px 12px">${esc(m[1])}</span></div>`).join('')}</div><div class="row" style="margin-top:10px;flex-wrap:nowrap"><input id="cI" placeholder="Сообщение"><button class="btn pri" data-a="chat">Отправить</button></div>`)}${Card('Создать обращение','',`${Field('kT','Тема')}${Sel('kC','Категория',['Пополнение','Вывод','Безопасность','Переводы','Обмен','Другое'])}<div class="f"><label for="kD">Описание</label><textarea id="kD" rows="3"></textarea></div><button class="btn pri" data-a="tick">Отправить</button>${S.tk.length?`<div class="mu" style="margin-top:10px">Обращений: ${S.tk.length}</div>`:''}`)}${Card('Частые вопросы','',`<div class="faq">${[['Как пополнить счёт?','Откройте «Пополнить», переведите сумму по реквизитам и нажмите «Подтвердить пополнение». Минимум 1 000 ₽.'],['Сколько ждать вывод?','От 24 часов до 3 суток. Статус: «В обработке» → «Средства в пути» → «Зачислено».'],['Как защитить аккаунт?','Включите 2FA, используйте уникальный пароль и никому не сообщайте коды и Secret ID.']].map(f=>`<div class="q" data-a="faq"><span>${f[0]}</span><span>▾</span></div><div class="a"><div>${f[1]}</div></div>`).join('')}</div>`)}`};
+/* ===== render ===== */
+function shell(){$('#nv').innerHTML=(S.role=='ADMIN'?NAV.concat([['Управление',['admin']]]):NAV).map(g=>`<h4>${g[0]}</h4>${g[1].map(k=>`<a tabindex="0" class="${S.page==k?'on':''}" data-a="go" data-v="${k}">${IC(k)}${tt(k)}</a>${k=='withdraw'&&S.wd.length?`<a tabindex="0" class="${S.page=='wlist'?'on':''}" data-a="go" data-v="wlist">Заявки на вывод</a>`:''}`).join('')}`).join('');
+ $('#un').textContent=S.nick;const a=$('#av');a.textContent=S.avatar?'':S.nick.slice(0,2).toUpperCase();a.style.backgroundImage=S.avatar?`url(${S.avatar})`:'';
+ const u=S.n.filter(n=>!n.r).length;$('#bd').textContent=u||'';$('#bd').style.display=u?'':'none';
+ $('#np').innerHTML=S.n.length?S.n.slice(0,12).map(n=>`<div class="${n.r?'':'nw'}">${esc(n.t)}<div class="mu" style="font-size:11px">${dt(n.d)}</div></div>`).join(''):Empty('Уведомлений нет')}
+function render(){if(S.page=='admin'&&S.role!='ADMIN')S.page='dashboard';save();shell();$('#mn').innerHTML=(S.page=='dashboard'?'':`<div class="ph"><span class="si lg">${IC(S.page)}</span><div><h1>${tt(S.page)}</h1><p>${SUB[S.page]||''}</p></div></div>`)+(P[S.page]||P.dashboard)();$('#mn').style.animation='none';$('#mn').offsetWidth;$('#mn').style.animation='';bindChart();const bc=$('#bal');if(bc)bc.closest('.card').classList.add('hc');const pf=$('#pf');if(pf)pf.onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{S.avatar=r.result;note('Фото профиля обновлено');render();toast('Фото обновлено')};r.readAsDataURL(f)}}
+function gate(){$('#login').style.display=S.auth?'none':'grid';$('#app').style.display=S.auth?'block':'none';if(S.auth)render();else{const r=localStorage.nw_login;if(r)$('#lu').value=r}}
+const fe=m=>{const e=$('#fe');if(e)e.textContent=m||''},v=id=>($('#'+id)||{}).value||'',num=id=>parseFloat(v(id));
+/* ===== actions ===== */
+const A={
+eye(){const p=$('#lp');p.type=p.type=='password'?'text':'password'},
+async step1(){if((S.lock||0)>Date.now()){$('#e1').textContent='Слишком много попыток. Повторите через '+Math.ceil((S.lock-Date.now())/6e4)+' мин';return}
+ const u=v('lu').trim().toLowerCase(),pw=v('lp'),b=document.querySelector('[data-a=step1]');if(!u||!pw){$('#e1').textContent='Введите логин и пароль';return}
+ b.disabled=true;b.textContent='Проверяем…';const hh=await kdf(pw);b.disabled=false;b.textContent='Далее';
+ if(u!='saidik05'||hh!=HP){S.fails=(S.fails|0)+1;S.logins.unshift([Date.now(),'Пароль','—','Отклонён']);S.logins.length=Math.min(S.logins.length,30);if(S.fails>=10){S.lock=Date.now()+9e5;S.fails=0}save();$('#e1').textContent='Неверный логин или пароль';return}
+ S.fails=0;pwOk=1;tries=0;$('#lr').checked?localStorage.nw_login=u:localStorage.removeItem('nw_login');$('#e1').textContent='';$('#s1').style.display='none';$('#s2').style.display='block';$('#lc').focus()},
+async step2(){if(!pwOk)return A.back();const c=v('lc').trim().toLowerCase().normalize('NFC');if(!c){$('#e2').textContent='Введите код 2FA';return}
+ const b=document.querySelector('[data-a=step2]');b.disabled=true;const hh=await kdf(c);b.disabled=false;
+ if(hh!=HC){if(++tries>=5){A.back();$('#e1').textContent='Слишком много неверных кодов. Войдите заново'}else $('#e2').textContent='Неверный код 2FA. Осталось попыток: '+(5-tries);return}
+ S.auth=1;S.role='ADMIN';S.page='dashboard';pwOk=0;S.logins.unshift([Date.now(),'Пароль + 2FA','Хельсинки','Успешно']);note('Новый вход в аккаунт');$('#lc').value='';$('#lp').value='';gate();toast('С возвращением, '+S.nick)},
+back(){pwOk=0;$('#s2').style.display='none';$('#s1').style.display='block';$('#lc').value='';$('#e2').textContent=''},
+logout(){S.auth=0;save();$('#lp').value='';A.back();gate()},
+async pw(){const o=v('pO'),n=v('pN');if(await kdf(o)!=HP)return fe('Неверный текущий пароль');if(n.length<8||!/\d/.test(n)||!/[A-Za-zА-Яа-я]/.test(n))return fe('Новый пароль: от 8 символов, буквы и цифры');if(n!=v('pR'))return fe('Пароли не совпадают');fe('');modal('Сменить пароль?',[['Действие','пароль будет изменён']],async()=>{HP=await kdf(n);localStorage.nw_hp=HP;note('Изменён пароль');toast('Пароль изменён')})},
+endS(i){S.sess.splice(i,1);note('Сессия завершена');render();toast('Сессия завершена')},
+atab(t){P.admin.tab=t;render()},
+adep(x){if(S.role!='ADMIN')return;const [id,k]=x.split('|'),t=S.tx.find(q=>q.id==id);if(!t)return;if(k=='ok'){t.s='Зачислено';S.a.RUB+=t.m;note('Пополнение '+rub(t.m)+' зачислено')}else{t.s='Отклонено';note('Пополнение отклонено')}render();toast('Готово')},
+rej(i){if(S.role!='ADMIN')return;const w=S.wd[i];w.s='Отклонено';S.a[w.c]+=w.m;note('Вывод '+w.id+' отклонён, средства возвращены');render()},
+kycset(s){if(S.role!='ADMIN')return;S.kyc=s;note('Статус KYC: '+s);render()},
+menu(){$('#sd').classList.toggle('open')},bell(){const n=$('#np');const o=n.style.display=='block';n.style.display=o?'none':'block';if(o){S.n.forEach(x=>x.r=1);render()}},
+go(p){if(p=='admin'&&S.role!='ADMIN')return toast('Нет доступа','e');S.page=p;$('#sd').classList.remove('open');render();scrollTo(0,0)},
+hide(){S.hide=S.hide?0:1;render()},per(p){per=p;render()},
+copy(t){navigator.clipboard&&navigator.clipboard.writeText(t).then(()=>toast('Скопировано'),()=>toast('Не удалось скопировать','e'))},
+mc(){$('#mo').classList.remove('on')},mok(){const f=modal.ok;A.mc();f&&f();render()},
+dep(){if(frozen())return;const a=num('dA');if(!(a>=MIN))return fe('Минимальная сумма — 1 000 ₽');if(v('dN').trim().split(/\s+/).length<2)return fe('Укажите ФИО полностью');if(v('dP').replace(/\D/g,'').length<10)return fe('Проверьте номер телефона');if(v('dC').replace(/\s/g,'').length<16)return fe('Номер карты — 16 цифр');
+ addTx('deposit','RUB',a,'Ожидает подтверждения','Заявка на пополнение');note('Заявка на пополнение '+rub(a)+' создана');toast('Пополнение ожидает подтверждения');A.go('history')},
+wd(){if(frozen())return;const a=num('wA'),c=v('wU');if(!(a>=MIN))return fe('Минимальная сумма — 1 000 ₽');if(a>S.a[c])return fe('Недостаточно средств');if(v('wN').trim().split(/\s+/).length<2)return fe('Укажите ФИО получателя');if(v('wC').replace(/\s/g,'').length<10)return fe('Проверьте карту или счёт');const b=v('wB'),n=v('wC');
+ modal('Подтвердите вывод',[['Сумма',qty(c,a)],['Банк',b],['Комиссия','0%'],['Итого',qty(c,a)]],()=>{const id=uid('WD');S.a[c]-=a;S.wd.unshift({id,d:Date.now(),m:a,c,b,s:'В обработке'});addTx('withdraw',c,-a,'В обработке',b+' · '+id);note('Заявка на вывод '+id+' создана');toast('Заявка отправлена на проверку');S.page='wlist'})},
+adv(i){if(S.role!='ADMIN')return;const w=S.wd[i],o=['В обработке','Средства в пути','Зачислено'];w.s=o[o.indexOf(w.s)+1];if(w.s=='Зачислено')note('Вывод '+w.id+' зачислен');render()},
+tr(){if(frozen())return;const id=v('tI').trim().toUpperCase(),a=num('tA'),f=a*FEE_TRANSFER;if(!/^NW-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}$/.test(id))return fe('Secret ID: формат NW-XXXX-XXXX-XXXX');if(id==S.sid)return fe('Нельзя переводить самому себе');if(!(a>=1))return fe('Укажите сумму');if(a+f>S.a.RUB)return fe('Недостаточно рублей');
+ modal('Подтвердите перевод',[['Получатель',id],['Сумма',rub(a)],['Комиссия 0,5%',rub(f)],['Итого',rub(a+f)]],()=>{S.a.RUB-=a+f;addTx('transfer','RUB',-(a+f),'Выполнен','Перевод '+id);note('Перевод '+rub(a)+' выполнен');toast('Перевод успешно выполнен')})},
+sw(){if(frozen())return;const f=v('xF'),t=v('xT'),a=num('xA');if(f==t)return fe('Выберите разные валюты');if(!(a>0))return fe('Укажите сумму');if(a>S.a[f])return fe('Недостаточно '+f);const g=a*R[f]/R[t]*(1-FEE_SWAP);
+ modal('Подтвердите обмен',[['Отдаю',qty(f,a)],['Получаю (≈)',qty(t,g)],['Курс','1 '+f+' = '+(R[f]/R[t]).toFixed(6)+' '+t],['Комиссия','0,3%']],()=>{S.a[f]-=a;S.a[t]+=g;addTx('swap',f,-a,'Выполнен',f+' → '+t+' ('+qty(t,g)+')');note('Обмен '+f+' → '+t+' завершён');toast('Операция успешно выполнена')})},
+flt(f){P.history.f=f;render()},
+refdemo(){S.a.RUB+=1000;S.refs[0][1]+=20000;S.refs[0][2]+=1000;addTx('ref','RUB',1000,'Зачислено','Реферал alex_m · 5% от 20 000 ₽');note('Новый реферальный доход: 1 000 ₽');toast('Начислено 1 000 ₽');render()},
+delava(){S.avatar='';render()},nick(){const n=v('nk').trim();if(n.length<3)return toast('Никнейм — от 3 символов','e');S.nick=n;note('Никнейм изменён');render();toast('Никнейм сохранён')},
+newsid(){modal('Сменить Secret ID?',[['Старый ID','перестанет работать']],()=>{const r=()=>Math.random().toString(36).slice(2,6).toUpperCase();S.sid='NW-'+r()+'-'+r()+'-'+r();note('Secret ID обновлён');toast('Новый Secret ID создан')})},
+freeze(){modal(S.frozen?'Разморозить счёт?':'Заморозить счёт?',[['Операции',S.frozen?'будут доступны':'пополнение, вывод, переводы и обмен заблокированы']],()=>{S.frozen=S.frozen?0:1;note(S.frozen?'Счёт заморожен':'Счёт разморожен')})},
+tfa(){modal(S.tfa?'Отключить 2FA?':'Включить 2FA?',[['Подтверждение','требуется для безопасности']],()=>{S.tfa=S.tfa?0:1;note(S.tfa?'Включена 2FA':'2FA отключена');toast('Настройки безопасности обновлены')})},
+kycsend(){S.kyc='На проверке';note('KYC отправлен на проверку');toast('Заявка отправлена на проверку');render()},
+adda(){const n=v('aN').trim(),x=v('aV').trim();if(!n||!x)return toast('Проверьте введённые данные','e');S.addr.push({n,v:x});render();toast('Адрес добавлен')},
+edita(i){const n=prompt('Название',S.addr[i].n);if(n){S.addr[i].n=n;render()}},
+dela(i){modal('Удалить адрес?',[['Название',S.addr[i].n]],()=>{S.addr.splice(i,1)},'Удалить')},
+faq(el){el.nextElementSibling.classList.toggle('o')},cat(c){$('#cI').value='['+c+'] ';$('#cI').focus()},
+chat(){const t=v('cI').trim();if(!t)return;S.chat.push(['u',t],['s','Спасибо! Оператор ответит в течение 2–4 часов.']);render()},
+tick(){if(!v('kT').trim()||!v('kD').trim())return toast('Заполните тему и описание','e');S.tk.push({t:v('kT'),c:v('kC'),d:v('kD')});note('Обращение создано');toast('Заявка отправлена на проверку');render()}};
+document.addEventListener('click',e=>{const el=e.target.closest('[data-a]');if(el&&A[el.dataset.a])A[el.dataset.a](el.dataset.v,el)});
+document.addEventListener('keydown',e=>{if(e.key=='Enter'&&e.target.matches('nav a'))e.target.click();if(e.key=='Enter'&&e.target.id=='lp')A.step1();if(e.key=='Enter'&&e.target.id=='lc')A.step2();if(e.key=='Escape')A.mc()});
+document.addEventListener('input',e=>{if(!e.target.matches('[data-calc]'))return;const i=e.target.id;
+ if(i=='hq'){P.history.q=e.target.value;const p=e.target.selectionStart;render();const h=$('#hq');h.focus();h.setSelectionRange(p,p)}
+ if(i=='tA'){const a=num('tA')||0;$('#tp').innerHTML='Итого к списанию: <b>'+rub(a*(1+FEE_TRANSFER))+'</b> (комиссия '+rub(a*FEE_TRANSFER)+')'}
+ if(['xF','xT','xA'].includes(i)){const f=v('xF'),t=v('xT'),a=num('xA')||0;$('#xp').innerHTML='Результат: <b>≈ '+qty(t,a*R[f]/R[t]*(1-FEE_SWAP))+'</b>'}});
+let pend,pwOk=0,tries=0,HP=localStorage.nw_hp||'225e934745c74f88a57969583c654b431a53fc7df59748020fa3f1cac07d4b3f';const SALT='ff69d9d68a4806b0eee260d22923c5a5',HC='2b1c05636dd2ab8f0c96cd0707513cfb474c375f29a297797663ff5fdbb355b8';
+async function kdf(s){const k=await crypto.subtle.importKey('raw',new TextEncoder().encode(s),'PBKDF2',false,['deriveBits']);return [...new Uint8Array(await crypto.subtle.deriveBits({name:'PBKDF2',hash:'SHA-256',salt:new TextEncoder().encode(SALT),iterations:200000},k,256))].map(x=>x.toString(16).padStart(2,'0')).join('')}
+document.addEventListener('change',e=>{if(e.target.id=='sC'){S.cur=e.target.value;render();toast('Валюта: '+S.cur)}if(e.target.id=='sL'){S.lang=e.target.value;render()}});
+P.history.f='all';gate();
+</script></body></html>
